@@ -67,10 +67,6 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
             {
                 StartCoroutine(wander());
             }
-            else
-            {
-                StartCoroutine(wander());
-            }
         }
     }
     public void setAlerted(Vector3 playerPos)
@@ -101,6 +97,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     }
     bool canViewPlayer()
     {
+        agent.stoppingDistance = stoppingDistOrig;
         playerDir = gameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(playerDir, transform.forward);
 #if(UNITY_EDITOR)
