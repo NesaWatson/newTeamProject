@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+<<<<<<< HEAD
+guid: 69198b99c09a1c14d88b1a76aeb9f091
+folderAsset: yes
+=======
+<<<<<<<< HEAD:Team Project/Assets/Scenes/new scene.unity.meta
+guid: 5a7b2bad2be4d8c44bd37020c4d58823
+========
+guid: 88146a4afe1647746866c6e8822989f8
+folderAsset: yes
+>>>>>>>> a5992ff50952857485ecc44519d8aeffbd0c95c0:Team Project/Assets/Prefabs/Walls.meta
+>>>>>>> a5992ff50952857485ecc44519d8aeffbd0c95c0
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
