@@ -111,7 +111,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
             {
                 agent.stoppingDistance = stoppingDistOrig;
                 agent.SetDestination(gameManager.instance.player.transform.position);
-                enemyManager.instance.alertAllEnemies(gameManager.instance.player.transform.position);
+
                 if (agent.remainingDistance <= agent.stoppingDistance)
                 {
                     faceTarget();
