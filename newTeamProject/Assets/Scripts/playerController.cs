@@ -5,22 +5,23 @@ using UnityEngine;
 
 public class playerController : MonoBehaviour, IDamage
 {
-    [Header("~~~~~ Components ~~~~~")]
+    [Header("----- Components -----")]
     [SerializeField] CharacterController characterController;
 
-    [Header("~~~~~ Player Stats ~~~~~")]
+    [Header("----- Player Stats -----")]
     [SerializeField] int HP;
     [SerializeField] float characterSpeed;
     [SerializeField] float jumpHeight;
     [SerializeField] int jumpAmount;
-    [SerializeField] float gravityPull;
+    [Range(-35, -10)][SerializeField] float gravityPull;
     [SerializeField] float crouchSpeed;
     [SerializeField] float crouchHeight;
     [SerializeField] float standingHeight;
+    [Range(1, 10)][SerializeField] int pushBackResolve;
 
     private bool isCrouching = false;
 
-    [Header("~~~~~ Weapon Stats ~~~~~")]
+    [Header("----- Weapon Stats -----")]
     [SerializeField] List<ItemStats> itemStats = new List<ItemStats>();
     [SerializeField] GameObject itemModel;
     [SerializeField] float fireRate;
@@ -41,26 +42,35 @@ public class playerController : MonoBehaviour, IDamage
         originalHP = HP;
         spawnPlayer();
     }
-    
+
     void Update()
     {
         HandleMovement();
         HandleCrouch();
         itemSelect();
 
-        if (Input.GetButton("Shoot") && !isFiring) 
-        {
+        if (Input.GetButton("Shoot") && !isFiring && !gameManager.instance.isPaused)
             StartCoroutine(shoot());
-        }
+
     }
 
     void HandleMovement()
     {
+        if (pushBack.magnitude > 0.01f)
+        {
+
+
+            //for push back to be individually affected on axis
+            pushBack.x = Mathf.Lerp(pushBack.x, 0, Time.deltaTime * pushBackResolve);
+            pushBack.y = Mathf.Lerp(pushBack.y, 0, Time.deltaTime * pushBackResolve * 3);
+            pushBack.z = Mathf.Lerp(pushBack.z, 0, Time.deltaTime * pushBackResolve);
+
+        }
         playerOnGround = characterController.isGrounded;
 
-        if (playerOnGround && velocity.y < 0) 
+        if (playerOnGround && velocity.y < 0)
         {
-            jumps =0;
+            jumps = 0;
             velocity.y = 0f;
         }
 
@@ -78,7 +88,7 @@ public class playerController : MonoBehaviour, IDamage
             velocity.y += jumpHeight;
         }
         velocity.y += gravityPull * Time.deltaTime;
-        characterController.Move((velocity + pushBack)  * Time.deltaTime);
+        characterController.Move((velocity + pushBack) * Time.deltaTime);
 
     }
 
@@ -114,7 +124,7 @@ public class playerController : MonoBehaviour, IDamage
         {
             IDamage canDamage = hit.collider.GetComponent<IDamage>();
 
-            if (canDamage != null) 
+            if (canDamage != null)
             {
                 canDamage.takeDamage(gunDamage);
             }
@@ -122,12 +132,16 @@ public class playerController : MonoBehaviour, IDamage
         yield return new WaitForSeconds(fireRate);
         isFiring = false;
     }
-  
-    public void takeDamage(int damage) 
+    private void UpdateUi()
+    {
+        gameManager.instance.playerHPbar.fillAmount = (float)HP / originalHP;
+    }
+    public void takeDamage(int damage)
     {
 
         HP -= damage;
         StartCoroutine(gameManager.instance.playerDamageFlash());
+        UpdateUi();
         Debug.Log("Player HP:" + HP);
 
         if (HP <= 0)
@@ -137,6 +151,8 @@ public class playerController : MonoBehaviour, IDamage
     }
     public void spawnPlayer()
     {
+        HP = originalHP;
+        UpdateUi();
         characterController.enabled = false;
         transform.position = gameManager.instance.playerSpawnPos.transform.position;
         characterController.enabled = true;
@@ -163,7 +179,7 @@ public class playerController : MonoBehaviour, IDamage
         fireRate -= itemStats[itemSelected].fireRate;
 
         itemModel.GetComponent<MeshFilter>().sharedMesh = itemStats[itemSelected].model.GetComponent<MeshFilter>().sharedMesh;
-        itemModel.GetComponent<Renderer>().sharedMaterial = itemStats[itemSelected ].model.GetComponent<Renderer>().sharedMaterial;
+        itemModel.GetComponent<Renderer>().sharedMaterial = itemStats[itemSelected].model.GetComponent<Renderer>().sharedMaterial;
 
     }
 
