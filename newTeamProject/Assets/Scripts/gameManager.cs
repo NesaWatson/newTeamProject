@@ -25,7 +25,7 @@ public class gameManager : MonoBehaviour
 
     [SerializeField] int enemiesRemaining;
 
-    bool isPaused;
+    public bool isPaused;
 
     void Awake()
     {
