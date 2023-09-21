@@ -49,7 +49,7 @@ public class playerController : MonoBehaviour, IDamage
         HandleCrouch();
         itemSelect();
 
-        if (Input.GetButton("Shoot") && !isFiring && !gameManager.instance.isPaused)
+        if (!gameManager.instance.isPaused && itemStats.Count > 0 && Input.GetButton("Shoot") && !isFiring)
             StartCoroutine(shoot());
 
     }
