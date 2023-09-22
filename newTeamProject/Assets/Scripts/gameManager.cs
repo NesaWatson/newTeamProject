@@ -19,6 +19,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject winMenu;
     [SerializeField] GameObject loseMenu;
     [SerializeField] GameObject playerFlashDamage;
+    [SerializeField] GameObject checkPointMenu;
     [SerializeField] TMP_Text enemiesRemainingText;
     
     public GameObject playerSpawnPos;
@@ -93,7 +94,12 @@ public class gameManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         playerFlashDamage.SetActive(false);
     }
-   
+   public IEnumerator checkPointSpot()
+    {
+        checkPointMenu.SetActive(true);
+        yield return new WaitForSeconds(2);
+        checkPointMenu.SetActive(false);
+    }
   
    
 }
