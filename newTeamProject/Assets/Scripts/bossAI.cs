@@ -5,7 +5,7 @@ using UnityEditor.ProjectWindowCallback;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class enemyAI : MonoBehaviour, IDamage, IPhysics
+public class bossAI : MonoBehaviour, IDamage, IPhysics
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
@@ -20,7 +20,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     [Range(45, 180)][SerializeField] int viewAngle;
     [Range(5, 50)][SerializeField] int wanderDist;
     [Range(5, 50)][SerializeField] int wanderTime;
-    [SerializeField] float animSpeed; 
+    [SerializeField] float animSpeed;
 
     [Header("----- Weapon Stats -----")]
     [SerializeField] float attackRate;
@@ -28,7 +28,6 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     [SerializeField] GameObject shuriken;
 
     Vector3 playerDir;
-    Vector3 playerPos;
     Vector3 pushBack;
     bool playerInRange;
     bool isAttacking;
@@ -36,21 +35,16 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     float angleToPlayer;
     bool wanderDestination;
     Vector3 startingPos;
-    enemySpawner spawner;
     Transform playerTransform;
     float origSpeed;
-    bool isAlerted;
-    bool canSeePlayer;
     void Start()
     {
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
-       
+
 
         playerTransform = gameManager.instance.player.transform;
-        spawner = FindObjectOfType<enemySpawner>();
 
-        enemyManager.instance.registerEnemy(this);
         gameManager.instance.updateGameGoal(1);
     }
     void Update()
@@ -61,28 +55,14 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
 
             animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime + animSpeed));
 
-           if (playerInRange && canViewPlayer())
-           {
+            if (playerInRange && canViewPlayer())
+            {
                 StartCoroutine(attack());
-                if (!isAlerted)
-                {
-                    enemyManager.instance.AlertedEnemies
-                        (gameManager.instance.player.transform.position);
-                    isAlerted = true;
-                }
             }
             else
-           {
+            {
                 StartCoroutine(wander());
-           }
-        }
-    }
-    public void setAlerted(Vector3 playerPos)
-    {
-        if (!isAlerted)
-        {
-            isAlerted = true;
-            agent.SetDestination(playerPos);
+            }
         }
     }
     IEnumerator wander()
@@ -107,8 +87,8 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     {
         //agent.stoppingDistance = stoppingDistOrig;
         playerDir = gameManager.instance.player.transform.position - headPos.position;
-        angleToPlayer = Vector3.Angle(playerDir, transform.forward); 
-#if(UNITY_EDITOR)
+        angleToPlayer = Vector3.Angle(playerDir, transform.forward);
+#if (UNITY_EDITOR)
         Debug.Log(angleToPlayer);
         Debug.DrawRay(headPos.position, playerDir);
 #endif
@@ -134,16 +114,16 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
         }
         agent.stoppingDistance = 0;
         return false;
-    } 
+    }
     IEnumerator attack()
     {
-        while(playerInRange)
+        while (playerInRange)
         {
             isAttacking = true;
             animate.SetTrigger("Attack");
             yield return new WaitForSeconds(attackRate);
         }
-        isAttacking= false;
+        isAttacking = false;
     }
     public void takeDamage(int amount)
     {
@@ -205,13 +185,5 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
             playerInRange = false;
         }
     }
-    void OnDestroy()
-    {
-        if(enemyManager.instance != null)
-        {
-            enemyManager.instance.unregisterEnemy(this);
-        }
-    }
-   
 }
 
