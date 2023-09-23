@@ -8728,6 +8728,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1377115425872651688, guid: c2de404b97c87834fbedcf9955e185fc, type: 3}
+      propertyPath: Boss
+      value: 
+      objectReference: {fileID: 93156828}
+    - target: {fileID: 1377115425872651688, guid: c2de404b97c87834fbedcf9955e185fc, type: 3}
       propertyPath: agent
       value: 
       objectReference: {fileID: 93156828}

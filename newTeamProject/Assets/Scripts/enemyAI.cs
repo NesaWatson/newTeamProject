@@ -156,7 +156,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
             agent.enabled = false;
             stopMoving();
             animate.SetBool("Death", true);
-            gameManager.instance.updateGameGoal(-1);
+            
         }
         else
         {

@@ -124,7 +124,7 @@ public class playerController : MonoBehaviour, IDamage
             out hit, shootDistance))
         {
             IDamage canDamage = hit.collider.GetComponent<IDamage>();
-
+            Instantiate(itemStats[itemSelected].hitEffect, hit.point, itemStats[itemSelected].hitEffect.transform.rotation);
             if (canDamage != null)
             {
                 canDamage.takeDamage(gunDamage);

@@ -9,7 +9,7 @@ public class bossAI : MonoBehaviour, IDamage, IPhysics
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
-    [SerializeField] NavMeshAgent agent;
+    [SerializeField] NavMeshAgent Boss;
     [SerializeField] Animator animate;
     [SerializeField] Transform attackPos;
     [SerializeField] Transform headPos;
@@ -40,7 +40,7 @@ public class bossAI : MonoBehaviour, IDamage, IPhysics
     void Start()
     {
         startingPos = transform.position;
-        stoppingDistOrig = agent.stoppingDistance;
+        stoppingDistOrig = Boss.stoppingDistance;
 
 
         playerTransform = gameManager.instance.player.transform;
@@ -49,9 +49,9 @@ public class bossAI : MonoBehaviour, IDamage, IPhysics
     }
     void Update()
     {
-        if (agent.isActiveAndEnabled)
+        if (Boss.isActiveAndEnabled)
         {
-            float agentVel = agent.velocity.normalized.magnitude;
+            float agentVel = Boss.velocity.normalized.magnitude;
 
             animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime + animSpeed));
 
@@ -67,10 +67,10 @@ public class bossAI : MonoBehaviour, IDamage, IPhysics
     }
     IEnumerator wander()
     {
-        if (agent.remainingDistance < 0.05f && !wanderDestination)
+        if (Boss.remainingDistance < 0.05f && !wanderDestination)
         {
             wanderDestination = true;
-            agent.stoppingDistance = 0;
+            Boss.stoppingDistance = 0;
             yield return new WaitForSeconds(wanderTime);
 
             Vector3 randomPos = Random.insideUnitSphere * wanderDist;
@@ -78,14 +78,14 @@ public class bossAI : MonoBehaviour, IDamage, IPhysics
 
             NavMeshHit hit;
             NavMesh.SamplePosition(randomPos, out hit, wanderDist, 1);
-            agent.SetDestination(hit.position);
+            Boss.SetDestination(hit.position);
 
             wanderDestination = false;
         }
     }
     bool canViewPlayer()
     {
-        //agent.stoppingDistance = stoppingDistOrig;
+        //Boss.stoppingDistance = stoppingDistOrig;
         playerDir = gameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(playerDir, transform.forward);
 #if (UNITY_EDITOR)
@@ -97,10 +97,10 @@ public class bossAI : MonoBehaviour, IDamage, IPhysics
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
-                agent.stoppingDistance = stoppingDistOrig;
-                agent.SetDestination(gameManager.instance.player.transform.position);
+                Boss.stoppingDistance = stoppingDistOrig;
+                Boss.SetDestination(gameManager.instance.player.transform.position);
 
-                if (agent.remainingDistance <= agent.stoppingDistance)
+                if (Boss.remainingDistance <= Boss.stoppingDistance)
                 {
                     faceTarget();
 
@@ -112,7 +112,7 @@ public class bossAI : MonoBehaviour, IDamage, IPhysics
                 return true;
             }
         }
-        agent.stoppingDistance = 0;
+        Boss.stoppingDistance = 0;
         return false;
     }
     IEnumerator attack()
@@ -128,11 +128,11 @@ public class bossAI : MonoBehaviour, IDamage, IPhysics
     public void takeDamage(int amount)
     {
         HP -= amount;
-        agent.SetDestination(gameManager.instance.player.transform.position);
+        Boss.SetDestination(gameManager.instance.player.transform.position);
 
         if (HP <= 0)
         {
-            agent.enabled = false;
+            Boss.enabled = false;
             stopMoving();
             animate.SetBool("Death", true);
             gameManager.instance.updateGameGoal(-1);
@@ -141,15 +141,15 @@ public class bossAI : MonoBehaviour, IDamage, IPhysics
         {
             animate.SetTrigger("Damage");
             StartCoroutine(flashDamage());
-            agent.SetDestination(gameManager.instance.player.transform.position);
+            Boss.SetDestination(gameManager.instance.player.transform.position);
 
         }
     }
     IEnumerator stopMoving()
     {
-        agent.speed = 0;
+        Boss.speed = 0;
         yield return new WaitForSeconds(0.1f);
-        agent.speed = origSpeed;
+        Boss.speed = origSpeed;
     }
     public void createShuriken()
     {
@@ -168,7 +168,7 @@ public class bossAI : MonoBehaviour, IDamage, IPhysics
     }
     public void physics(Vector3 dir)
     {
-        agent.velocity += dir / 3;
+        Boss.velocity += dir / 3;
     }
     void OnTriggerEnter(Collider other)
     {
