@@ -70,8 +70,8 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
                         (gameManager.instance.player.transform.position);
                     isAlerted = true;
                 }
-            }
-            else
+           }
+           else
            {
                 StartCoroutine(wander());
            }
