@@ -37,8 +37,8 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     Vector3 startingPos;
     enemySpawner spawner;
     Transform playerTransform;
-    bool isAlerted;
     float origSpeed;
+    bool isAlerted;
     void Start()
     {
         startingPos = transform.position;
@@ -63,7 +63,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
             {
                 StartCoroutine(attack());
             }
-            else if (!playerInRange)
+            else
             {
                 StartCoroutine(wander());
             }
@@ -71,7 +71,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     }
     public void setAlerted(Vector3 playerPos)
     {
-        if(!isAlerted)
+        if (!isAlerted)
         {
             isAlerted = true;
             agent.SetDestination(playerPos);
@@ -110,8 +110,13 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.stoppingDistance = stoppingDistOrig;
-                enemyManager.instance.AlertedEnemies
-                    (gameManager.instance.player.transform.position);
+                if(!isAlerted)
+                {
+                    enemyManager.instance.AlertedEnemies
+                        (gameManager.instance.player.transform.position);
+                    isAlerted = true;
+                }
+                
                 agent.SetDestination(gameManager.instance.player.transform.position);
 
                 if (agent.remainingDistance <= agent.stoppingDistance)
@@ -142,12 +147,12 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     public void takeDamage(int amount)
     {
         HP -= amount;
-        StartCoroutine(stopMoving());
         agent.SetDestination(gameManager.instance.player.transform.position);
 
         if (HP <= 0)
         {
             agent.enabled = false;
+            stopMoving();
             animate.SetBool("Death", true);
             gameManager.instance.updateGameGoal(-1);
         }
@@ -206,4 +211,6 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
             enemyManager.instance.unregisterEnemy(this);
         }
     }
+   
 }
+
