@@ -9,6 +9,7 @@ TagManager:
   - Shuriken
   - Enemy
   - Player Spawn Pos
+  - Boss Spawn Pos
   layers:
   - Default
   - TransparentFX

@@ -1306,7 +1306,7 @@ MonoBehaviour:
   animSpeed: 3
   attackRate: 0.35
   attackAngle: 10
-  shuriken: {fileID: 1546896064175300, guid: c30ca198b87a35e41858d949dcf5cca3, type: 3}
+  shuriken: {fileID: 757978765017720736, guid: 5442a00b9d00a3040b0068d1d0d8cafa, type: 3}
 --- !u!95 &3791655115374115672
 Animator:
   serializedVersion: 5
@@ -1317,7 +1317,7 @@ Animator:
   m_GameObject: {fileID: 7540830737368821725}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a6e1b293f7ed5584fa548ddde966e03e, type: 3}
-  m_Controller: {fileID: 9100000, guid: 4f5fe2435adbfce4f8b270dba160965a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7daaededa6bdb8240b68e19fbd50b541, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
