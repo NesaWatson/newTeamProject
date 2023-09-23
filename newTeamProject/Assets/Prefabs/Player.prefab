@@ -135,7 +135,7 @@ MonoBehaviour:
   characterController: {fileID: 4747335158545857533}
   HP: 10
   characterSpeed: 15
-  jumpHeight: 5
+  jumpHeight: 6
   jumpAmount: 3
   gravityPull: -15
   crouchSpeed: 8
