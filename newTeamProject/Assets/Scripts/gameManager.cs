@@ -73,7 +73,7 @@ public class gameManager : MonoBehaviour
     }
     public void updateGameGoal(int amount)
     {
-        enemiesRemaining += amount;
+        enemiesRemaining = amount;
 
         enemiesRemainingText.text = enemiesRemaining.ToString("0");
 
