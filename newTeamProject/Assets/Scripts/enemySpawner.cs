@@ -11,7 +11,6 @@ public class enemySpawner : MonoBehaviour
 
     [SerializeField] int currentEnemyCount;
     [SerializeField] float spawnRadius;
-    [SerializeField] GameObject shurikens;
 
 
     private float spawnTimer;
