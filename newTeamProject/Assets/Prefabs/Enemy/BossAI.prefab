@@ -280,7 +280,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8f6f9b3ffeb5f8943842a4e2d73561fe, type: 2}
+  - {fileID: 2100000, guid: 6dcf759867bfc4ef0b52caed976f7996, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -883,7 +883,7 @@ MonoBehaviour:
   animate: {fileID: 2716444675005039938}
   attackPos: {fileID: 1020999227430833698}
   headPos: {fileID: 7939723805977455856}
-  HP: 25
+  HP: 30
   targetFaceSpeed: 20
   viewAngle: 180
   wanderDist: 10

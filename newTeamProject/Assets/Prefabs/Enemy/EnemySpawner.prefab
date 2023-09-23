@@ -46,12 +46,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab:
-  - {fileID: 6533488675086173620, guid: a98f4bb0a79446a4cb2f4831af942503, type: 3}
-  - {fileID: 6533488675086173620, guid: 4827f2a4547d1454ab2d1133bae646cd, type: 3}
+  - {fileID: 8889518185829972194, guid: a98f4bb0a79446a4cb2f4831af942503, type: 3}
+  - {fileID: 39234023123037356, guid: 4827f2a4547d1454ab2d1133bae646cd, type: 3}
+  - {fileID: 7540830737368821725, guid: 3585b605b8795d147a02cca5125e84b1, type: 3}
   spawnInterval: 5
-  maxEnemies: 3
+  maxEnemies: 5
   currentEnemyCount: 0
-  spawnRadius: 60
+  spawnRadius: 65
 --- !u!135 &-9048669139449460187
 SphereCollider:
   m_ObjectHideFlags: 0
