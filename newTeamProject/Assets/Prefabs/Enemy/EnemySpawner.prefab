@@ -50,5 +50,5 @@ MonoBehaviour:
   spawnInterval: 5
   maxEnemies: 3
   currentEnemyCount: 0
-  spawnRadius: 90
+  spawnRadius: 50
   shurikens: {fileID: 2565010500431963486, guid: fa7e0c6ae72452f4e86e18532e962a16, type: 3}
