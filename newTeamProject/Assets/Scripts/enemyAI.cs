@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.ProjectWindowCallback;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -47,7 +48,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
         playerTransform = gameManager.instance.player.transform;
         spawner = FindObjectOfType<enemySpawner>();
 
-        enemyManager.instance.AlertedEnemy(this); 
+        enemyManager.instance.registerEnemy(this);
         gameManager.instance.updateGameGoal(1);
     }
     void Update()
@@ -60,10 +61,9 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
 
             if (playerInRange && canViewPlayer())
             {
-                setAlerted(playerDir);
                 StartCoroutine(attack());
             }
-            else if(!playerInRange)
+            else if (!playerInRange)
             {
                 StartCoroutine(wander());
             }
@@ -71,7 +71,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     }
     public void setAlerted(Vector3 playerPos)
     {
-        if (!isAlerted)
+        if(!isAlerted)
         {
             isAlerted = true;
             agent.SetDestination(playerPos);
@@ -97,7 +97,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     }
     bool canViewPlayer()
     {
-        agent.stoppingDistance = stoppingDistOrig;
+        //agent.stoppingDistance = stoppingDistOrig;
         playerDir = gameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(playerDir, transform.forward); 
 #if(UNITY_EDITOR)
@@ -110,6 +110,8 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.stoppingDistance = stoppingDistOrig;
+                enemyManager.instance.AlertedEnemies
+                    (gameManager.instance.player.transform.position);
                 agent.SetDestination(gameManager.instance.player.transform.position);
 
                 if (agent.remainingDistance <= agent.stoppingDistance)
@@ -178,20 +180,14 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
         Quaternion rot = Quaternion.LookRotation(playerDir);
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * targetFaceSpeed);
     }
-    void onDestory()
-    {
-        if (enemyManager.instance != null)
-        {
-            enemyManager.instance.UnalertedEnemies(this);
-        }
-    }
     public void physics(Vector3 dir)
     {
         agent.velocity += dir / 3;
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player")
+            )
         {
             playerInRange = true;
         }
@@ -201,6 +197,13 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
+        }
+    }
+    void OnDestroy()
+    {
+        if(enemyManager.instance != null)
+        {
+            enemyManager.instance.unregisterEnemy(this);
         }
     }
 }

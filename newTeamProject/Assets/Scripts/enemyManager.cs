@@ -11,21 +11,18 @@ public class enemyManager : MonoBehaviour
     {
         instance = this;
     }
-    public void alertAllEnemies(Vector3 playerPos)
+    public void AlertedEnemies(Vector3 playerPos)
     {
-        foreach (enemyAI enemy in alertedEnemies)
+        foreach (var enemy in alertedEnemies)
         {
             enemy.setAlerted(playerPos);
         }
     }
-    public void AlertedEnemy(enemyAI enemy)
+    public void registerEnemy(enemyAI enemy)
     {
-        if (!alertedEnemies.Contains(enemy))
-        {
-            alertedEnemies.Add(enemy);
-        }
+        alertedEnemies.Add(enemy);
     }
-    public void UnalertedEnemies(enemyAI enemy)
+    public void unregisterEnemy(enemyAI enemy)
     {
         alertedEnemies.Remove(enemy);
     }
