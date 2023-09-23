@@ -64,12 +64,6 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
            if (playerInRange && canViewPlayer())
            {
                 StartCoroutine(attack());
-                if (!isAlerted)
-                {
-                    enemyManager.instance.AlertedEnemies
-                        (gameManager.instance.player.transform.position);
-                    isAlerted = true;
-                }
            }
            else
            {
@@ -84,6 +78,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
             isAlerted = true;
             agent.SetDestination(playerPos);
         }
+        isAlerted = false;
     }
     IEnumerator wander()
     {
@@ -118,6 +113,12 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.stoppingDistance = stoppingDistOrig;
+                if (!isAlerted)
+                {
+                    enemyManager.instance.AlertedEnemies
+                        (gameManager.instance.player.transform.position);
+                    isAlerted = true;
+                }
                 agent.SetDestination(gameManager.instance.player.transform.position);
 
                 if (agent.remainingDistance <= agent.stoppingDistance)
