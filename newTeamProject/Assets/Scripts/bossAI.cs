@@ -15,7 +15,7 @@ public class bossAI : MonoBehaviour, IDamage, IPhysics
     [SerializeField] Transform headPos;
 
     [Header("----- Enemy Stats -----")]
-    [Range(1, 30)][SerializeField] int HP;
+    [Range(0, 30)][SerializeField] int HP;
     [Range(1, 30)][SerializeField] int targetFaceSpeed;
     [Range(45, 180)][SerializeField] int viewAngle;
     [Range(5, 50)][SerializeField] int wanderDist;
@@ -158,7 +158,7 @@ public class bossAI : MonoBehaviour, IDamage, IPhysics
     IEnumerator flashDamage()
     {
         model.material.color = Color.red;
-        yield return new WaitForSeconds(.01f);
+        yield return new WaitForSeconds(0.1f);
         model.material.color = Color.white;
     }
     void faceTarget()
