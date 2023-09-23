@@ -37,6 +37,8 @@ public class bossAI : MonoBehaviour, IDamage, IPhysics
     Vector3 startingPos;
     Transform playerTransform;
     float origSpeed;
+    
+
     void Start()
     {
         startingPos = transform.position;
@@ -132,6 +134,7 @@ public class bossAI : MonoBehaviour, IDamage, IPhysics
 
         if (HP <= 0)
         {
+            
             Boss.enabled = false;
             stopMoving();
             animate.SetBool("Death", true);
@@ -139,6 +142,7 @@ public class bossAI : MonoBehaviour, IDamage, IPhysics
         }
         else
         {
+            
             animate.SetTrigger("Damage");
             StartCoroutine(flashDamage());
             Boss.SetDestination(gameManager.instance.player.transform.position);
