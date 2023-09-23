@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class gameManager : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject playerFlashDamage;
     [SerializeField] GameObject checkPointMenu;
     [SerializeField] TMP_Text enemiesRemainingText;
+    [SerializeField] enemyManager alertEnemies;
     
     public GameObject playerSpawnPos;
 
@@ -34,7 +36,6 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
-       
     }
 
     // Update is called once per frame
