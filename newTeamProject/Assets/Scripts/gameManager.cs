@@ -75,7 +75,7 @@ public class gameManager : MonoBehaviour
     {
         enemiesRemaining += amount;
 
-        enemiesRemaining.text = enemiesRemaining.ToString("0");
+        enemiesRemainingText.text = enemiesRemaining.ToString("0");
 
         if (enemiesRemaining <= 0)
         {
