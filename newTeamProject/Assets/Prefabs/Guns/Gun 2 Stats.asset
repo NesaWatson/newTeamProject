@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gun 2 Stats
   m_EditorClassIdentifier: 
   fireRate: 0.5
-  itemDamage: 1
+  itemDamage: 2
   shootDistance: 50
   ammoCur: 0
   ammoMax: 50

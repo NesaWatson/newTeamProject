@@ -426,7 +426,7 @@ GameObject:
   m_Name: Attack Pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2745729483273714142
@@ -489,7 +489,7 @@ GameObject:
   m_Name: LeftHandIndex2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2635118197691115512
@@ -649,7 +649,7 @@ GameObject:
   m_Name: LeftHandIndex3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5086582773036005144
@@ -1031,7 +1031,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5995712759214028167}
-  - component: {fileID: 8094669710176156948}
+  - component: {fileID: 1377115425872651688}
   - component: {fileID: 3639007596748687227}
   - component: {fileID: 4893428804697946022}
   - component: {fileID: 8488859100689199421}
@@ -1060,7 +1060,7 @@ Transform:
   - {fileID: 5725399885794743227}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8094669710176156948
+--- !u!114 &1377115425872651688
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1069,21 +1069,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 5560602400679955990}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f182af10ddca764cb7c1cdb9a2d0bd0, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f19c79066fdaf143841e824fd3d2a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 7468192734424601074}
   agent: {fileID: 5196009730404230067}
   animate: {fileID: 3639007596748687227}
   attackPos: {fileID: 3259495679913876290}
-  headPos: {fileID: 8369450434999834315}
-  HP: 20
-  targetFaceSpeed: 0
+  headPos: {fileID: 2704928494083448150}
+  HP: 25
+  targetFaceSpeed: 20
   viewAngle: 180
-  wanderDist: 0
-  wanderTime: 0
-  animSpeed: 3
-  attackRate: 0.25
+  wanderDist: 10
+  wanderTime: 10
+  animSpeed: 5
+  attackRate: 2
   attackAngle: 10
   shuriken: {fileID: 3392163461623308579, guid: 4a4f00271cc686348ac0c3ef8d57e805, type: 3}
 --- !u!95 &3639007596748687227
@@ -1164,7 +1164,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 15
   avoidancePriority: 50
-  m_AngularSpeed: 800
+  m_AngularSpeed: 1000
   m_StoppingDistance: 5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
@@ -1452,7 +1452,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1c6a1a7adaf94c44a83af9c4a87fbe8f, type: 2}
+  - {fileID: 2100000, guid: be1fb31c7813d794ca0bb3056f583534, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1631,7 +1631,7 @@ GameObject:
   m_Name: LeftHandIndex4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &139604261222172679

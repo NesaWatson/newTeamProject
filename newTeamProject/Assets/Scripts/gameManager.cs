@@ -22,7 +22,6 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject playerFlashDamage;
     [SerializeField] GameObject checkPointMenu;
     [SerializeField] TMP_Text enemiesRemainingText;
-    [SerializeField] enemyManager alertEnemies;
     
     public GameObject playerSpawnPos;
 

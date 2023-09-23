@@ -28,6 +28,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     [SerializeField] GameObject shuriken;
 
     Vector3 playerDir;
+    Vector3 playerPos;
     Vector3 pushBack;
     bool playerInRange;
     bool isAttacking;
@@ -37,8 +38,9 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     Vector3 startingPos;
     enemySpawner spawner;
     Transform playerTransform;
-    bool isAlerted;
     float origSpeed;
+    bool isAlerted;
+    bool canSeePlayer;
     void Start()
     {
         startingPos = transform.position;
@@ -59,19 +61,25 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
 
             animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime + animSpeed));
 
-            if (playerInRange && canViewPlayer())
-            {
+           if (playerInRange && canViewPlayer())
+           {
                 StartCoroutine(attack());
-            }
-            else if (!playerInRange)
-            {
+                if (!isAlerted)
+                {
+                    enemyManager.instance.AlertedEnemies
+                        (gameManager.instance.player.transform.position);
+                    isAlerted = true;
+                }
+           }
+           else
+           {
                 StartCoroutine(wander());
-            }
+           }
         }
     }
     public void setAlerted(Vector3 playerPos)
     {
-        if(!isAlerted)
+        if (!isAlerted)
         {
             isAlerted = true;
             agent.SetDestination(playerPos);
@@ -110,8 +118,6 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.stoppingDistance = stoppingDistOrig;
-                enemyManager.instance.AlertedEnemies
-                    (gameManager.instance.player.transform.position);
                 agent.SetDestination(gameManager.instance.player.transform.position);
 
                 if (agent.remainingDistance <= agent.stoppingDistance)
@@ -142,12 +148,12 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     public void takeDamage(int amount)
     {
         HP -= amount;
-        StartCoroutine(stopMoving());
         agent.SetDestination(gameManager.instance.player.transform.position);
 
         if (HP <= 0)
         {
             agent.enabled = false;
+            stopMoving();
             animate.SetBool("Death", true);
             gameManager.instance.updateGameGoal(-1);
         }
@@ -206,4 +212,6 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
             enemyManager.instance.unregisterEnemy(this);
         }
     }
+   
 }
+
