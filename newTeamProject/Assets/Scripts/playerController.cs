@@ -24,7 +24,7 @@ public class playerController : MonoBehaviour, IDamage
     [Header("----- Weapon Stats -----")]
     [SerializeField] List<ItemStats> itemStats = new List<ItemStats>();
     [SerializeField] GameObject itemModel;
-    [SerializeField] float fireRate;
+    [Range(0.2f, 2.0f)][SerializeField] float fireRate;
     [SerializeField] int gunDamage;
     [SerializeField] int shootDistance;
 
@@ -130,7 +130,7 @@ public class playerController : MonoBehaviour, IDamage
                 canDamage.takeDamage(gunDamage);
             }
         }
-        yield return new WaitForSeconds(fireRate);
+        yield return new WaitForSeconds(itemStats[itemSelected].fireRate);
         isFiring = false;
     }
     private void UpdateUi()
@@ -177,7 +177,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         gunDamage = itemStats[itemSelected].itemDamage;
         shootDistance = itemStats[itemSelected].shootDistance;
-        fireRate -= itemStats[itemSelected].fireRate;
+        fireRate = itemStats[itemSelected].fireRate;
 
         itemModel.GetComponent<MeshFilter>().sharedMesh = itemStats[itemSelected].model.GetComponent<MeshFilter>().sharedMesh;
         itemModel.GetComponent<Renderer>().sharedMaterial = itemStats[itemSelected].model.GetComponent<Renderer>().sharedMaterial;
