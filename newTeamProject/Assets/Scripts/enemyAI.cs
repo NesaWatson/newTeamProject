@@ -100,9 +100,9 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     }
     bool canViewPlayer()
     {
-        //agent.stoppingDistance = stoppingDistOrig;
+        agent.stoppingDistance = stoppingDistOrig;
         playerDir = gameManager.instance.player.transform.position - headPos.position;
-        angleToPlayer = Vector3.Angle(playerDir, transform.forward); 
+        angleToPlayer = Vector3.Angle(new Vector3(playerDir.x,0,playerDir.z), transform.forward); 
 #if(UNITY_EDITOR)
         Debug.Log(angleToPlayer);
         Debug.DrawRay(headPos.position, playerDir);
@@ -113,12 +113,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.stoppingDistance = stoppingDistOrig;
-                if (!isAlerted)
-                {
-                    enemyManager.instance.AlertedEnemies
-                        (gameManager.instance.player.transform.position);
-                    isAlerted = true;
-                }
+               
                 agent.SetDestination(gameManager.instance.player.transform.position);
 
                 if (agent.remainingDistance <= agent.stoppingDistance)
@@ -129,8 +124,16 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
                     {
                         StartCoroutine(attack());
                     }
+                } 
+                
+
+                if (!isAlerted)
+                {
+                    enemyManager.instance.AlertedEnemies
+                        (gameManager.instance.player.transform.position);
+                    isAlerted = true;
                 }
-                return true;
+               return true;
             }
         }
         agent.stoppingDistance = 0;
@@ -191,12 +194,11 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     }
     public void physics(Vector3 dir)
     {
-        agent.velocity += dir;
+        agent.velocity += dir/3;
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")
-            )
+        if (other.CompareTag("Player"))
         {
             playerInRange = true;
         }
@@ -206,6 +208,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
+            agent.stoppingDistance= 0;
         }
     }
     void OnDestroy()
