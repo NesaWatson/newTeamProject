@@ -61,11 +61,11 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
 
             animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime + animSpeed));
 
-           if (playerInRange && canViewPlayer())
+           if (playerInRange && !canViewPlayer())
            {
-                StartCoroutine(attack());
+                StartCoroutine(wander());
            }
-           else
+           else if (!playerInRange)
            {
                 StartCoroutine(wander());
            }
@@ -138,17 +138,18 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     } 
     IEnumerator attack()
     {
-        while(playerInRange)
-        {
+      
+        
             isAttacking = true;
             animate.SetTrigger("Attack");
             yield return new WaitForSeconds(attackRate);
-        }
+        
         isAttacking= false;
     }
     public void takeDamage(int amount)
     {
         HP -= amount;
+        StartCoroutine(stopMoving());
         agent.SetDestination(gameManager.instance.player.transform.position);
 
         if (HP <= 0)
@@ -156,6 +157,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
             agent.enabled = false;
             stopMoving();
             animate.SetBool("Death", true);
+            StopAllCoroutines();
             
         }
         else
@@ -189,7 +191,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     }
     public void physics(Vector3 dir)
     {
-        agent.velocity += dir / 3;
+        agent.velocity += dir;
     }
     void OnTriggerEnter(Collider other)
     {
