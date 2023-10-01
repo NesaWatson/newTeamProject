@@ -58,30 +58,30 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
         gameManager.instance.updateGameGoal(1);
     }
     void Update()
-    {
-        if (Time.time - lastTeleportTime >= teleportCooldown)
-        {
-            float distToPlayer = Vector3.Distance(transform.position, playerTransform.position);
-
-            if (distToPlayer < teleportDist)
-            {
-                teleport(playerTransform.position);
-            }
-        }
+    { 
         if (agent.isActiveAndEnabled)
         {
             float agentVel = agent.velocity.normalized.magnitude;
 
             animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime + animSpeed));
+            if (Time.time - lastTeleportTime >= teleportCooldown)
+            {
+                float distToPlayer = Vector3.Distance(transform.position, playerTransform.position);
 
-           if (playerInRange && !canViewPlayer())
-           {
+                if (distToPlayer < teleportDist)
+                {
+                    teleport(playerTransform.position);
+                }
+            }
+            faceTarget();
+            if (playerInRange && !canViewPlayer())
+            {
                 StartCoroutine(wander());
-           }
-           else if (!playerInRange)
-           {
+            }
+            else if (!playerInRange)
+            {
                 StartCoroutine(wander());
-           }
+            }
         }
     }
     void teleport(Vector3 teleportPos)
@@ -89,9 +89,12 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
         NavMeshHit hit;
         NavMesh.SamplePosition(teleportPos, out hit, teleportDist, 1);
 
-        agent.Warp(hit.position);
+        if (hit.hit)
+        {
+            agent.Warp(hit.position);
 
-        lastTeleportTime = Time.time;
+            lastTeleportTime = Time.time;
+        }
     }
     public void setAlerted(Vector3 playerPos)
     {
@@ -163,11 +166,9 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     } 
     IEnumerator attack()
     {
-      
-        
-            isAttacking = true;
-            animate.SetTrigger("Attack");
-            yield return new WaitForSeconds(attackRate);
+        isAttacking = true;
+        animate.SetTrigger("Attack");
+        yield return new WaitForSeconds(attackRate);
         
         isAttacking= false;
     }
