@@ -20,7 +20,9 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     [Range(45, 180)][SerializeField] int viewAngle;
     [Range(5, 50)][SerializeField] int wanderDist;
     [Range(5, 50)][SerializeField] int wanderTime;
-    [SerializeField] float animSpeed; 
+    [Range(10, 30)][SerializeField] float teleportDist;
+    [Range(3, 10)][SerializeField] float teleportCooldown;
+    [Range(1, 3)][SerializeField] float animSpeed;
 
     [Header("----- Weapon Stats -----")]
     [SerializeField] float attackRate;
@@ -41,6 +43,8 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     float origSpeed;
     bool isAlerted;
     bool canSeePlayer;
+    float lastTeleportTime;
+
     void Start()
     {
         startingPos = transform.position;
@@ -55,6 +59,15 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     }
     void Update()
     {
+        if (Time.time - lastTeleportTime >= teleportCooldown)
+        {
+            float distToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+
+            if (distToPlayer < teleportDist)
+            {
+                teleport(playerTransform.position);
+            }
+        }
         if (agent.isActiveAndEnabled)
         {
             float agentVel = agent.velocity.normalized.magnitude;
@@ -70,6 +83,15 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
                 StartCoroutine(wander());
            }
         }
+    }
+    void teleport(Vector3 teleportPos)
+    { 
+        NavMeshHit hit;
+        NavMesh.SamplePosition(teleportPos, out hit, teleportDist, 1);
+
+        agent.Warp(hit.position);
+
+        lastTeleportTime = Time.time;
     }
     public void setAlerted(Vector3 playerPos)
     {
