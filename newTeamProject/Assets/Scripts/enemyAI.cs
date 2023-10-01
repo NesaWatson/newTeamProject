@@ -20,8 +20,8 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     [Range(45, 180)][SerializeField] int viewAngle;
     [Range(5, 50)][SerializeField] int wanderDist;
     [Range(5, 50)][SerializeField] int wanderTime;
-    [Range(10, 30)][SerializeField] float teleportDist;
-    [Range(3, 10)][SerializeField] float teleportCooldown;
+    [Range(0, 30)][SerializeField] float teleportDist;
+    [Range(0, 10)][SerializeField] float teleportCooldown;
     [Range(1, 3)][SerializeField] float animSpeed;
 
     [Header("----- Weapon Stats -----")]
