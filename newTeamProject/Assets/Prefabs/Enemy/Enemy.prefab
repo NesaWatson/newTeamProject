@@ -1494,7 +1494,7 @@ MonoBehaviour:
   viewAngle: 90
   wanderDist: 25
   wanderTime: 25
-  teleportDist: 30
+  teleportDist: 20
   teleportCooldown: 5
   animSpeed: 2
   attackRate: 0.25
