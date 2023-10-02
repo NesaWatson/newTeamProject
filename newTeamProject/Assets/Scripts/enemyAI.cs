@@ -58,12 +58,19 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
         gameManager.instance.updateGameGoal(1);
     }
     void Update()
-    { 
+    {
+        if (Time.time - lastTeleportTime >= teleportCooldown)
+        {
+            float distToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+
+            if (distToPlayer < teleportDist)
+            {
+                teleport(playerTransform.position);
+            }
+        }
+        faceTarget();
         if (agent.isActiveAndEnabled)
         {
-            float agentVel = agent.velocity.normalized.magnitude;
-
-            animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime + animSpeed));
             if (Time.time - lastTeleportTime >= teleportCooldown)
             {
                 float distToPlayer = Vector3.Distance(transform.position, playerTransform.position);
@@ -71,9 +78,13 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
                 if (distToPlayer < teleportDist)
                 {
                     teleport(playerTransform.position);
+                    
                 }
             }
-            faceTarget();
+            float agentVel = agent.velocity.normalized.magnitude;
+
+            animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime + animSpeed));
+           
             if (playerInRange && !canViewPlayer())
             {
                 StartCoroutine(wander());
