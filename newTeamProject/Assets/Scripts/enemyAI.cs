@@ -59,16 +59,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     }
     void Update()
     {
-        if (Time.time - lastTeleportTime >= teleportCooldown)
-        {
-            float distToPlayer = Vector3.Distance(transform.position, playerTransform.position);
-
-            if (distToPlayer < teleportDist)
-            {
-                teleport(playerTransform.position);
-            }
-        }
-        faceTarget();
+        
         if (agent.isActiveAndEnabled)
         {
             if (Time.time - lastTeleportTime >= teleportCooldown)
@@ -78,9 +69,9 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
                 if (distToPlayer < teleportDist)
                 {
                     teleport(playerTransform.position);
-                    
                 }
             }
+            faceTarget();
             float agentVel = agent.velocity.normalized.magnitude;
 
             animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime + animSpeed));
@@ -97,15 +88,34 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     }
     void teleport(Vector3 teleportPos)
     { 
-        NavMeshHit hit;
-        NavMesh.SamplePosition(teleportPos, out hit, teleportDist, 1);
+        Vector3 dirToPlayer = (teleportPos - transform.position).normalized;
+        Vector3 offset = dirToPlayer * 1.0f;
+        Vector3 finalTeleportPos = teleportPos + offset;
 
-        if (hit.hit)
+        RaycastHit hitInfo;
+        NavMeshHit navMeshHit;
+
+        if (Physics.Raycast(finalTeleportPos, Vector3.down, out hitInfo, 2.0f, LayerMask.GetMask("Ground")))
         {
-            agent.Warp(hit.position);
-
+            finalTeleportPos = hitInfo.point;
+        }
+        else
+        {
+           if( NavMesh.SamplePosition(finalTeleportPos, out navMeshHit, teleportDist, 1))
+           {
+               finalTeleportPos = navMeshHit.position;
+           }
+           else
+           {
+               finalTeleportPos = transform.position;
+           }
+        }
+        if (NavMesh.SamplePosition(finalTeleportPos, out navMeshHit, teleportDist, 1))
+        {
+            agent.Warp(navMeshHit.position);
             lastTeleportTime = Time.time;
         }
+
     }
     public void setAlerted(Vector3 playerPos)
     {
