@@ -10,6 +10,12 @@ public class checkPoint : MonoBehaviour
         {
             
             gameManager.instance.playerSpawnPos.transform.position= transform.position;
+            playerController player = other.GetComponent<playerController>();
+            if(player != null)
+            {
+                player.PlayerCheckpointRefresh();
+            }
+            
             StartCoroutine(gameManager.instance.checkPointSpot());
         }
        

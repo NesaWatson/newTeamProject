@@ -29,7 +29,7 @@ public class playerController : MonoBehaviour, IDamage
     private bool isCrouching = false;
 
     [Header("----- Weapon Stats -----")]
-    [SerializeField] List<ItemStats> itemStats = new List<ItemStats>();
+    [SerializeField] public List<ItemStats> itemStats = new List<ItemStats>();
     [SerializeField] GameObject itemModel;
     [Range(0.2f, 2.0f)][SerializeField] float fireRate;
     [SerializeField] int gunDamage;
@@ -249,6 +249,21 @@ public class playerController : MonoBehaviour, IDamage
         }
 
         isDodging = false;
+    }
+
+    public void AmmoRefill()
+    {
+        foreach (ItemStats item in itemStats)
+        {
+            item.ammoCur = item.ammoMax;
+        }
+    }
+
+    public void PlayerCheckpointRefresh()
+    {
+        HP = originalHP;
+        AmmoRefill();
+        UpdateUi();
     }
 }
 
