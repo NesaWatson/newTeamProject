@@ -18,6 +18,11 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float crouchHeight;
     [SerializeField] float standingHeight;
     [Range(1, 10)][SerializeField] int pushBackResolve;
+    [SerializeField] float dodgeCooldown;
+    [SerializeField] int dodgeMax;
+
+    private float dodgePrevious;
+    private int dodgeCount;
 
     private bool isCrouching = false;
 
@@ -53,6 +58,19 @@ public class playerController : MonoBehaviour, IDamage
         {
             StartCoroutine(shoot());
         }
+
+        if (Input.GetButton("Dodge") && CanDodge())
+        {
+            characterSpeed += 5.0f;
+            dodgeCount++;
+            dodgePrevious = Time.time;
+
+            if (dodgeCount >= dodgeMax)
+            {
+                StartCoroutine(BeginDodgeCooldown());
+            }
+        }
+        else characterSpeed = 15.0f;
     }
 
     void HandleMovement()
@@ -197,6 +215,22 @@ public class playerController : MonoBehaviour, IDamage
             itemSelected--;
             changeItem();
         }
+    }
+
+    bool CanDodge()
+    {
+        if (dodgeCount < dodgeMax)
+        {
+            return Time.time - dodgePrevious >= dodgeCooldown;
+        }
+
+        return false;
+    }
+
+    IEnumerator BeginDodgeCooldown()
+    {
+        yield return new WaitForSeconds(dodgeCooldown);
+        dodgeCount = 0;
     }
 }
 
