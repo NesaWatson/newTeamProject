@@ -18,11 +18,13 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float crouchHeight;
     [SerializeField] float standingHeight;
     [Range(1, 10)][SerializeField] int pushBackResolve;
-    //[SerializeField] float dodgeCooldown = 5f;
-    //[SerializeField] int dodgeMax = 3;
 
-    //private float dodgePrevious = -10f;
-    //private int dodgeCount = 0;
+    [Header("----- Dodge Stats -----")]
+    public float dodgeSpeed = 25f;
+    public float dodgeLength = 0.2f;
+    public float dodgeCooldown = 2.0f;
+    private bool isDodging;
+    private float lastDodgeTime = -1f;
 
     private bool isCrouching = false;
 
@@ -50,7 +52,6 @@ public class playerController : MonoBehaviour, IDamage
 
     void Update()
     {
-        //Debug.Log($"dodgeCount: {dodgeCount}, dodgePrevious: {dodgePrevious}, CanDodge: {CanDodge()}");
         HandleMovement();
         HandleCrouch();
         itemSelect();
@@ -60,22 +61,17 @@ public class playerController : MonoBehaviour, IDamage
             StartCoroutine(shoot());
         }
 
-        if (Input.GetButton("Dodge") /*&& CanDodge()*/)
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
-            characterSpeed += 5.0f;
-            //dodgeCount++;
-            //dodgePrevious = Time.time;
-
-            //if (dodgeCount >= dodgeMax)
-            //{
-            //    StartCoroutine(BeginDodgeCooldown()); 
-            //}
+            Dodge();
         }
-        else characterSpeed = 15.0f;
+        
     }
 
     void HandleMovement()
     {
+        if (isDodging) return;
+
         if (pushBack.magnitude > 0.01f)
         {
 
@@ -218,23 +214,41 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
-    //bool CanDodge()
-    //{
-    //    if (dodgeCount < dodgeMax)
-    //    {
-    //        if (Time.time - dodgePrevious >= dodgeCooldown)
-    //        {
-    //            return true;
-    //        }
-    //        else Debug.Log("Cooldown Active!");
-    //    }
-    //    return false;
-    //}
+    void Dodge()
+    {
+        if (!isDodging && Time.time > lastDodgeTime + dodgeCooldown)
+        {
+            StartCoroutine(DodgeMovement());
+            lastDodgeTime = Time.time;
+        }
+    }
 
-    //IEnumerator BeginDodgeCooldown()
-    //{
-    //    yield return new WaitForSeconds(dodgeCooldown);
-    //    dodgeCount = 0;
-    //}
+    IEnumerator DodgeMovement()
+    {
+        isDodging = true;
+
+        Vector3 dodgeDirection = Vector3.zero;
+
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+            dodgeDirection += transform.forward;
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            dodgeDirection += -transform.right;
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            dodgeDirection += -transform.forward;
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            dodgeDirection += transform.right;
+
+        dodgeDirection.Normalize();
+
+        float dodgeStart = Time.time;
+
+        while (Time.time < dodgeStart + dodgeLength)
+        {
+            characterController.Move(dodgeDirection * dodgeSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        isDodging = false;
+    }
 }
 
