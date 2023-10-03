@@ -18,11 +18,11 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float crouchHeight;
     [SerializeField] float standingHeight;
     [Range(1, 10)][SerializeField] int pushBackResolve;
-    [SerializeField] float dodgeCooldown;
-    [SerializeField] int dodgeMax;
+    //[SerializeField] float dodgeCooldown = 5f;
+    //[SerializeField] int dodgeMax = 3;
 
-    private float dodgePrevious;
-    private int dodgeCount;
+    //private float dodgePrevious = -10f;
+    //private int dodgeCount = 0;
 
     private bool isCrouching = false;
 
@@ -50,6 +50,7 @@ public class playerController : MonoBehaviour, IDamage
 
     void Update()
     {
+        //Debug.Log($"dodgeCount: {dodgeCount}, dodgePrevious: {dodgePrevious}, CanDodge: {CanDodge()}");
         HandleMovement();
         HandleCrouch();
         itemSelect();
@@ -59,16 +60,16 @@ public class playerController : MonoBehaviour, IDamage
             StartCoroutine(shoot());
         }
 
-        if (Input.GetButton("Dodge") && CanDodge())
+        if (Input.GetButton("Dodge") /*&& CanDodge()*/)
         {
             characterSpeed += 5.0f;
-            dodgeCount++;
-            dodgePrevious = Time.time;
+            //dodgeCount++;
+            //dodgePrevious = Time.time;
 
-            if (dodgeCount >= dodgeMax)
-            {
-                StartCoroutine(BeginDodgeCooldown());
-            }
+            //if (dodgeCount >= dodgeMax)
+            //{
+            //    StartCoroutine(BeginDodgeCooldown()); 
+            //}
         }
         else characterSpeed = 15.0f;
     }
@@ -217,20 +218,23 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
-    bool CanDodge()
-    {
-        if (dodgeCount < dodgeMax)
-        {
-            return Time.time - dodgePrevious >= dodgeCooldown;
-        }
+    //bool CanDodge()
+    //{
+    //    if (dodgeCount < dodgeMax)
+    //    {
+    //        if (Time.time - dodgePrevious >= dodgeCooldown)
+    //        {
+    //            return true;
+    //        }
+    //        else Debug.Log("Cooldown Active!");
+    //    }
+    //    return false;
+    //}
 
-        return false;
-    }
-
-    IEnumerator BeginDodgeCooldown()
-    {
-        yield return new WaitForSeconds(dodgeCooldown);
-        dodgeCount = 0;
-    }
+    //IEnumerator BeginDodgeCooldown()
+    //{
+    //    yield return new WaitForSeconds(dodgeCooldown);
+    //    dodgeCount = 0;
+    //}
 }
 

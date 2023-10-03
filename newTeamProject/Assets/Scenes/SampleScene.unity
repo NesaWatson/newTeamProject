@@ -8789,6 +8789,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.74
       objectReference: {fileID: 0}
+    - target: {fileID: 5066584792800254188, guid: a2e3ec6c12793b548bb8987da1f22e62, type: 3}
+      propertyPath: dodgeMax
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5066584792800254188, guid: a2e3ec6c12793b548bb8987da1f22e62, type: 3}
+      propertyPath: dodgeCooldown
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5222158827637565905, guid: a2e3ec6c12793b548bb8987da1f22e62, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.1
