@@ -13,6 +13,7 @@ public class gameManager : MonoBehaviour
     public playerController playerScript;
 
     public Image playerHPbar;
+    public TMP_Text ammoText;
     
 
     [SerializeField] GameObject activeMenu;
@@ -97,10 +98,15 @@ public class gameManager : MonoBehaviour
         playerFlashDamage.SetActive(false);
     }
    public IEnumerator checkPointSpot()
-    {
+   {
         checkPointMenu.SetActive(true);
         yield return new WaitForSeconds(2);
         checkPointMenu.SetActive(false);
+   }
+
+    public void UpdateAmmoUI(int currentAmmo, int maxAmmo)
+    {
+        ammoText.text = $"{currentAmmo}/{maxAmmo}";
     }
   
    

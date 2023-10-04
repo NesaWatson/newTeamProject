@@ -48,6 +48,11 @@ public class playerController : MonoBehaviour, IDamage
     {
         originalHP = HP;
         spawnPlayer();
+
+        if (itemStats.Count > 0)
+        {
+            gameManager.instance.UpdateAmmoUI(itemStats[itemSelected].ammoCur, itemStats[itemSelected].ammoMax);
+        }
     }
 
     void Update()
@@ -144,6 +149,9 @@ public class playerController : MonoBehaviour, IDamage
             {
                 canDamage.takeDamage(gunDamage);
             }
+
+            itemStats[itemSelected].ammoCur--;
+            gameManager.instance.UpdateAmmoUI(itemStats[itemSelected].ammoCur, itemStats[itemSelected].ammoMax);
         }
         yield return new WaitForSeconds(itemStats[itemSelected].fireRate);
         isFiring = false;
@@ -186,6 +194,8 @@ public class playerController : MonoBehaviour, IDamage
         itemModel.GetComponent<Renderer>().sharedMaterial = item.model.GetComponent<Renderer>().sharedMaterial;
 
         itemSelected = itemStats.Count - 1;
+
+        gameManager.instance.UpdateAmmoUI(item.ammoCur, item.ammoMax);
     }
 
     void changeItem()
@@ -197,6 +207,7 @@ public class playerController : MonoBehaviour, IDamage
         itemModel.GetComponent<MeshFilter>().sharedMesh = itemStats[itemSelected].model.GetComponent<MeshFilter>().sharedMesh;
         itemModel.GetComponent<Renderer>().sharedMaterial = itemStats[itemSelected].model.GetComponent<Renderer>().sharedMaterial;
 
+        gameManager.instance.UpdateAmmoUI(itemStats[itemSelected].ammoCur, itemStats[itemSelected].ammoMax);
     }
 
 
@@ -257,6 +268,8 @@ public class playerController : MonoBehaviour, IDamage
         {
             item.ammoCur = item.ammoMax;
         }
+
+        gameManager.instance.UpdateAmmoUI(itemStats[itemSelected].ammoCur, itemStats[itemSelected].ammoMax);
     }
 
     public void PlayerCheckpointRefresh()
