@@ -196,6 +196,7 @@ public class playerController : MonoBehaviour, IDamage
         itemSelected = itemStats.Count - 1;
 
         gameManager.instance.UpdateAmmoUI(item.ammoCur, item.ammoMax);
+        gameManager.instance.ammoText.gameObject.SetActive(true);
     }
 
     void changeItem()
