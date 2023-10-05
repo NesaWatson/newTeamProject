@@ -50,7 +50,9 @@ public class playerController : MonoBehaviour, IDamage
     private Vector3 velocity;
     int originalHP;
     int itemSelected;
+
     int meleeWeaponSelection;
+    private bool isMeleeAttacking;
 
     void Start()
     {
@@ -68,6 +70,7 @@ public class playerController : MonoBehaviour, IDamage
         HandleMovement();
         HandleCrouch();
         itemSelect();
+        SelectMeleeWeapon();
 
         if (Input.GetButton("Shoot") && !isFiring && !gameManager.instance.isPaused && itemStats.Count > 0)
         {
@@ -77,6 +80,12 @@ public class playerController : MonoBehaviour, IDamage
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
             Dodge();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Keypad0) && !isMeleeAttacking && !isFiring
+            && !gameManager.instance.isPaused && meleeWeapons.Count > 0)
+        {
+            StartCoroutine(MeleeAttack());
         }
         
     }
@@ -299,7 +308,7 @@ public class playerController : MonoBehaviour, IDamage
         meleeWeaponModel.GetComponent<MeshFilter>().sharedMesh = meleeItem.weaponModel.GetComponent<MeshFilter>().sharedMesh;
         meleeWeaponModel.GetComponent<Renderer>().sharedMaterial = meleeItem.weaponModel.GetComponent<Renderer>().sharedMaterial;
 
-        //adding to list for change weapon like in itemPickup()
+        meleeWeaponSelection = meleeWeapons.Count - 1;
     }
 
     void SelectMeleeWeapon()
@@ -324,6 +333,25 @@ public class playerController : MonoBehaviour, IDamage
 
         meleeWeaponModel.GetComponent<MeshFilter>().sharedMesh = meleeWeapons[meleeWeaponSelection].weaponModel.GetComponent<MeshFilter>().sharedMesh;
         meleeWeaponModel.GetComponent<Renderer>().sharedMaterial = meleeWeapons[meleeWeaponSelection].weaponModel.GetComponent <Renderer>().sharedMaterial;
+    }
+
+    IEnumerator MeleeAttack()
+    {
+        isMeleeAttacking = true;
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, transform.forward, out hit, meleeWeaponRange))
+        {
+            IDamage canDamage = hit.collider.GetComponent<IDamage>();
+            if (canDamage != null) 
+            {
+                canDamage.takeDamage(meleeDamage);
+            }
+        }
+
+        yield return new WaitForSeconds(meleeAttackRate);
+        isMeleeAttacking = false;
     }
 }
 
