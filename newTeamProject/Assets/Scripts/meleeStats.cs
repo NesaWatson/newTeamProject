@@ -13,7 +13,7 @@ public class meleeStats : ScriptableObject
 
     public float attackSpeed;
     public float weaponRange;
-    public float weaponDamage;
+    public int weaponDamage;
 
 
 

@@ -35,6 +35,13 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int gunDamage;
     [SerializeField] int shootDistance;
 
+    [Header("----- Melee Stats -----")]
+    [SerializeField] public List<meleeStats> meleeWeapons = new List<meleeStats>();
+    [SerializeField] GameObject meleeWeaponModel;
+    [SerializeField] float meleeAttackRate;
+    [SerializeField] int meleeDamage;
+    [SerializeField] float meleeWeaponRange;
+
     private bool playerOnGround;
     private bool isFiring;
     private int jumps;
@@ -43,6 +50,7 @@ public class playerController : MonoBehaviour, IDamage
     private Vector3 velocity;
     int originalHP;
     int itemSelected;
+    int meleeWeaponSelection;
 
     void Start()
     {
@@ -278,6 +286,44 @@ public class playerController : MonoBehaviour, IDamage
         HP = originalHP;
         AmmoRefill();
         UpdateUi();
+    }
+
+    public void PickupMeleeWeapon(meleeStats meleeItem)
+    {
+        meleeWeapons.Add(meleeItem);
+
+        meleeDamage = meleeItem.weaponDamage;
+        meleeWeaponRange = meleeItem.weaponRange;
+        meleeAttackRate = meleeItem.attackSpeed;
+
+        meleeWeaponModel.GetComponent<MeshFilter>().sharedMesh = meleeItem.weaponModel.GetComponent<MeshFilter>().sharedMesh;
+        meleeWeaponModel.GetComponent<Renderer>().sharedMaterial = meleeItem.weaponModel.GetComponent<Renderer>().sharedMaterial;
+
+        //adding to list for change weapon like in itemPickup()
+    }
+
+    void SelectMeleeWeapon()
+    {
+        if (Input.GetKeyDown(KeyCode.Q) && meleeWeaponSelection < meleeWeapons.Count - 1)
+        {
+            meleeWeaponSelection++;
+            MeleeWeaponChange();
+        }
+        else if (Input.GetKeyDown(KeyCode.E) && meleeWeaponSelection > 0) 
+        {
+            meleeWeaponSelection--;
+            MeleeWeaponChange();
+        }
+    }
+
+    void MeleeWeaponChange()
+    {
+        meleeDamage = meleeWeapons[meleeWeaponSelection].weaponDamage;
+        meleeWeaponRange = meleeWeapons[meleeWeaponSelection].weaponRange;
+        meleeAttackRate = meleeWeapons[meleeWeaponSelection].attackSpeed;
+
+        meleeWeaponModel.GetComponent<MeshFilter>().sharedMesh = meleeWeapons[meleeWeaponSelection].weaponModel.GetComponent<MeshFilter>().sharedMesh;
+        meleeWeaponModel.GetComponent<Renderer>().sharedMaterial = meleeWeapons[meleeWeaponSelection].weaponModel.GetComponent <Renderer>().sharedMaterial;
     }
 }
 
