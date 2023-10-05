@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2c0ee3aa3fe24d4d82f0ccf1efb1103, type: 3}
+  m_Name: Silenced Pistol Stats
+  m_EditorClassIdentifier: 
+  fireRate: 0.5
+  itemDamage: 2
+  shootDistance: 30
+  ammoCur: 16
+  ammoMax: 16
+  model: {fileID: 721233692884367416, guid: 857b5dcce4162e64cb2f142de88791b5, type: 3}
+  hitEffect: {fileID: 8224417693137495709, guid: 5d153a145f3f0274b862f99d2ebdbbeb, type: 3}
+  shotSound: {fileID: 0}
