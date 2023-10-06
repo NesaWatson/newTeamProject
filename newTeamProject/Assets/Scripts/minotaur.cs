@@ -61,7 +61,7 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
         {
             float agentVel = Boss.velocity.normalized.magnitude;
 
-            animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime + animSpeed));
+            animate.SetFloat("walk_forward", Mathf.Lerp(animate.GetFloat("walk_forward"), agentVel, Time.deltaTime + animSpeed));
 
             if (playerInRange && canViewPlayer())
             {
@@ -148,7 +148,12 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
         while (playerInRange)
         {
             isAttacking = true;
-            animate.SetTrigger("Attack");
+            animate.SetTrigger("attack1");
+            animate.SetTrigger("attack2");
+            animate.SetTrigger("attack3");
+            animate.SetTrigger("attack4_kick");
+            animate.SetTrigger("attack5_kick");
+
             yield return new WaitForSeconds(attackAnimDelay);
 
             if (playerInRange)
@@ -198,13 +203,14 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
         {
             Boss.enabled = false;
             stopMoving();
-            animate.SetBool("Death", true);
+            animate.SetBool("death", true);
             gameManager.instance.updateGameGoal(-1);
         }
         else
         {
 
-            animate.SetTrigger("Damage");
+            animate.SetTrigger("hit_1");
+            animate.SetTrigger("hit_2");
             StartCoroutine(flashDamage());
             Boss.SetDestination(gameManager.instance.player.transform.position);
 
