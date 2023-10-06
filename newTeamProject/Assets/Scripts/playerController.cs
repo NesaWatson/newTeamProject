@@ -360,24 +360,29 @@ public class playerController : MonoBehaviour, IDamage
     {
         float swingDuration = meleeAttackRate / 2;
         float timeElapsed = 0f;
+        Quaternion rotationStart = meleeWeaponModel.transform.localRotation;
+        Quaternion middleRotation = Quaternion.Euler(-90, -45, 0);
 
         while (timeElapsed < swingDuration) 
         {
             timeElapsed += Time.deltaTime;
-            float weaponRotation = Mathf.Lerp(0, -90, timeElapsed /  swingDuration);
-            meleeWeaponModel.transform.localRotation = Quaternion.Euler(weaponRotation, 0, 0);
+            float swing = timeElapsed / swingDuration;
+            meleeWeaponModel.transform.localRotation = Quaternion.Slerp(rotationStart, middleRotation, swing);
             yield return null;
         }
 
+        meleeWeaponModel.transform.localRotation = middleRotation;
         timeElapsed = 0f;
 
         while(timeElapsed < swingDuration)
         {
             timeElapsed += Time.deltaTime;
-            float weaponRotation = Mathf.Lerp(-90, 0, timeElapsed / swingDuration);
-            meleeWeaponModel.transform.localRotation = Quaternion.Euler(weaponRotation, 0, 0);
+            float swing = timeElapsed / swingDuration;
+            meleeWeaponModel.transform.localRotation = Quaternion.Slerp(middleRotation, rotationStart, swing);
             yield return null;
         }
+
+        meleeWeaponModel.transform.localRotation = rotationStart;
     }
 }
 
