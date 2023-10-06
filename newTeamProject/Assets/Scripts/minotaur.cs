@@ -196,7 +196,6 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
 
         if (HP <= 0)
         {
-
             Boss.enabled = false;
             stopMoving();
             animate.SetBool("Death", true);
