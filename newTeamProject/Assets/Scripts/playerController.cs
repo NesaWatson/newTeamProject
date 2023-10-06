@@ -361,7 +361,7 @@ public class playerController : MonoBehaviour, IDamage
         float swingDuration = meleeAttackRate / 2;
         float timeElapsed = 0f;
         Quaternion rotationStart = meleeWeaponModel.transform.localRotation;
-        Quaternion middleRotation = Quaternion.Euler(-90, -45, 0);
+        Quaternion middleRotation = Quaternion.Euler(-5, -30, 0);
 
         while (timeElapsed < swingDuration) 
         {
