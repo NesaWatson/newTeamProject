@@ -350,8 +350,39 @@ public class playerController : MonoBehaviour, IDamage
             }
         }
 
+        StartCoroutine(SwingWeapon());
+
         yield return new WaitForSeconds(meleeAttackRate);
         isMeleeAttacking = false;
+    }
+
+    IEnumerator SwingWeapon()
+    {
+        float swingDuration = meleeAttackRate / 2;
+        float timeElapsed = 0f;
+        Quaternion rotationStart = meleeWeaponModel.transform.localRotation;
+        Quaternion middleRotation = Quaternion.Euler(-90, -45, 0);
+
+        while (timeElapsed < swingDuration) 
+        {
+            timeElapsed += Time.deltaTime;
+            float swing = timeElapsed / swingDuration;
+            meleeWeaponModel.transform.localRotation = Quaternion.Slerp(rotationStart, middleRotation, swing);
+            yield return null;
+        }
+
+        meleeWeaponModel.transform.localRotation = middleRotation;
+        timeElapsed = 0f;
+
+        while(timeElapsed < swingDuration)
+        {
+            timeElapsed += Time.deltaTime;
+            float swing = timeElapsed / swingDuration;
+            meleeWeaponModel.transform.localRotation = Quaternion.Slerp(middleRotation, rotationStart, swing);
+            yield return null;
+        }
+
+        meleeWeaponModel.transform.localRotation = rotationStart;
     }
 }
 
