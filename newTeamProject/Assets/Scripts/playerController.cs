@@ -35,6 +35,13 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] int gunDamage;
     [SerializeField] int shootDistance;
 
+    [Header("----- Melee Stats -----")]
+    [SerializeField] public List<meleeStats> meleeWeapons = new List<meleeStats>();
+    [SerializeField] GameObject meleeWeaponModel;
+    [SerializeField] float meleeAttackRate;
+    [SerializeField] int meleeDamage;
+    [SerializeField] float meleeWeaponRange;
+
     private bool playerOnGround;
     private bool isFiring;
     private int jumps;
@@ -43,6 +50,9 @@ public class playerController : MonoBehaviour, IDamage
     private Vector3 velocity;
     int originalHP;
     int itemSelected;
+
+    int meleeWeaponSelection;
+    private bool isMeleeAttacking;
 
     void Start()
     {
@@ -60,6 +70,7 @@ public class playerController : MonoBehaviour, IDamage
         HandleMovement();
         HandleCrouch();
         itemSelect();
+        SelectMeleeWeapon();
 
         if (Input.GetButton("Shoot") && !isFiring && !gameManager.instance.isPaused && itemStats.Count > 0)
         {
@@ -69,6 +80,12 @@ public class playerController : MonoBehaviour, IDamage
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
             Dodge();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Keypad0) && !isMeleeAttacking && !isFiring
+            && !gameManager.instance.isPaused && meleeWeapons.Count > 0)
+        {
+            StartCoroutine(MeleeAttack());
         }
         
     }
@@ -196,6 +213,7 @@ public class playerController : MonoBehaviour, IDamage
         itemSelected = itemStats.Count - 1;
 
         gameManager.instance.UpdateAmmoUI(item.ammoCur, item.ammoMax);
+        gameManager.instance.ammoText.gameObject.SetActive(true);
     }
 
     void changeItem()
@@ -277,6 +295,63 @@ public class playerController : MonoBehaviour, IDamage
         HP = originalHP;
         AmmoRefill();
         UpdateUi();
+    }
+
+    public void PickupMeleeWeapon(meleeStats meleeItem)
+    {
+        meleeWeapons.Add(meleeItem);
+
+        meleeDamage = meleeItem.weaponDamage;
+        meleeWeaponRange = meleeItem.weaponRange;
+        meleeAttackRate = meleeItem.attackSpeed;
+
+        meleeWeaponModel.GetComponent<MeshFilter>().sharedMesh = meleeItem.weaponModel.GetComponent<MeshFilter>().sharedMesh;
+        meleeWeaponModel.GetComponent<Renderer>().sharedMaterial = meleeItem.weaponModel.GetComponent<Renderer>().sharedMaterial;
+
+        meleeWeaponSelection = meleeWeapons.Count - 1;
+    }
+
+    void SelectMeleeWeapon()
+    {
+        if (Input.GetKeyDown(KeyCode.Q) && meleeWeaponSelection < meleeWeapons.Count - 1)
+        {
+            meleeWeaponSelection++;
+            MeleeWeaponChange();
+        }
+        else if (Input.GetKeyDown(KeyCode.E) && meleeWeaponSelection > 0) 
+        {
+            meleeWeaponSelection--;
+            MeleeWeaponChange();
+        }
+    }
+
+    void MeleeWeaponChange()
+    {
+        meleeDamage = meleeWeapons[meleeWeaponSelection].weaponDamage;
+        meleeWeaponRange = meleeWeapons[meleeWeaponSelection].weaponRange;
+        meleeAttackRate = meleeWeapons[meleeWeaponSelection].attackSpeed;
+
+        meleeWeaponModel.GetComponent<MeshFilter>().sharedMesh = meleeWeapons[meleeWeaponSelection].weaponModel.GetComponent<MeshFilter>().sharedMesh;
+        meleeWeaponModel.GetComponent<Renderer>().sharedMaterial = meleeWeapons[meleeWeaponSelection].weaponModel.GetComponent <Renderer>().sharedMaterial;
+    }
+
+    IEnumerator MeleeAttack()
+    {
+        isMeleeAttacking = true;
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, transform.forward, out hit, meleeWeaponRange))
+        {
+            IDamage canDamage = hit.collider.GetComponent<IDamage>();
+            if (canDamage != null) 
+            {
+                canDamage.takeDamage(meleeDamage);
+            }
+        }
+
+        yield return new WaitForSeconds(meleeAttackRate);
+        isMeleeAttacking = false;
     }
 }
 
