@@ -30,8 +30,9 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
 
     [Header("----- Weapon Stats -----")]
     [SerializeField] float attackRate;
+    [SerializeField] float attackRange;
+    [SerializeField] int axeDamageAmount;
     [SerializeField] int attackAngle;
-    [SerializeField] GameObject weapon;
 
     Vector3 playerDir;
     Vector3 pushBack;
@@ -44,6 +45,7 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
     Transform playerTransform;
     float origSpeed;
     bool isDodging;
+    bool run;
 
     void Start()
     {
@@ -61,19 +63,28 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
         {
             float agentVel = Boss.velocity.normalized.magnitude;
 
-            animate.SetFloat("walk_forward", Mathf.Lerp(animate.GetFloat("walk_forward"), agentVel, Time.deltaTime + animSpeed));
+            animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime * animSpeed));
 
             if (playerInRange && canViewPlayer())
             {
-                StartCoroutine(attack());
+                run = true;
+
+                float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+               
+                if (distanceToPlayer <= attackRange && !isAttacking)
+                {
+                    StartCoroutine(attack());
+                }
             }
             else
             {
+                run = false;
                 StartCoroutine(wander());
             }
+            animate.SetBool("run", run);
         }
     }
-    IEnumerator resetDodge(float duration)
+        IEnumerator resetDodge(float duration)
     {
         yield return new WaitForSeconds(duration);
         isDodging = false;
@@ -148,50 +159,27 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
         while (playerInRange)
         {
             isAttacking = true;
-            animate.SetTrigger("attack1");
-            animate.SetTrigger("attack2");
-            animate.SetTrigger("attack3");
-            animate.SetTrigger("attack4_kick");
-            animate.SetTrigger("attack5_kick");
-
+            animate.SetTrigger("Attack");
             yield return new WaitForSeconds(attackAnimDelay);
 
-            if (playerInRange)
-            {
-                createWeapon();
+            meleeAttack();
 
-                bool playerHit = checkPlayerHit();
-                if (playerHit)
-                {
-                    dealDamageToPlayer();
-                }
-            }
             yield return new WaitForSeconds(attackRate);
+
         }
         isAttacking = false;
     }
-    bool checkPlayerHit()
+    void meleeAttack()
     {
-        Ray ray = new Ray(attackPos.position, playerTransform.position - attackPos.position);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, attackRate, playerLayer))
+        float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+        if (distanceToPlayer <= attackRange)
         {
-            if (hit.collider.CompareTag("Player"))
+            playerController player = gameObject.GetComponent<playerController>();
+
+            if (player != null)
             {
-                return true;
+                player.takeDamage(axeDamageAmount);
             }
-        }
-        return false;
-    }
-    void dealDamageToPlayer()
-    {
-        playerController player = gameObject.GetComponent<playerController>();
-
-        if (player != null)
-        {
-            int damageAmount = 10;
-            player.takeDamage(damageAmount);
         }
     }
     public void takeDamage(int amount)
@@ -201,16 +189,16 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
 
         if (HP <= 0)
         {
+
             Boss.enabled = false;
             stopMoving();
-            animate.SetBool("death", true);
+            animate.SetBool("Death", true);
             gameManager.instance.updateGameGoal(-1);
         }
         else
         {
 
-            animate.SetTrigger("hit_1");
-            animate.SetTrigger("hit_2");
+            animate.SetTrigger("Damage");
             StartCoroutine(flashDamage());
             Boss.SetDestination(gameManager.instance.player.transform.position);
 
@@ -221,10 +209,6 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
         Boss.speed = 0;
         yield return new WaitForSeconds(0.1f);
         Boss.speed = origSpeed;
-    }
-    public void createWeapon()
-    {
-        Instantiate(weapon, attackPos.position, transform.rotation);
     }
     IEnumerator flashDamage()
     {
@@ -243,8 +227,8 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")
-            )
+        if (other.CompareTag("Player"))
+            
         {
             playerInRange = true;
         }
