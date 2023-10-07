@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1264989631261699714}
   - component: {fileID: 7287759518747022859}
+  - component: {fileID: -5706539880391236662}
   - component: {fileID: 6050458017119225392}
   - component: {fileID: 7352732647097456351}
   - component: {fileID: 9185984957991456973}
@@ -50,6 +51,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeItem: {fileID: 11400000, guid: e2bf1070161e33d479c0537d3a668301, type: 2}
+--- !u!114 &-5706539880391236662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579425947484361703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1347a61f4824814d8d2dfea1531ad7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponCollider: {fileID: 7188113707954822274}
 --- !u!33 &6050458017119225392
 MeshFilter:
   m_ObjectHideFlags: 0

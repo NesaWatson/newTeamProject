@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 3503214969859128977}
   - component: {fileID: 3195618782249733570}
+  - component: {fileID: 6910537045933233274}
   - component: {fileID: 8260078593934572638}
   - component: {fileID: 8637521910389616693}
   - component: {fileID: 557894977008067555}
   - component: {fileID: -3552708539773051586}
   - component: {fileID: -8457786371375976254}
-  - component: {fileID: 6240190762244024446}
   m_Layer: 0
   m_Name: Katana
   m_TagString: Untagged
@@ -51,6 +51,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeItem: {fileID: 11400000, guid: ea700935e39be8045913686356945e4e, type: 2}
+--- !u!114 &6910537045933233274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9000610123671977874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1347a61f4824814d8d2dfea1531ad7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponCollider: {fileID: 557894977008067555}
 --- !u!33 &8260078593934572638
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -151,27 +164,6 @@ Rigidbody:
   m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!135 &-8457786371375976254
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9000610123671977874}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.66600025
-  m_Center: {x: -0.000094728544, y: 0.0026603732, z: 0.42632866}
---- !u!135 &6240190762244024446
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
