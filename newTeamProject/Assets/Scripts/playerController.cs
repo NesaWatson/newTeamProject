@@ -53,6 +53,7 @@ public class playerController : MonoBehaviour, IDamage
 
     int meleeWeaponSelection;
     private bool isMeleeAttacking;
+    private MeleeController currentMeleeController;
 
     void Start()
     {
@@ -309,6 +310,8 @@ public class playerController : MonoBehaviour, IDamage
         meleeWeaponModel.GetComponent<Renderer>().sharedMaterial = meleeItem.weaponModel.GetComponent<Renderer>().sharedMaterial;
 
         meleeWeaponSelection = meleeWeapons.Count - 1;
+
+        currentMeleeController = meleeWeaponModel.GetComponent<MeleeController>();
     }
 
     void SelectMeleeWeapon()
@@ -338,20 +341,7 @@ public class playerController : MonoBehaviour, IDamage
     IEnumerator MeleeAttack()
     {
         isMeleeAttacking = true;
-
-        RaycastHit hit;
-
-        if (Physics.Raycast(transform.position, transform.forward, out hit, meleeWeaponRange))
-        {
-            IDamage canDamage = hit.collider.GetComponent<IDamage>();
-            if (canDamage != null) 
-            {
-                canDamage.takeDamage(meleeDamage);
-            }
-        }
-
         StartCoroutine(SwingWeapon());
-
         yield return new WaitForSeconds(meleeAttackRate);
         isMeleeAttacking = false;
     }
@@ -362,6 +352,8 @@ public class playerController : MonoBehaviour, IDamage
         float timeElapsed = 0f;
         Quaternion rotationStart = meleeWeaponModel.transform.localRotation;
         Quaternion middleRotation = Quaternion.Euler(-5, -30, 0);
+
+        currentMeleeController.ColliderEnabled();
 
         while (timeElapsed < swingDuration) 
         {
@@ -383,6 +375,8 @@ public class playerController : MonoBehaviour, IDamage
         }
 
         meleeWeaponModel.transform.localRotation = rotationStart;
+
+        currentMeleeController.ColliderDisabled();
     }
 }
 
