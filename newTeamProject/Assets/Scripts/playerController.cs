@@ -53,7 +53,8 @@ public class playerController : MonoBehaviour, IDamage
 
     int meleeWeaponSelection;
     private bool isMeleeAttacking;
-    private MeleeController currentMeleeController;
+    private float lastMeleeAttack = -1f;
+    
 
     void Start()
     {
@@ -73,7 +74,7 @@ public class playerController : MonoBehaviour, IDamage
         itemSelect();
         SelectMeleeWeapon();
 
-        if (Input.GetButton("Shoot") && !isFiring && !gameManager.instance.isPaused && itemStats.Count > 0)
+        if (Input.GetButton("Shoot") && !isFiring && !isMeleeAttacking &&!gameManager.instance.isPaused && itemStats.Count > 0)
         {
             StartCoroutine(shoot());
         }
@@ -83,11 +84,11 @@ public class playerController : MonoBehaviour, IDamage
             Dodge();
         }
 
-        if ((Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Keypad0)) && !isMeleeAttacking && !isFiring
-            && !gameManager.instance.isPaused && meleeWeapons.Count > 0)
+        if ((Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Keypad0)) && !isFiring && !gameManager.instance.isPaused && !isMeleeAttacking && meleeWeapons.Count > 0)
         {
-            StartCoroutine(MeleeAttack());
+            MeleeAttack();
         }
+        
         
     }
 
@@ -310,8 +311,6 @@ public class playerController : MonoBehaviour, IDamage
         meleeWeaponModel.GetComponent<Renderer>().sharedMaterial = meleeItem.weaponModel.GetComponent<Renderer>().sharedMaterial;
 
         meleeWeaponSelection = meleeWeapons.Count - 1;
-
-        currentMeleeController = meleeWeaponModel.GetComponent<MeleeController>();
     }
 
     void SelectMeleeWeapon()
@@ -338,45 +337,27 @@ public class playerController : MonoBehaviour, IDamage
         meleeWeaponModel.GetComponent<Renderer>().sharedMaterial = meleeWeapons[meleeWeaponSelection].weaponModel.GetComponent <Renderer>().sharedMaterial;
     }
 
-    IEnumerator MeleeAttack()
+    void MeleeAttack()
     {
-        isMeleeAttacking = true;
-        StartCoroutine(SwingWeapon());
-        yield return new WaitForSeconds(meleeAttackRate);
-        isMeleeAttacking = false;
-    }
+        if (meleeWeapons == null || meleeWeapons.Count == 0 || meleeWeaponSelection < 0 || meleeWeaponSelection >= meleeWeapons.Count)
+        { return; }
 
-    IEnumerator SwingWeapon()
-    {
-        float swingDuration = meleeAttackRate / 2;
-        float timeElapsed = 0f;
-        Quaternion rotationStart = meleeWeaponModel.transform.localRotation;
-        Quaternion middleRotation = Quaternion.Euler(-5, -30, 0);
 
-        currentMeleeController.ColliderEnabled();
-
-        while (timeElapsed < swingDuration) 
+        if (Time.time - lastMeleeAttack >= meleeAttackRate)
         {
-            timeElapsed += Time.deltaTime;
-            float swing = timeElapsed / swingDuration;
-            meleeWeaponModel.transform.localRotation = Quaternion.Slerp(rotationStart, middleRotation, swing);
-            yield return null;
+            RaycastHit hit;
+
+            if (Physics.Raycast(transform.position, transform.forward, out hit, meleeWeaponRange))
+            {
+                IDamage canDamage = hit.collider.GetComponent<IDamage>();
+                if (canDamage != null) 
+                {
+                    canDamage.takeDamage(meleeDamage);
+                }
+            }
+
+            lastMeleeAttack = Time.time;
         }
-
-        meleeWeaponModel.transform.localRotation = middleRotation;
-        timeElapsed = 0f;
-
-        while(timeElapsed < swingDuration)
-        {
-            timeElapsed += Time.deltaTime;
-            float swing = timeElapsed / swingDuration;
-            meleeWeaponModel.transform.localRotation = Quaternion.Slerp(middleRotation, rotationStart, swing);
-            yield return null;
-        }
-
-        meleeWeaponModel.transform.localRotation = rotationStart;
-
-        currentMeleeController.ColliderDisabled();
     }
 }
 
