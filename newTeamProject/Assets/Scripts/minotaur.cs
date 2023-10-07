@@ -30,6 +30,7 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
 
     [Header("----- Weapon Stats -----")]
     [SerializeField] float attackRate;
+    [SerializeField] float attackRange;
     [SerializeField] int axeDamageAmount;
     [SerializeField] int attackAngle;
 
@@ -62,12 +63,18 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
         {
             float agentVel = Boss.velocity.normalized.magnitude;
 
-            animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime + animSpeed));
+            animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime * animSpeed));
 
             if (playerInRange && canViewPlayer())
             {
                 run = true;
-                StartCoroutine(attack());
+
+                float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+               
+                if (distanceToPlayer <= attackRange && !isAttacking)
+                {
+                    StartCoroutine(attack());
+                }
             }
             else
             {
@@ -178,7 +185,8 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
     }
     void meleeAttack()
     {
-        if (checkPlayerHit())
+        float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+        if (distanceToPlayer <= attackRange)
         {
             playerController player = gameObject.GetComponent<playerController>();
 
@@ -233,8 +241,8 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")
-            )
+        if (other.CompareTag("Player"))
+            
         {
             playerInRange = true;
         }
