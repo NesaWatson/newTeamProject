@@ -83,7 +83,7 @@ public class playerController : MonoBehaviour, IDamage
             Dodge();
         }
 
-        if (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Keypad0) && !isMeleeAttacking && !isFiring
+        if ((Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Keypad0)) && !isMeleeAttacking && !isFiring
             && !gameManager.instance.isPaused && meleeWeapons.Count > 0)
         {
             StartCoroutine(MeleeAttack());

@@ -142,11 +142,19 @@ MonoBehaviour:
   crouchHeight: 1
   standingHeight: 2
   pushBackResolve: 0
+  dodgeSpeed: 25
+  dodgeLength: 0.2
+  dodgeCooldown: 2
   itemStats: []
   itemModel: {fileID: 234804471106886719}
   fireRate: 1
   gunDamage: 1
   shootDistance: 5
+  meleeWeapons: []
+  meleeWeaponModel: {fileID: 0}
+  meleeAttackRate: 0
+  meleeDamage: 0
+  meleeWeaponRange: 0
 --- !u!33 &1908174405567256588
 MeshFilter:
   m_ObjectHideFlags: 0
