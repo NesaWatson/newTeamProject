@@ -184,7 +184,7 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
 
             if (player != null)
             {
-                player.takeDamage(damageAmount);
+                player.takeDamage(axeDamageAmount);
             }
         }
     }
