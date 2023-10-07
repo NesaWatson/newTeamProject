@@ -169,20 +169,6 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
         }
         isAttacking = false;
     }
-    bool checkPlayerHit()
-    {
-        Ray ray = new Ray(attackPos.position, playerTransform.position - attackPos.position);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, attackRate, playerLayer))
-        {
-            if (hit.collider.CompareTag("Player"))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
     void meleeAttack()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);

@@ -182,7 +182,7 @@ Transform:
   m_GameObject: {fileID: 712196798441933069}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0.723, z: 0.214}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4320,15 +4320,16 @@ MonoBehaviour:
   wanderDist: 35
   wanderTime: 31
   dodgeCooldown: 3
-  nextDodgeTime: 0
+  nextDodgeTime: 2
   dodgeAngle: 15
   dodgeDistance: 15
   dodgeDuration: 10
   animSpeed: 2
   attackAnimDelay: 0
   attackRate: 3
+  attackRange: 3
+  axeDamageAmount: 3
   attackAngle: 10
-  weapon: {fileID: 712196798441933069}
 --- !u!95 &5492433326848546137
 Animator:
   serializedVersion: 5
@@ -4359,12 +4360,12 @@ NavMeshAgent:
   m_GameObject: {fileID: 8462190074753942230}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.7
+  m_Radius: 2
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 5
   avoidancePriority: 50
-  m_AngularSpeed: 800
-  m_StoppingDistance: 10
+  m_AngularSpeed: 1000
+  m_StoppingDistance: 5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
@@ -4392,7 +4393,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1
-  m_Height: 4
+  m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 1.25, z: 0}
 --- !u!135 &2798412013830149884
@@ -4414,7 +4415,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 25
+  m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8861422554513086688
 GameObject:
