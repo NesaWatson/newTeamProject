@@ -46,7 +46,6 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
     float origSpeed;
     bool isDodging;
     float lastDodgeTime;
-    bool run;
     GameObject currentAxe;
     public playerController playerController;
 
