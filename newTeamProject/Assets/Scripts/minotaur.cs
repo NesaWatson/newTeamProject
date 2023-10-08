@@ -70,7 +70,7 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
 
             if (playerInRange && canViewPlayer())
             {
-                animate.SetTrigger("run");
+                animate.SetTrigger("Run");
                 float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
 
                 if (distanceToPlayer <= attackRange && !isAttacking)
@@ -85,7 +85,7 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
             }
             else
             {
-                animate.ResetTrigger("run");
+                animate.ResetTrigger("Run");
                 StartCoroutine(wander());
             }
         }
@@ -199,8 +199,8 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
 
         if (HP <= 0)
         {
-            Boss.isStopped = true;
             animate.SetBool("Death", true);
+            Boss.isStopped = true;
             gameManager.instance.updateGameGoal(-1);
         }
         else
