@@ -7,6 +7,7 @@ public class playerController : MonoBehaviour, IDamage
 {
     [Header("----- Components -----")]
     [SerializeField] CharacterController characterController;
+    [SerializeField] private Transform handTransform;
 
     [Header("----- Player Stats -----")]
     [SerializeField] int HP;
@@ -314,8 +315,9 @@ public class playerController : MonoBehaviour, IDamage
         meleeWeaponRange = meleeItem.weaponRange;
         meleeAttackRate = meleeItem.attackSpeed;
 
-        meleeWeaponModel.GetComponent<MeshFilter>().sharedMesh = meleeItem.weaponModel.GetComponent<MeshFilter>().sharedMesh;
-        meleeWeaponModel.GetComponent<Renderer>().sharedMaterial = meleeItem.weaponModel.GetComponent<Renderer>().sharedMaterial;
+        GameObject weaponPickup = Instantiate(meleeItem.weaponPrefab, handTransform.position, handTransform.rotation, handTransform);
+        weaponPickup.transform.localPosition = Vector3.zero;
+        weaponPickup.transform.localRotation = Quaternion.identity;
 
         meleeWeaponSelection = meleeWeapons.Count - 1;
     }
