@@ -35,12 +35,23 @@ public class gameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+
+            this.transform.parent = null;
+
+            DontDestroyOnLoad(this.gameObject);
+
+            GameObject uiObject = GameObject.Find("UI 1");
+            if (uiObject != null) 
+            {
+                DontDestroyOnLoad (uiObject);
+
+                this.transform.SetParent(uiObject.transform, false);
+            }
         }
-        else if (instance != null)
+        else if (instance != this)
         {
             Destroy(gameObject);
-            return;
+            
         }
 
         
