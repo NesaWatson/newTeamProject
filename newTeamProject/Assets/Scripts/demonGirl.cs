@@ -26,11 +26,11 @@ public class demonGirl : MonoBehaviour
     [SerializeField] float attackAnimDelay;
 
     [Header("----- Weapon Stats -----")]
-    [SerializeField] GameObject weapon;
-    [SerializeField] Transform weaponHand;
+    [SerializeField] GameObject demonScythe;
+    [SerializeField] Transform scytheHand;
     [SerializeField] float attackRate;
     [SerializeField] float attackRange;
-    [SerializeField] int weaponDamageAmount;
+    [SerializeField] int scytheDamageAmount;
     [SerializeField] int attackAngle;
 
     Vector3 playerDir;
@@ -182,7 +182,7 @@ public class demonGirl : MonoBehaviour
 
                 if (player != null)
                 {
-                    player.takeDamage(weaponDamageAmount);
+                    player.takeDamage(scytheDamageAmount);
                     Debug.Log("Player took damage");
 
                 }
@@ -202,11 +202,9 @@ public class demonGirl : MonoBehaviour
         }
         else
         {
-
             animate.SetTrigger("Damage");
             StartCoroutine(flashDamage());
             Boss.SetDestination(gameManager.instance.player.transform.position);
-
         }
     }
     IEnumerator flashDamage()
