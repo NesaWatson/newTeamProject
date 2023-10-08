@@ -10,7 +10,6 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent Boss;
     [SerializeField] Animator animate;
-    [SerializeField] Transform attackPos;
     [SerializeField] Transform headPos;
     [SerializeField] LayerMask playerLayer;
 
@@ -18,17 +17,18 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
     [Range(0, 30)][SerializeField] int HP;
     [Range(1, 30)][SerializeField] int targetFaceSpeed;
     [Range(45, 180)][SerializeField] int viewAngle;
+    [Range(45, 180)][SerializeField] int viewDistance;
     [Range(5, 50)][SerializeField] int wanderDist;
     [Range(5, 50)][SerializeField] int wanderTime;
     [SerializeField] float dodgeCooldown;
-    [SerializeField] float nextDodgeTime;
-    [SerializeField] float dodgeAngle;
-    [SerializeField] float dodgeDistance;
-    [SerializeField] float dodgeDuration;
+    [SerializeField] float dodgeLength;
+    [SerializeField] float dodgeSpeed;
     [SerializeField] float animSpeed;
     [SerializeField] float attackAnimDelay;
 
     [Header("----- Weapon Stats -----")]
+    [SerializeField] GameObject axe;
+    [SerializeField] Transform axeHand;
     [SerializeField] float attackRate;
     [SerializeField] float attackRange;
     [SerializeField] int axeDamageAmount;
@@ -45,7 +45,10 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
     Transform playerTransform;
     float origSpeed;
     bool isDodging;
+    float lastDodgeTime;
     bool run;
+    GameObject currentAxe;
+    public playerController playerController;
 
     void Start()
     {
@@ -67,26 +70,51 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
 
             if (playerInRange && canViewPlayer())
             {
-                run = true;
-
+                animate.SetTrigger("run");
                 float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
-               
+
                 if (distanceToPlayer <= attackRange && !isAttacking)
                 {
-                    StartCoroutine(attack());
+                    animate.SetTrigger("Attack");
+                    StartCoroutine(meleeAttack());
+                }
+                else if(playerController.isShooting)
+                {
+                    dodge();
                 }
             }
             else
             {
-                run = false;
+                animate.ResetTrigger("run");
                 StartCoroutine(wander());
             }
-            animate.SetBool("run", run);
         }
     }
-        IEnumerator resetDodge(float duration)
+    void dodge()
     {
-        yield return new WaitForSeconds(duration);
+        Debug.Log("Dodge function called."); 
+
+        if (isDodging && Time.time > lastDodgeTime + dodgeCooldown)
+        {
+            StartCoroutine(dodgeMovement());
+            lastDodgeTime = Time.time; 
+        }
+    }
+    IEnumerator dodgeMovement()
+    {
+        Debug.Log("DodgeMovement coroutine started."); 
+
+        isDodging = true;
+
+        Vector3 dodgeDirection = transform.position - playerTransform.position;
+        dodgeDirection.Normalize();
+        float dodgeStart = Time.time;
+
+        while(Time.time < dodgeStart + dodgeLength)
+        {
+            Boss.Move(dodgeDirection * dodgeSpeed * Time.deltaTime);
+            yield return null;
+        }
         isDodging = false;
     }
     IEnumerator wander()
@@ -115,37 +143,23 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
         Debug.Log(angleToPlayer);
         Debug.DrawRay(headPos.position, playerDir);
 #endif
+        Debug.DrawRay(headPos.position, playerDir, Color.red);
         RaycastHit hit;
-        if (Physics.Raycast(headPos.position, playerDir, out hit))
+        if (Physics.Raycast(headPos.position, playerDir, out hit, viewDistance, playerLayer))
         {
+
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 Boss.stoppingDistance = stoppingDistOrig;
+                Boss.SetDestination(gameManager.instance.player.transform.position);
 
-                if (!isDodging && angleToPlayer <= dodgeAngle && Time.time > nextDodgeTime)
+                if (Boss.remainingDistance <= Boss.stoppingDistance)
                 {
-                    isDodging = true;
-                    nextDodgeTime = Time.time + dodgeCooldown;
+                    faceTarget();
 
-                    Vector3 dodgeDirection = (transform.right * Random.Range(-1f, 1f)).normalized;
-
-                    Vector3 dodgePosition = transform.position + dodgeDirection * dodgeDistance;
-                    Boss.SetDestination(dodgePosition);
-
-                    StartCoroutine(resetDodge(dodgeDuration));
-                }
-                else
-                {
-                    Boss.SetDestination(gameManager.instance.player.transform.position);
-
-                    if (Boss.remainingDistance <= Boss.stoppingDistance)
+                    if (!isAttacking && angleToPlayer <= attackAngle)
                     {
-                        faceTarget();
-
-                        if (!isAttacking && angleToPlayer <= attackAngle)
-                        {
-                            StartCoroutine(attack());
-                        }
+                        StartCoroutine(meleeAttack());
                     }
                 }
                 return true;
@@ -154,44 +168,38 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
         Boss.stoppingDistance = 0;
         return false;
     }
-    IEnumerator attack()
+    IEnumerator meleeAttack()
     {
-        while (playerInRange)
+        if (!isAttacking)
         {
             isAttacking = true;
             animate.SetTrigger("Attack");
+
             yield return new WaitForSeconds(attackAnimDelay);
 
-            meleeAttack();
-
-            yield return new WaitForSeconds(attackRate);
-
-        }
-        isAttacking = false;
-    }
-    void meleeAttack()
-    {
-        float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
-        if (distanceToPlayer <= attackRange)
-        {
-            playerController player = gameObject.GetComponent<playerController>();
-
-            if (player != null)
+            float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+            if (distanceToPlayer <= attackRange)
             {
-                player.takeDamage(axeDamageAmount);
+                playerController player = playerTransform.GetComponent<playerController>(); 
+
+                if (player != null)
+                {
+                    player.takeDamage(axeDamageAmount);
+                    Debug.Log("Player took damage");
+
+                }
             }
+            isAttacking = false;
         }
     }
     public void takeDamage(int amount)
     {
         HP -= amount;
-        Boss.SetDestination(gameManager.instance.player.transform.position);
+        //Boss.SetDestination(gameManager.instance.player.transform.position);
 
         if (HP <= 0)
         {
-
-            Boss.enabled = false;
-            stopMoving();
+            Boss.isStopped = true;
             animate.SetBool("Death", true);
             gameManager.instance.updateGameGoal(-1);
         }
@@ -203,12 +211,6 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
             Boss.SetDestination(gameManager.instance.player.transform.position);
 
         }
-    }
-    IEnumerator stopMoving()
-    {
-        Boss.speed = 0;
-        yield return new WaitForSeconds(0.1f);
-        Boss.speed = origSpeed;
     }
     IEnumerator flashDamage()
     {
@@ -238,6 +240,7 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
+            Destroy(currentAxe); 
         }
     }
 }
