@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 557894977008067555}
   - component: {fileID: -3552708539773051586}
   - component: {fileID: -8457786371375976254}
+  - component: {fileID: 4144176601961037092}
   m_Layer: 0
   m_Name: Katana
   m_TagString: Untagged
@@ -170,3 +171,24 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.66600025
   m_Center: {x: -0.000094728544, y: 0.0026603732, z: 0.42632866}
+--- !u!95 &4144176601961037092
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9000610123671977874}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 666744f7efd1b67499cec2d8b5995b03, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
