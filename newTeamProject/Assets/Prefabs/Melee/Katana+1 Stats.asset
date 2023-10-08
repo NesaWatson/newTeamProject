@@ -13,9 +13,16 @@ MonoBehaviour:
   m_Name: Katana+1 Stats
   m_EditorClassIdentifier: 
   weaponModel: {fileID: 6326448281383894542, guid: d8174bce5fec00d499cabeee5f5fa5d1, type: 3}
+  weaponName: KatanaPlus
   attackSound: {fileID: 0}
   hitSound: {fileID: 0}
   hitEffect: {fileID: 2339929684849522983, guid: 87e40f94251220648852b47ba3621f13, type: 3}
   attackSpeed: 0.3
   weaponRange: 10
   weaponDamage: 4
+  doesBleed: 0
+  bleedTime: 5
+  bleedDPS: 0.5
+  canBurn: 0
+  burnTime: 5
+  burnDPS: 1

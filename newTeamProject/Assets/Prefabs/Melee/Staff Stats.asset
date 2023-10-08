@@ -13,9 +13,16 @@ MonoBehaviour:
   m_Name: Staff Stats
   m_EditorClassIdentifier: 
   weaponModel: {fileID: 579425947484361703, guid: 7a92358cb6040e049877d0452286932f, type: 3}
+  weaponName: Staff
   attackSound: {fileID: 0}
   hitSound: {fileID: 0}
   hitEffect: {fileID: 2339929684849522983, guid: 87e40f94251220648852b47ba3621f13, type: 3}
   attackSpeed: 0.5
   weaponRange: 10
   weaponDamage: 2
+  doesBleed: 0
+  bleedTime: 5
+  bleedDPS: 0.5
+  canBurn: 0
+  burnTime: 5
+  burnDPS: 1

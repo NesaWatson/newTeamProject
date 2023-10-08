@@ -18,5 +18,6 @@ MonoBehaviour:
   ammoCur: 5
   ammoMax: 5
   model: {fileID: 6263271051341638267, guid: 396c45ccb5d2fbd48bab2e60d927cbcd, type: 3}
+  weaponName: Shotgun
   hitEffect: {fileID: 8224417693137495709, guid: 5d153a145f3f0274b862f99d2ebdbbeb, type: 3}
   shotSound: {fileID: 0}

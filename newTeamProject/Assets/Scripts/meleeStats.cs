@@ -5,8 +5,7 @@ using UnityEngine;
 public class meleeStats : ScriptableObject
 {
     public GameObject weaponModel;
-    public GameObject weaponGameObject;
-    public GameObject weaponPrefab;
+    public string weaponName;
 
     public AudioClip attackSound;
     public AudioClip hitSound;

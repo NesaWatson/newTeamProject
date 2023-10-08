@@ -11,6 +11,8 @@ public class ItemStats : ScriptableObject
     public int ammoMax;
 
     public GameObject model;
+    public string weaponName;
+
     public ParticleSystem hitEffect;
     public AudioClip shotSound;
 }

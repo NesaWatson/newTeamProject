@@ -10,7 +10,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] private Transform handTransform;
 
     [Header("----- Player Stats -----")]
-    [SerializeField] int HP;
+    [SerializeField] public int HP;
     [SerializeField] float characterSpeed;
     [SerializeField] float jumpHeight;
     [SerializeField] int jumpAmount;
@@ -76,7 +76,7 @@ public class playerController : MonoBehaviour, IDamage
         itemSelect();
         SelectMeleeWeapon();
 
-        if (Input.GetButton("Shoot") && !isFiring && !isMeleeAttacking &&!gameManager.instance.isPaused && itemStats.Count > 0)
+        if (Input.GetButton("Shoot") && !isFiring && itemStats[itemSelected].ammoCur > 0 && !isMeleeAttacking &&!gameManager.instance.isPaused && itemStats.Count > 0)
         {
             StartCoroutine(shoot());
             isShooting = true;
@@ -292,6 +292,11 @@ public class playerController : MonoBehaviour, IDamage
 
     public void AmmoRefill()
     {
+        if (itemSelected < 0 || itemSelected >= itemStats.Count)
+        {
+            return;
+        }
+
         foreach (ItemStats item in itemStats)
         {
             item.ammoCur = item.ammoMax;
@@ -315,9 +320,8 @@ public class playerController : MonoBehaviour, IDamage
         meleeWeaponRange = meleeItem.weaponRange;
         meleeAttackRate = meleeItem.attackSpeed;
 
-        GameObject weaponPickup = Instantiate(meleeItem.weaponPrefab, handTransform.position, handTransform.rotation, handTransform);
-        weaponPickup.transform.localPosition = Vector3.zero;
-        weaponPickup.transform.localRotation = Quaternion.identity;
+        meleeWeaponModel.GetComponent<MeshFilter>().sharedMesh = meleeWeapons[meleeWeaponSelection].weaponModel.GetComponent<MeshFilter>().sharedMesh;
+        meleeWeaponModel.GetComponent<Renderer>().sharedMaterial = meleeWeapons[meleeWeaponSelection].weaponModel.GetComponent<Renderer>().sharedMaterial;
 
         meleeWeaponSelection = meleeWeapons.Count - 1;
     }
@@ -368,5 +372,39 @@ public class playerController : MonoBehaviour, IDamage
             lastMeleeAttack = Time.time;
         }
     }
+
+    public int GetPlayerHP()
+    {
+        return HP;
+    }
+
+    public int GetItemStatsCount()
+    {
+        return itemStats.Count;
+    }
+
+    public int GetMeleeWeaponsCount()
+    {
+        return meleeWeapons.Count;
+    }
+
+    public ItemStats GetItemStat(int index)
+    {
+        if ((index >= 0) && index < itemStats.Count)
+        {
+            return itemStats[index];
+        }
+        return null;
+    }
+
+    public meleeStats GetMeleeWeapon(int index)
+    {
+        if ((index >= 0) && index < meleeWeapons.Count)
+        {
+            return meleeWeapons[index];
+        }
+        return null;
+    }
+
 }
 

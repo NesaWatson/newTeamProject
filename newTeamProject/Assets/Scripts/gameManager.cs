@@ -32,7 +32,18 @@ public class gameManager : MonoBehaviour
 
     void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
@@ -105,9 +116,40 @@ public class gameManager : MonoBehaviour
         checkPointMenu.SetActive(false);
    }
 
-    public void UpdateAmmoUI(int currentAmmo, int maxAmmo)
-    {
+   public void UpdateAmmoUI(int currentAmmo, int maxAmmo)
+   {
         ammoText.text = $"{currentAmmo}/{maxAmmo}";
+   }
+
+    public void SavePlayerState()
+    {
+        //save player's current state upon completing level
+        int playerHP = playerScript.GetPlayerHP();
+        PlayerPrefs.SetInt("Player_HP", playerHP);
+
+
+        int itemCount = playerScript.GetItemStatsCount();
+        PlayerPrefs.SetInt("ItemStats_Count", itemCount);
+        for (int i = 0; i < itemCount; i++) 
+        {
+            ItemStats item = playerScript.GetItemStat(i);
+            if (item != null) 
+            {
+                PlayerPrefs.SetString($"Gun_{i}", item.weaponName);
+            }
+        }
+
+
+        int meleeCount = playerScript.GetMeleeWeaponsCount();
+        PlayerPrefs.SetInt("MeleeWeapons_Count", meleeCount);
+        for (int i = 0;i < meleeCount; i++)
+        {
+            meleeStats meleeWeapon = playerScript.GetMeleeWeapon(i);
+            if (meleeWeapon != null) 
+            {
+                PlayerPrefs.SetString($"Melee_{i}", meleeWeapon.weaponName);
+            }
+        }
     }
   
    
