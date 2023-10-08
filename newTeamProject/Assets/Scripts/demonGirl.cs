@@ -1,16 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class spiderQueen : MonoBehaviour, IDamage, IPhysics
+public class demonGirl : MonoBehaviour
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent Boss;
     [SerializeField] Animator animate;
-    [SerializeField] Transform attackPos;
     [SerializeField] Transform headPos;
     [SerializeField] LayerMask playerLayer;
 
@@ -18,20 +16,22 @@ public class spiderQueen : MonoBehaviour, IDamage, IPhysics
     [Range(0, 30)][SerializeField] int HP;
     [Range(1, 30)][SerializeField] int targetFaceSpeed;
     [Range(45, 180)][SerializeField] int viewAngle;
+    [Range(45, 180)][SerializeField] int viewDistance;
     [Range(5, 50)][SerializeField] int wanderDist;
     [Range(5, 50)][SerializeField] int wanderTime;
     [SerializeField] float dodgeCooldown;
-    [SerializeField] float nextDodgeTime;
-    [SerializeField] float dodgeAngle;
-    [SerializeField] float dodgeDistance;
-    [SerializeField] float dodgeDuration;
+    [SerializeField] float dodgeLength;
+    [SerializeField] float dodgeSpeed;
     [SerializeField] float animSpeed;
     [SerializeField] float attackAnimDelay;
 
     [Header("----- Weapon Stats -----")]
-    [SerializeField] float attackRate;
-    [SerializeField] int attackAngle;
     [SerializeField] GameObject weapon;
+    [SerializeField] Transform weaponHand;
+    [SerializeField] float attackRate;
+    [SerializeField] float attackRange;
+    [SerializeField] int weaponDamageAmount;
+    [SerializeField] int attackAngle;
 
     Vector3 playerDir;
     Vector3 pushBack;
@@ -44,6 +44,9 @@ public class spiderQueen : MonoBehaviour, IDamage, IPhysics
     Transform playerTransform;
     float origSpeed;
     bool isDodging;
+    float lastDodgeTime;
+    GameObject currentAxe;
+    public playerController playerController;
 
     void Start()
     {
@@ -61,21 +64,55 @@ public class spiderQueen : MonoBehaviour, IDamage, IPhysics
         {
             float agentVel = Boss.velocity.normalized.magnitude;
 
-            animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime + animSpeed));
+            animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime * animSpeed));
 
             if (playerInRange && canViewPlayer())
             {
-                StartCoroutine(attack());
+                animate.SetTrigger("Run");
+                float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+
+                if (distanceToPlayer <= attackRange && !isAttacking)
+                {
+                    animate.SetTrigger("Attack");
+                    StartCoroutine(meleeAttack());
+                }
+                else if (playerController.isShooting)
+                {
+                    dodge();
+                }
             }
             else
             {
+                animate.ResetTrigger("Run");
                 StartCoroutine(wander());
             }
         }
     }
-    IEnumerator resetDodge(float duration)
+    void dodge()
     {
-        yield return new WaitForSeconds(duration);
+        Debug.Log("Dodge function called.");
+
+        if (isDodging && Time.time > lastDodgeTime + dodgeCooldown)
+        {
+            StartCoroutine(dodgeMovement());
+            lastDodgeTime = Time.time;
+        }
+    }
+    IEnumerator dodgeMovement()
+    {
+        Debug.Log("DodgeMovement coroutine started.");
+
+        isDodging = true;
+
+        Vector3 dodgeDirection = transform.position - playerTransform.position;
+        dodgeDirection.Normalize();
+        float dodgeStart = Time.time;
+
+        while (Time.time < dodgeStart + dodgeLength)
+        {
+            Boss.Move(dodgeDirection * dodgeSpeed * Time.deltaTime);
+            yield return null;
+        }
         isDodging = false;
     }
     IEnumerator wander()
@@ -104,37 +141,23 @@ public class spiderQueen : MonoBehaviour, IDamage, IPhysics
         Debug.Log(angleToPlayer);
         Debug.DrawRay(headPos.position, playerDir);
 #endif
+        Debug.DrawRay(headPos.position, playerDir, Color.red);
         RaycastHit hit;
-        if (Physics.Raycast(headPos.position, playerDir, out hit))
+        if (Physics.Raycast(headPos.position, playerDir, out hit, viewDistance, playerLayer))
         {
+
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 Boss.stoppingDistance = stoppingDistOrig;
+                Boss.SetDestination(gameManager.instance.player.transform.position);
 
-                if (!isDodging && angleToPlayer <= dodgeAngle && Time.time > nextDodgeTime)
+                if (Boss.remainingDistance <= Boss.stoppingDistance)
                 {
-                    isDodging = true;
-                    nextDodgeTime = Time.time + dodgeCooldown;
+                    faceTarget();
 
-                    Vector3 dodgeDirection = (transform.right * Random.Range(-1f, 1f)).normalized;
-
-                    Vector3 dodgePosition = transform.position + dodgeDirection * dodgeDistance;
-                    Boss.SetDestination(dodgePosition);
-
-                    StartCoroutine(resetDodge(dodgeDuration));
-                }
-                else
-                {
-                    Boss.SetDestination(gameManager.instance.player.transform.position);
-
-                    if (Boss.remainingDistance <= Boss.stoppingDistance)
+                    if (!isAttacking && angleToPlayer <= attackAngle)
                     {
-                        faceTarget();
-
-                        if (!isAttacking && angleToPlayer <= attackAngle)
-                        {
-                            StartCoroutine(attack());
-                        }
+                        StartCoroutine(meleeAttack());
                     }
                 }
                 return true;
@@ -143,63 +166,38 @@ public class spiderQueen : MonoBehaviour, IDamage, IPhysics
         Boss.stoppingDistance = 0;
         return false;
     }
-    IEnumerator attack()
+    IEnumerator meleeAttack()
     {
-        while (playerInRange)
+        if (!isAttacking)
         {
             isAttacking = true;
             animate.SetTrigger("Attack");
+
             yield return new WaitForSeconds(attackAnimDelay);
 
-            if (playerInRange)
+            float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+            if (distanceToPlayer <= attackRange)
             {
-                createWeapon();
+                playerController player = playerTransform.GetComponent<playerController>();
 
-                bool playerHit = checkPlayerHit();
-                if (playerHit)
+                if (player != null)
                 {
-                    dealDamageToPlayer();
+                    player.takeDamage(weaponDamageAmount);
+                    Debug.Log("Player took damage");
+
                 }
             }
-            yield return new WaitForSeconds(attackRate);
-        }
-        isAttacking = false;
-    }
-    bool checkPlayerHit()
-    {
-        Ray ray = new Ray(attackPos.position, playerTransform.position - attackPos.position);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, attackRate, playerLayer))
-        {
-            if (hit.collider.CompareTag("Player"))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-    void dealDamageToPlayer()
-    {
-        playerController player = gameObject.GetComponent<playerController>();
-
-        if (player != null)
-        {
-            int damageAmount = 10;
-            player.takeDamage(damageAmount);
+            isAttacking = false;
         }
     }
     public void takeDamage(int amount)
     {
         HP -= amount;
-        Boss.SetDestination(gameManager.instance.player.transform.position);
 
         if (HP <= 0)
         {
-
-            Boss.enabled = false;
-            stopMoving();
             animate.SetBool("Death", true);
+            Boss.isStopped = true;
             gameManager.instance.updateGameGoal(-1);
         }
         else
@@ -210,16 +208,6 @@ public class spiderQueen : MonoBehaviour, IDamage, IPhysics
             Boss.SetDestination(gameManager.instance.player.transform.position);
 
         }
-    }
-    IEnumerator stopMoving()
-    {
-        Boss.speed = 0;
-        yield return new WaitForSeconds(0.1f);
-        Boss.speed = origSpeed;
-    }
-    public void createWeapon()
-    {
-        Instantiate(weapon, attackPos.position, transform.rotation);
     }
     IEnumerator flashDamage()
     {
@@ -238,8 +226,8 @@ public class spiderQueen : MonoBehaviour, IDamage, IPhysics
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")
-            )
+        if (other.CompareTag("Player"))
+
         {
             playerInRange = true;
         }
@@ -249,8 +237,8 @@ public class spiderQueen : MonoBehaviour, IDamage, IPhysics
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
+            Destroy(currentAxe);
         }
     }
 }
-
 

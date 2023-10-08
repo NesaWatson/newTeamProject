@@ -166,6 +166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8374127426882123530}
   - component: {fileID: 5731284979944239247}
+  - component: {fileID: 3837843047853831866}
   m_Layer: 0
   m_Name: mino_axe
   m_TagString: Untagged
@@ -182,11 +183,10 @@ Transform:
   m_GameObject: {fileID: 712196798441933069}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.723, z: 0.214}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0, y: 0.723, z: -0.22}
+  m_LocalScale: {x: 0.37922, y: 0.49888402, z: 0.9677}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4541389509967000729}
+  m_Children: []
   m_Father: {fileID: 5118816061112141514}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &5731284979944239247
@@ -298,6 +298,29 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.2392193, y: -0.44138673, z: 0.4786701}
     m_Extent: {x: 0.47356153, y: 0.6956465, z: 0.123298675}
   m_DirtyAABB: 0
+--- !u!136 &3837843047853831866
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712196798441933069}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.7794638
+  m_Height: 1
+  m_Direction: 0
+  m_Center: {x: 0.5, y: 0.5, z: 0.5}
 --- !u!1 &718032356044462937
 GameObject:
   m_ObjectHideFlags: 0
@@ -4193,37 +4216,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3662607156503501}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8239858533626355695
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4541389509967000729}
-  m_Layer: 0
-  m_Name: attackPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4541389509967000729
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8239858533626355695}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.422, y: 0.26, z: 0.53}
-  m_LocalScale: {x: 5, y: 5, z: 5}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8374127426882123530}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8346721014059747768
 GameObject:
   m_ObjectHideFlags: 0
@@ -4341,7 +4333,6 @@ MonoBehaviour:
   model: {fileID: 9171908553021516525}
   Boss: {fileID: 4545230494877163182}
   animate: {fileID: 5492433326848546137}
-  attackPos: {fileID: 8374127426882123530}
   headPos: {fileID: 1912452038400947143}
   playerLayer:
     serializedVersion: 2
@@ -4349,19 +4340,21 @@ MonoBehaviour:
   HP: 22
   targetFaceSpeed: 30
   viewAngle: 103
+  viewDistance: 180
   wanderDist: 35
   wanderTime: 31
   dodgeCooldown: 3
-  nextDodgeTime: 2
-  dodgeAngle: 15
-  dodgeDistance: 15
-  dodgeDuration: 10
+  dodgeLength: 2
+  dodgeSpeed: 5
   animSpeed: 2
-  attackAnimDelay: 0
-  attackRate: 3
-  attackRange: 3
+  attackAnimDelay: 2
+  axe: {fileID: 712196798441933069}
+  axeHand: {fileID: 4958864927445391913}
+  attackRate: 1
+  attackRange: 5
   axeDamageAmount: 3
   attackAngle: 10
+  playerController: {fileID: 0}
 --- !u!95 &5492433326848546137
 Animator:
   serializedVersion: 5
@@ -4393,7 +4386,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 2
-  m_Speed: 3.5
+  m_Speed: 5
   m_Acceleration: 5
   avoidancePriority: 50
   m_AngularSpeed: 1000
