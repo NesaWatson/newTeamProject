@@ -18,5 +18,6 @@ MonoBehaviour:
   ammoCur: 16
   ammoMax: 16
   model: {fileID: 721233692884367416, guid: 857b5dcce4162e64cb2f142de88791b5, type: 3}
+  weaponName: SilencedPistol
   hitEffect: {fileID: 8224417693137495709, guid: 5d153a145f3f0274b862f99d2ebdbbeb, type: 3}
   shotSound: {fileID: 0}

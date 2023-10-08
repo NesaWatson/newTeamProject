@@ -13,9 +13,16 @@ MonoBehaviour:
   m_Name: Axe Stats
   m_EditorClassIdentifier: 
   weaponModel: {fileID: 5632429822559926848, guid: 7f390a43e8adb994f9bfce40bc2a200b, type: 3}
+  weaponName: Axe
   attackSound: {fileID: 0}
   hitSound: {fileID: 0}
   hitEffect: {fileID: 2339929684849522983, guid: 87e40f94251220648852b47ba3621f13, type: 3}
   attackSpeed: 1.5
   weaponRange: 10
   weaponDamage: 4
+  doesBleed: 0
+  bleedTime: 5
+  bleedDPS: 0.5
+  canBurn: 0
+  burnTime: 5
+  burnDPS: 1

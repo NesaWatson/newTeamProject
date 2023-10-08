@@ -13,9 +13,16 @@ MonoBehaviour:
   m_Name: Bleed Katana Stats
   m_EditorClassIdentifier: 
   weaponModel: {fileID: 5702237254320509318, guid: 3573490af4e60f149a7a531da89a2359, type: 3}
+  weaponName: Bleed Katana
   attackSound: {fileID: 0}
   hitSound: {fileID: 0}
   hitEffect: {fileID: 2339929684849522983, guid: 87e40f94251220648852b47ba3621f13, type: 3}
   attackSpeed: 0.25
   weaponRange: 12
   weaponDamage: 6
+  doesBleed: 0
+  bleedTime: 5
+  bleedDPS: 0.5
+  canBurn: 0
+  burnTime: 5
+  burnDPS: 1
