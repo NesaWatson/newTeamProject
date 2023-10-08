@@ -32,34 +32,10 @@ public class gameManager : MonoBehaviour
 
     void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-
-            this.transform.parent = null;
-
-            DontDestroyOnLoad(this.gameObject);
-
-            GameObject uiObject = GameObject.Find("UI 1");
-            if (uiObject != null) 
-            {
-                DontDestroyOnLoad (uiObject);
-
-                this.transform.SetParent(uiObject.transform, false);
-            }
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-            
-        }
-
-        
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         ammoText.gameObject.SetActive(false);
-       
     }
 
     // Update is called once per frame

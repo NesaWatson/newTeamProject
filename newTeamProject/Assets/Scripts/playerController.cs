@@ -76,15 +76,19 @@ public class playerController : MonoBehaviour, IDamage
         itemSelect();
         SelectMeleeWeapon();
 
-        if (Input.GetButton("Shoot") && !isFiring && itemStats[itemSelected].ammoCur > 0 && !isMeleeAttacking &&!gameManager.instance.isPaused && itemStats.Count > 0)
+
+        if (itemSelected >= 0 && itemSelected < itemStats.Count)
         {
-            StartCoroutine(shoot());
-            isShooting = true;
-        }
-        else
-        {
-            StopCoroutine(shoot());
-            isShooting = false;
+            if (Input.GetButton("Shoot") && !isFiring && itemStats[itemSelected].ammoCur > 0 && !isMeleeAttacking && !gameManager.instance.isPaused && itemStats.Count > 0)
+            {
+                StartCoroutine(shoot());
+                isShooting = true;
+            }
+            else
+            {
+                StopCoroutine(shoot());
+                isShooting = false;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
