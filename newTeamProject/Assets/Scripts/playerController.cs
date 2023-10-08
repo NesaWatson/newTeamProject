@@ -54,6 +54,7 @@ public class playerController : MonoBehaviour, IDamage
     int meleeWeaponSelection;
     private bool isMeleeAttacking;
     private float lastMeleeAttack = -1f;
+    public bool isShooting = false;
     
 
     void Start()
@@ -77,6 +78,12 @@ public class playerController : MonoBehaviour, IDamage
         if (Input.GetButton("Shoot") && !isFiring && !isMeleeAttacking &&!gameManager.instance.isPaused && itemStats.Count > 0)
         {
             StartCoroutine(shoot());
+            isShooting = true;
+        }
+        else
+        {
+            StopCoroutine(shoot());
+            isShooting = false;
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
