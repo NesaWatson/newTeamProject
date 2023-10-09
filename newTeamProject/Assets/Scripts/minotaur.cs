@@ -77,7 +77,7 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
                     animate.SetTrigger("Attack");
                     StartCoroutine(meleeAttack());
                 }
-                else if(playerController.isShooting)
+                else if(playerController.isFiring)
                 {
                     dodge();
                 }
