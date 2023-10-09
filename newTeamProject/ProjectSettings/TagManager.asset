@@ -13,6 +13,7 @@ TagManager:
   - Minotaur
   - Demon Girl
   - Golem
+  - Orc Thing
   layers:
   - Default
   - TransparentFX
@@ -26,8 +27,8 @@ TagManager:
   - Shuriken
   - Minotaur
   - DemonGirl
-  - 
-  - 
+  - Golem
+  - OrcThing
   - 
   - 
   - 

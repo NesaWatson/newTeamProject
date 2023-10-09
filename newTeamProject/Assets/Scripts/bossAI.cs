@@ -138,6 +138,7 @@ public class bossAI : MonoBehaviour, IDamage, IPhysics
             stopMoving();
             animate.SetBool("Death", true);
             gameManager.instance.updateGameGoal(-1);
+            Destroy(gameObject);
         }
         else
         {
