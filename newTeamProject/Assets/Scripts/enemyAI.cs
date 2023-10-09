@@ -36,6 +36,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     float stoppingDistOrig;
     float angleToPlayer;
     bool wanderDestination;
+    int MaxHp;
     Vector3 startingPos;
     enemySpawner spawner;
     Transform playerTransform;
@@ -43,15 +44,20 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     bool isAlerted;
     bool canSeePlayer;
     float lastTeleportTime;
-
+    
+    public UiEnemyHealthBar uiHealthBar;
     void Start()
     {
+       
+
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
        
 
         playerTransform = gameManager.instance.player.transform;
         spawner = FindObjectOfType<enemySpawner>();
+        MaxHp = HP;
+       
 
         enemyManager.instance.registerEnemy(this);
         gameManager.instance.updateGameGoal(1);
@@ -194,24 +200,31 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     }
     public void takeDamage(int amount)
     {
-        HP -= amount;
-        StartCoroutine(stopMoving());
-        agent.SetDestination(gameManager.instance.player.transform.position);
+        if (uiHealthBar != null)
+        {
 
-        if (HP <= 0)
-        {
-            agent.enabled = false;
-            stopMoving();
-            animate.SetBool("Death", true);
-            StopAllCoroutines();
-            
-        }
-        else
-        {
-            animate.SetTrigger("Damage");
-            StartCoroutine(flashDamage());
+
+            HP = -amount;
+            uiHealthBar.SetHealth(HP);
+            StartCoroutine(stopMoving());
             agent.SetDestination(gameManager.instance.player.transform.position);
 
+
+            if (HP <= 0)
+            {
+                agent.enabled = false;
+                stopMoving();
+                animate.SetBool("Death", true);
+                StopAllCoroutines();
+
+            }
+            else
+            {
+                animate.SetTrigger("Damage");
+                StartCoroutine(flashDamage());
+                agent.SetDestination(gameManager.instance.player.transform.position);
+
+            }
         }
     }
     IEnumerator stopMoving()
