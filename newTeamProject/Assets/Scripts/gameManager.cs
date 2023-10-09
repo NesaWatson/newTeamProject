@@ -65,8 +65,8 @@ public class gameManager : MonoBehaviour
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         ammoText.gameObject.SetActive(false);
 
-        saveButton.onClick.AddListener(Save);
-        loadButton.onClick.AddListener(Load);
+        //saveButton.onClick.AddListener(Save);
+        //loadButton.onClick.AddListener(Load);
 
     }
 
@@ -80,20 +80,20 @@ public class gameManager : MonoBehaviour
             activeMenu.SetActive(isPaused);
         }
     }
-    private void Save()
-    {
-        gameData saveData = new gameData();
-        saveSystem.SaveGame(saveData);
-    }
+    //private void Save()
+    //{
+    //    gameData saveData = new gameData();
+    //    saveSystem.SaveGame(saveData);
+    //}
 
-    private void Load()
-    {
-        gameData savedData = saveSystem.LoadGame();
-        if (savedData != null)
-        {
-            Console.WriteLine("File does not exist");
-        }
-    }
+    //private void Load()
+    //{
+    //    gameData savedData = saveSystem.LoadGame();
+    //    if (savedData != null)
+    //    {
+    //        Console.WriteLine("File does not exist");
+    //    }
+    //}
     public void statePause()
     {
         Time.timeScale = 0;
