@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
+using System;
 
 public class gameManager : MonoBehaviour
 {
+    public gameData currentgameData;
     public static gameManager instance;
 
     public GameObject player;
@@ -23,7 +25,11 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject playerFlashDamage;
     [SerializeField] GameObject checkPointMenu;
     [SerializeField] TMP_Text enemiesRemainingText;
-    
+
+    public Button saveButton;
+    public Button loadButton;
+
+
     public GameObject playerSpawnPos;
 
     [SerializeField] int enemiesRemaining;
@@ -58,6 +64,10 @@ public class gameManager : MonoBehaviour
 
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         ammoText.gameObject.SetActive(false);
+
+        saveButton.onClick.AddListener(Save);
+        loadButton.onClick.AddListener(Load);
+
     }
 
     // Update is called once per frame
@@ -68,6 +78,20 @@ public class gameManager : MonoBehaviour
             statePause();
             activeMenu = pauseMenu;
             activeMenu.SetActive(isPaused);
+        }
+    }
+    private void Save()
+    {
+        gameData saveData = new gameData();
+        saveSystem.SaveGame(saveData);
+    }
+
+    private void Load()
+    {
+        gameData savedData = saveSystem.LoadGame();
+        if (savedData != null)
+        {
+            Console.WriteLine("File does not exist");
         }
     }
     public void statePause()
@@ -158,6 +182,4 @@ public class gameManager : MonoBehaviour
             }
         }
     }
-  
-   
 }
