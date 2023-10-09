@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class demonGirl : MonoBehaviour
+public class demonGirl : MonoBehaviour, IDamage, IPhysics
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
@@ -26,7 +27,7 @@ public class demonGirl : MonoBehaviour
     [SerializeField] float attackAnimDelay;
 
     [Header("----- Weapon Stats -----")]
-    [SerializeField] GameObject demonScythe;
+    [SerializeField] GameObject scythe;
     [SerializeField] Transform scytheHand;
     [SerializeField] float attackRate;
     [SerializeField] float attackRange;
@@ -45,7 +46,7 @@ public class demonGirl : MonoBehaviour
     float origSpeed;
     bool isDodging;
     float lastDodgeTime;
-    GameObject currentAxe;
+    GameObject currentScythe;
     public playerController playerController;
 
     void Start()
@@ -76,7 +77,7 @@ public class demonGirl : MonoBehaviour
                     animate.SetTrigger("Attack");
                     StartCoroutine(meleeAttack());
                 }
-                else if (playerController.isShooting)
+                else if (playerController.isFiring)
                 {
                     dodge();
                 }
@@ -183,8 +184,6 @@ public class demonGirl : MonoBehaviour
                 if (player != null)
                 {
                     player.takeDamage(scytheDamageAmount);
-                    Debug.Log("Player took damage");
-
                 }
             }
             isAttacking = false;
@@ -193,6 +192,7 @@ public class demonGirl : MonoBehaviour
     public void takeDamage(int amount)
     {
         HP -= amount;
+        //Boss.SetDestination(gameManager.instance.player.transform.position);
 
         if (HP <= 0)
         {
@@ -202,9 +202,11 @@ public class demonGirl : MonoBehaviour
         }
         else
         {
+
             animate.SetTrigger("Damage");
             StartCoroutine(flashDamage());
             Boss.SetDestination(gameManager.instance.player.transform.position);
+
         }
     }
     IEnumerator flashDamage()
@@ -235,8 +237,9 @@ public class demonGirl : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            Destroy(currentAxe);
+            Destroy(currentScythe);
         }
     }
 }
+
 

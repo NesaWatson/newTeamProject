@@ -44,7 +44,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float meleeWeaponRange;
 
     private bool playerOnGround;
-    private bool isFiring;
+    public bool isFiring;
     private int jumps;
     private Vector3 movement;
     private Vector3 pushBack;
@@ -55,7 +55,6 @@ public class playerController : MonoBehaviour, IDamage
     int meleeWeaponSelection;
     private bool isMeleeAttacking;
     private float lastMeleeAttack = -1f;
-    public bool isShooting = false;
     
 
     void Start()
@@ -82,12 +81,12 @@ public class playerController : MonoBehaviour, IDamage
             if (Input.GetButton("Shoot") && !isFiring && itemStats[itemSelected].ammoCur > 0 && !isMeleeAttacking && !gameManager.instance.isPaused && itemStats.Count > 0)
             {
                 StartCoroutine(shoot());
-                isShooting = true;
+                isFiring = true;
             }
             else
             {
                 StopCoroutine(shoot());
-                isShooting = false;
+                isFiring = false;
             }
         }
 
