@@ -99,11 +99,11 @@ public class gameManager : MonoBehaviour
 
         enemiesRemainingText.text = enemiesRemaining.ToString("0");
 
-        if (enemiesRemaining <= 0)
-        {
+        //if (enemiesRemaining <= 0)
+        //{
 
-            StartCoroutine(youWin());
-        }
+        //    StartCoroutine(youWin());
+        //}
     }
     public void youLose()
     {
