@@ -9701,6 +9701,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AmmoText
       objectReference: {fileID: 0}
+    - target: {fileID: 5347204377134538106, guid: 8508aa28abe7fa64dbf899f3b3cb58a5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
