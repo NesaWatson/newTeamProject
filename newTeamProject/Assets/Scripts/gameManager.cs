@@ -40,8 +40,22 @@ public class gameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
+    }
+
+    private void Start()
+    {
         player = GameObject.FindGameObjectWithTag("Player");
-        playerScript = player.GetComponent<playerController>();
+        
+        if (player != null)
+        {
+            playerScript = player.GetComponent<playerController>();
+        }
+        else 
+        {
+            Debug.LogError("Player object is not found in the scene");
+        }
+
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         ammoText.gameObject.SetActive(false);
     }
@@ -85,11 +99,11 @@ public class gameManager : MonoBehaviour
 
         enemiesRemainingText.text = enemiesRemaining.ToString("0");
 
-        if (enemiesRemaining <= 0)
-        {
+        //if (enemiesRemaining <= 0)
+        //{
 
-            StartCoroutine(youWin());
-        }
+        //    StartCoroutine(youWin());
+        //}
     }
     public void youLose()
     {

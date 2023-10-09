@@ -12,6 +12,7 @@ TagManager:
   - Boss Spawn Pos
   - Minotaur
   - Demon Girl
+  - Golem
   layers:
   - Default
   - TransparentFX
