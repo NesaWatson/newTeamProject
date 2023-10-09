@@ -4,7 +4,17 @@ using UnityEngine;
 using System.IO;
 using UnityEngine.Playables;
 
-public static class saveSystem
+[System.Serializable]
+
+public class gameData
+{
+    public int playerScore;
+    public bool isGameCompleted;
+    public int playerHealth;
+    public int playerAmmo;
+    public Vector3 playerPosition;
+}
+public class saveSystem : MonoBehaviour
 {
     public static void SaveGame(gameData _gameData)
     {
