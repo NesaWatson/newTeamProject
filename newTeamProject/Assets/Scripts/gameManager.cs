@@ -99,11 +99,11 @@ public class gameManager : MonoBehaviour
 
         enemiesRemainingText.text = enemiesRemaining.ToString("0");
 
-        if (enemiesRemaining <= 0)
-        {
+        //if (enemiesRemaining <= 0)
+        //{
 
-            StartCoroutine(youWin());
-        }
+        //    StartCoroutine(youWin());
+        //}
     }
     public void youLose()
     {
@@ -147,8 +147,6 @@ public class gameManager : MonoBehaviour
                 PlayerPrefs.SetString($"Gun_{i}", item.weaponName);
             }
         }
-
-
         int meleeCount = playerScript.GetMeleeWeaponsCount();
         PlayerPrefs.SetInt("MeleeWeapons_Count", meleeCount);
         for (int i = 0;i < meleeCount; i++)

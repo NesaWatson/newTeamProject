@@ -20,9 +20,6 @@ public class demonGirl : MonoBehaviour, IDamage, IPhysics
     [Range(45, 180)][SerializeField] int viewDistance;
     [Range(5, 50)][SerializeField] int wanderDist;
     [Range(5, 50)][SerializeField] int wanderTime;
-    [SerializeField] float dodgeCooldown;
-    [SerializeField] float dodgeLength;
-    [SerializeField] float dodgeSpeed;
     [SerializeField] float animSpeed;
     [SerializeField] float attackAnimDelay;
 
@@ -44,8 +41,6 @@ public class demonGirl : MonoBehaviour, IDamage, IPhysics
     Vector3 startingPos;
     Transform playerTransform;
     float origSpeed;
-    bool isDodging;
-    float lastDodgeTime;
     GameObject currentScythe;
     public playerController playerController;
 
@@ -77,10 +72,6 @@ public class demonGirl : MonoBehaviour, IDamage, IPhysics
                     animate.SetTrigger("Attack");
                     StartCoroutine(meleeAttack());
                 }
-                else if (playerController.isFiring)
-                {
-                    dodge();
-                }
             }
             else
             {
@@ -88,33 +79,6 @@ public class demonGirl : MonoBehaviour, IDamage, IPhysics
                 StartCoroutine(wander());
             }
         }
-    }
-    void dodge()
-    {
-        Debug.Log("Dodge function called.");
-
-        if (isDodging && Time.time > lastDodgeTime + dodgeCooldown)
-        {
-            StartCoroutine(dodgeMovement());
-            lastDodgeTime = Time.time;
-        }
-    }
-    IEnumerator dodgeMovement()
-    {
-        Debug.Log("DodgeMovement coroutine started.");
-
-        isDodging = true;
-
-        Vector3 dodgeDirection = transform.position - playerTransform.position;
-        dodgeDirection.Normalize();
-        float dodgeStart = Time.time;
-
-        while (Time.time < dodgeStart + dodgeLength)
-        {
-            Boss.Move(dodgeDirection * dodgeSpeed * Time.deltaTime);
-            yield return null;
-        }
-        isDodging = false;
     }
     IEnumerator wander()
     {
