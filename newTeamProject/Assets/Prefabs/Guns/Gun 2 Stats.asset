@@ -15,7 +15,7 @@ MonoBehaviour:
   fireRate: 0.5
   itemDamage: 2
   shootDistance: 50
-  ammoCur: 49
+  ammoCur: 0
   ammoMax: 50
   model: {fileID: 5571641588984482722, guid: c303a18f1cbdd4156b139b9e5b35d6a9, type: 3}
   weaponName: M1918

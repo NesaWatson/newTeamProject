@@ -133,8 +133,6 @@ public class gameManager : MonoBehaviour
                 PlayerPrefs.SetString($"Gun_{i}", item.weaponName);
             }
         }
-
-
         int meleeCount = playerScript.GetMeleeWeaponsCount();
         PlayerPrefs.SetInt("MeleeWeapons_Count", meleeCount);
         for (int i = 0;i < meleeCount; i++)
