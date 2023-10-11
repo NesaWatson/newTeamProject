@@ -12,7 +12,11 @@ GameObject:
   - component: {fileID: 8580409601456097457}
   - component: {fileID: 124138447811272699}
   - component: {fileID: 6291875326955433825}
+<<<<<<< HEAD
   - component: {fileID: 8949104972642275406}
+=======
+  - component: {fileID: 8617199762438575126}
+>>>>>>> c9df2f7a62f566e49a46b6ebd1895ae3de1dd316
   m_Layer: 0
   m_Name: Revolver
   m_TagString: Untagged
@@ -98,7 +102,11 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+<<<<<<< HEAD
 --- !u!135 &8949104972642275406
+=======
+--- !u!135 &8617199762438575126
+>>>>>>> c9df2f7a62f566e49a46b6ebd1895ae3de1dd316
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

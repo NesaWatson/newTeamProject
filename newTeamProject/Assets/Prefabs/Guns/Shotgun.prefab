@@ -9,10 +9,17 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 775695868452790121}
+<<<<<<< HEAD
   - component: {fileID: 5166494492015935205}
   - component: {fileID: 6837250452680332762}
   - component: {fileID: 3183490838905924726}
   - component: {fileID: 2105692025368063922}
+=======
+  - component: {fileID: 2275826510994455323}
+  - component: {fileID: 6837250452680332762}
+  - component: {fileID: 3183490838905924726}
+  - component: {fileID: 7173377287703974733}
+>>>>>>> c9df2f7a62f566e49a46b6ebd1895ae3de1dd316
   m_Layer: 0
   m_Name: Shotgun
   m_TagString: Untagged
@@ -35,7 +42,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!114 &5166494492015935205
+=======
+--- !u!114 &2275826510994455323
+>>>>>>> c9df2f7a62f566e49a46b6ebd1895ae3de1dd316
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,7 +109,11 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+<<<<<<< HEAD
 --- !u!135 &2105692025368063922
+=======
+--- !u!135 &7173377287703974733
+>>>>>>> c9df2f7a62f566e49a46b6ebd1895ae3de1dd316
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
