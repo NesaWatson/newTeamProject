@@ -10246,6 +10246,10 @@ PrefabInstance:
       value: Orc Thing
       objectReference: {fileID: 0}
     - target: {fileID: 7210674357721648467, guid: 370912980eb1e684c90a9e57731fbe88, type: 3}
+      propertyPath: animSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210674357721648467, guid: 370912980eb1e684c90a9e57731fbe88, type: 3}
       propertyPath: playerController
       value: 
       objectReference: {fileID: 136992386}
