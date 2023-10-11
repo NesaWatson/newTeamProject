@@ -200,10 +200,12 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     }
     public void takeDamage(int amount)
     {
-        //if (uiHealthBar != null)
-        //{
+        if (uiHealthBar != null)
+        {
+
+
             HP = -amount;
-            //uiHealthBar.SetHealth(HP);
+            uiHealthBar.SetHealth(HP);
             StartCoroutine(stopMoving());
             agent.SetDestination(gameManager.instance.player.transform.position);
 
@@ -223,7 +225,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
                 agent.SetDestination(gameManager.instance.player.transform.position);
 
             }
-        //}
+        }
     }
     IEnumerator stopMoving()
     {
