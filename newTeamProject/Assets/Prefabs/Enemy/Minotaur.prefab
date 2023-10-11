@@ -4354,7 +4354,7 @@ MonoBehaviour:
   attackRange: 5
   axeDamageAmount: 3
   attackAngle: 10
-  playerController: {fileID: 0}
+  playerController: {fileID: 5066584792800254188, guid: a2e3ec6c12793b548bb8987da1f22e62, type: 3}
 --- !u!95 &5492433326848546137
 Animator:
   serializedVersion: 5

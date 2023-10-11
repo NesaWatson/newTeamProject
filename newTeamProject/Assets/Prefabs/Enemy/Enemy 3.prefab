@@ -1612,7 +1612,7 @@ MonoBehaviour:
   attackRate: 0.35
   attackAngle: 10
   shuriken: {fileID: 757978765017720736, guid: 5442a00b9d00a3040b0068d1d0d8cafa, type: 3}
-  enemyHealthBar: {fileID: 4375328938646029880}
+  uiHealthBar: {fileID: 0}
 --- !u!95 &3791655115374115672
 Animator:
   serializedVersion: 5
