@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2c0ee3aa3fe24d4d82f0ccf1efb1103, type: 3}
-  m_Name: Revolver Stats
+  m_Name: M16 Stats
   m_EditorClassIdentifier: 
-  fireRate: 1.5
-  itemDamage: 5
-  shootDistance: 25
-  ammoMax: 6
-  model: {fileID: 4791333881813308969, guid: afb97836a90774b489aaf085f221c0b6, type: 3}
-  weaponName: Revolver
+  fireRate: 0.3
+  itemDamage: 2
+  shootDistance: 35
+  ammoMax: 30
+  model: {fileID: 2396290692712863952, guid: 2889fb5cd59c7a84e83bf8d4f4135966, type: 3}
+  weaponName: M16
   hitEffect: {fileID: 8224417693137495709, guid: 5d153a145f3f0274b862f99d2ebdbbeb, type: 3}
   shotSound: {fileID: 0}
