@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.Playables;
+using System.Runtime.Serialization.Formatters.Binary;
 
 [System.Serializable]
 
@@ -16,23 +17,53 @@ public class gameData
 }
 public class saveSystem : MonoBehaviour
 {
-    public static void SaveGame(gameData _gameData)
+    //public static void SaveGame(gameData _gameData)
+    //{
+    //    string json = JsonUtility.ToJson(_gameData);
+    //    File.WriteAllText(Application.persistentDataPath + "/savegame.json", json);
+    //}
+    //public static gameData LoadGame()
+    //{
+    //    string path = Application.persistentDataPath + "/savegame.json";
+    //    if (File.Exists(path))
+    //    {
+    //        string json = File.ReadAllText(path);
+    //        return JsonUtility.FromJson<gameData>(json);
+    //    }
+    //    else
+    //    {
+    //        Debug.LogWarning("No saved game data found.");
+    //        return null;
+    //    }
+    //}
+    public static void SaveGame(gameData saveData)
     {
-        string json = JsonUtility.ToJson(_gameData);
-        File.WriteAllText(Application.persistentDataPath + "/savegame.json", json);
+        BinaryFormatter formatter = new BinaryFormatter();
+        string savePath = Application.persistentDataPath + "/save.dat";
+        FileStream file = File.Create(savePath);
+
+        formatter.Serialize(file, saveData);
+        file.Close();
+
+
     }
+
     public static gameData LoadGame()
     {
-        string path = Application.persistentDataPath + "/savegame.json";
-        if (File.Exists(path))
+        string savePath = Application.persistentDataPath + "/save.dat";
+        if (File.Exists(savePath))
         {
-            string json = File.ReadAllText(path);
-            return JsonUtility.FromJson<gameData>(json);
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream file = File.Open(savePath, FileMode.Open);
+            gameData saveData = (gameData)formatter.Deserialize(file);
+            file.Close();
+            return saveData;
         }
         else
         {
-            Debug.LogWarning("No saved game data found.");
+            Debug.LogError("Save file not found.");
             return null;
         }
     }
+
 }
