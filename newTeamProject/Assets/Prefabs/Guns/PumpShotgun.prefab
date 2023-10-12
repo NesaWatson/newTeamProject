@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3965196170712937423
+--- !u!1 &1142938333657148746
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,61 +8,61 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2510529529781838714}
-  - component: {fileID: 6514665211296495351}
-  - component: {fileID: 5632349767549867849}
-  - component: {fileID: 3894642020821716976}
-  - component: {fileID: 2149483596146362653}
+  - component: {fileID: 1950024636594240214}
+  - component: {fileID: 3206699496137892116}
+  - component: {fileID: 6078251365599275582}
+  - component: {fileID: 1251288401459894933}
+  - component: {fileID: 7926994979466052107}
   m_Layer: 0
-  m_Name: Shotgun
+  m_Name: PumpShotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2510529529781838714
+--- !u!4 &1950024636594240214
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3965196170712937423}
+  m_GameObject: {fileID: 1142938333657148746}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -23.24391, y: 1.2780628, z: -33.841053}
+  m_LocalPosition: {x: -23.25, y: 0.7871593, z: -52.46172}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6514665211296495351
+--- !u!114 &3206699496137892116
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3965196170712937423}
+  m_GameObject: {fileID: 1142938333657148746}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfcd7b6b84f374246badd75d135aef23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: c32689e9a7b5579429ef0770d83545fb, type: 2}
---- !u!33 &5632349767549867849
+  item: {fileID: 11400000, guid: f91dbbb2dd1463d4a8461a02b99f3bbb, type: 2}
+--- !u!33 &6078251365599275582
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3965196170712937423}
-  m_Mesh: {fileID: -2669706662169894795, guid: 8b36fb41929fc22429f0083d817b8040, type: 3}
---- !u!23 &3894642020821716976
+  m_GameObject: {fileID: 1142938333657148746}
+  m_Mesh: {fileID: 3744501094556469539, guid: f62f7dc06bd890d4aab43b8fd635fe02, type: 3}
+--- !u!23 &1251288401459894933
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3965196170712937423}
+  m_GameObject: {fileID: 1142938333657148746}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -76,7 +76,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 052eb9367e604ac428a8b8c83f4584da, type: 2}
+  - {fileID: 2100000, guid: 0c24ff3f078566f4d9d83ee8bd6a3f72, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -98,13 +98,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2149483596146362653
+--- !u!135 &7926994979466052107
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3965196170712937423}
+  m_GameObject: {fileID: 1142938333657148746}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -117,5 +117,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 3
-  m_Center: {x: -0.00870072, y: 0.22193722, z: -0.4089453}
+  m_Radius: 3.1080034
+  m_Center: {x: 0, y: -0.03715932, z: -0.41183195}
