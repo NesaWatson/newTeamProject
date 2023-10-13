@@ -2700,9 +2700,6 @@ MonoBehaviour:
   viewDistance: 100
   wanderDist: 25
   wanderTime: 25
-  dodgeCooldown: 3
-  dodgeLength: 5
-  dodgeSpeed: 5
   animSpeed: 2
   attackAnimDelay: 1
   scythe: {fileID: 6344652320685604653}
@@ -2711,7 +2708,7 @@ MonoBehaviour:
   attackRange: 5
   scytheDamageAmount: 2
   attackAngle: 10
-  playerController: {fileID: 0}
+  playerController: {fileID: 5066584792800254188, guid: a2e3ec6c12793b548bb8987da1f22e62, type: 3}
 --- !u!136 &2622427018378995425
 CapsuleCollider:
   m_ObjectHideFlags: 0
