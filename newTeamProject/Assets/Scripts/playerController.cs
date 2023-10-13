@@ -55,6 +55,8 @@ public class playerController : MonoBehaviour, IDamage
     int meleeWeaponSelection;
     private bool isMeleeAttacking;
     private float lastMeleeAttack = -1f;
+
+    private List<WeaponRuntimeData> playerGuns = new List<WeaponRuntimeData>();
     
 
     void Start()
@@ -62,9 +64,9 @@ public class playerController : MonoBehaviour, IDamage
         originalHP = HP;
         spawnPlayer();
 
-        if (itemStats.Count > 0)
+        if (playerGuns.Count > 0)
         {
-            gameManager.instance.UpdateAmmoUI(itemStats[itemSelected].ammoCur, itemStats[itemSelected].ammoMax);
+            gameManager.instance.UpdateAmmoUI(playerGuns[itemSelected].ammoCur, playerGuns[itemSelected].config.ammoMax);
         }
     }
 
@@ -76,18 +78,14 @@ public class playerController : MonoBehaviour, IDamage
         SelectMeleeWeapon();
 
 
-        if (itemSelected >= 0 && itemSelected < itemStats.Count)
+        if (itemSelected >= 0 && itemSelected < playerGuns.Count)
         {
-            if (Input.GetButton("Shoot") && !isFiring && itemStats[itemSelected].ammoCur > 0 && !isMeleeAttacking && !gameManager.instance.isPaused && itemStats.Count > 0)
+            if (Input.GetButton("Shoot") && !isFiring && playerGuns[itemSelected].ammoCur > 0 && !isMeleeAttacking && !gameManager.instance.isPaused && playerGuns.Count > 0)
             {
                 StartCoroutine(shoot());
                 isFiring = true;
             }
-            else
-            {
-                StopCoroutine(shoot());
-                isFiring = false;
-            }
+            
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
@@ -174,16 +172,17 @@ public class playerController : MonoBehaviour, IDamage
             out hit, shootDistance))
         {
             IDamage canDamage = hit.collider.GetComponent<IDamage>();
-            Instantiate(itemStats[itemSelected].hitEffect, hit.point, itemStats[itemSelected].hitEffect.transform.rotation);
+            Instantiate(playerGuns[itemSelected].config.hitEffect, hit.point, playerGuns[itemSelected].config.hitEffect.transform.rotation);
             if (canDamage != null)
             {
                 canDamage.takeDamage(gunDamage);
             }
 
-            itemStats[itemSelected].ammoCur--;
-            gameManager.instance.UpdateAmmoUI(itemStats[itemSelected].ammoCur, itemStats[itemSelected].ammoMax);
+            playerGuns[itemSelected].ammoCur--;
+            gameManager.instance.UpdateAmmoUI(playerGuns[itemSelected].ammoCur, playerGuns[itemSelected].config.ammoMax);
         }
-        yield return new WaitForSeconds(itemStats[itemSelected].fireRate);
+        yield return new WaitForSeconds(playerGuns[itemSelected].config.fireRate);
+
         isFiring = false;
     }
     private void UpdateUi()
@@ -205,7 +204,7 @@ public class playerController : MonoBehaviour, IDamage
     }
     public void spawnPlayer()
     {
-        HP = originalHP;
+        gameManager.instance.LoadPlayerState();
         UpdateUi();
         characterController.enabled = false;
         transform.position = gameManager.instance.playerSpawnPos.transform.position;
@@ -214,37 +213,39 @@ public class playerController : MonoBehaviour, IDamage
 
     public void itemPickup(ItemStats item)
     {
-        itemStats.Add(item);
+        WeaponRuntimeData newWeaponData = new WeaponRuntimeData { config = item };
+        newWeaponData.RefillAmmo();
+        playerGuns.Add(newWeaponData);
 
-        gunDamage = item.itemDamage;
-        shootDistance = item.shootDistance;
-        fireRate = item.fireRate;
+        gunDamage = newWeaponData.config.itemDamage;
+        shootDistance = newWeaponData.config.shootDistance;
+        fireRate = newWeaponData.config.fireRate;
 
         itemModel.GetComponent<MeshFilter>().sharedMesh = item.model.GetComponent<MeshFilter>().sharedMesh;
         itemModel.GetComponent<Renderer>().sharedMaterial = item.model.GetComponent<Renderer>().sharedMaterial;
 
-        itemSelected = itemStats.Count - 1;
+        itemSelected = playerGuns.Count - 1;
 
-        gameManager.instance.UpdateAmmoUI(item.ammoCur, item.ammoMax);
+        gameManager.instance.UpdateAmmoUI(newWeaponData.ammoCur, newWeaponData.config.ammoMax);
         gameManager.instance.ammoText.gameObject.SetActive(true);
     }
 
     void changeItem()
     {
-        gunDamage = itemStats[itemSelected].itemDamage;
-        shootDistance = itemStats[itemSelected].shootDistance;
-        fireRate = itemStats[itemSelected].fireRate;
+        gunDamage = playerGuns[itemSelected].config.itemDamage;
+        shootDistance = playerGuns[itemSelected].config.shootDistance;
+        fireRate = playerGuns[itemSelected].config.fireRate;
 
-        itemModel.GetComponent<MeshFilter>().sharedMesh = itemStats[itemSelected].model.GetComponent<MeshFilter>().sharedMesh;
-        itemModel.GetComponent<Renderer>().sharedMaterial = itemStats[itemSelected].model.GetComponent<Renderer>().sharedMaterial;
+        itemModel.GetComponent<MeshFilter>().sharedMesh = playerGuns[itemSelected].config.model.GetComponent<MeshFilter>().sharedMesh;
+        itemModel.GetComponent<Renderer>().sharedMaterial = playerGuns[itemSelected].config.model.GetComponent<Renderer>().sharedMaterial;
 
-        gameManager.instance.UpdateAmmoUI(itemStats[itemSelected].ammoCur, itemStats[itemSelected].ammoMax);
+        gameManager.instance.UpdateAmmoUI(playerGuns[itemSelected].ammoCur, playerGuns[itemSelected].config.ammoMax);
     }
 
 
     void itemSelect()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && itemSelected < itemStats.Count - 1)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && itemSelected < playerGuns.Count - 1)
         {
             itemSelected++;
             changeItem();
@@ -295,17 +296,15 @@ public class playerController : MonoBehaviour, IDamage
 
     public void AmmoRefill()
     {
-        if (itemSelected < 0 || itemSelected >= itemStats.Count)
+        foreach (WeaponRuntimeData weaponData in playerGuns)
         {
-            return;
+            weaponData.RefillAmmo();
         }
 
-        foreach (ItemStats item in itemStats)
+        if (itemSelected >= 0 && itemSelected < playerGuns.Count)
         {
-            item.ammoCur = item.ammoMax;
+            gameManager.instance.UpdateAmmoUI(playerGuns[itemSelected].ammoCur, playerGuns[itemSelected].config.ammoMax);
         }
-
-        gameManager.instance.UpdateAmmoUI(itemStats[itemSelected].ammoCur, itemStats[itemSelected].ammoMax);
     }
 
     public void PlayerCheckpointRefresh()
@@ -313,6 +312,7 @@ public class playerController : MonoBehaviour, IDamage
         HP = originalHP;
         AmmoRefill();
         UpdateUi();
+        
     }
 
     public void PickupMeleeWeapon(meleeStats meleeItem)
@@ -381,6 +381,11 @@ public class playerController : MonoBehaviour, IDamage
         return HP;
     }
 
+    public void SetPlayerHP(int hp)
+    {
+        HP = hp;
+    }
+
     public int GetItemStatsCount()
     {
         return itemStats.Count;
@@ -408,6 +413,42 @@ public class playerController : MonoBehaviour, IDamage
         }
         return null;
     }
+
+    public WeaponRuntimeData GetPlayerGun(int index)
+    {
+        if (index >= 0 && index < playerGuns.Count)
+        {
+            return playerGuns[index];
+        }
+        return null;
+    }
+
+    public ItemStats GetWeaponConfig(string weaponName)
+    {
+        foreach (ItemStats weapon in itemStats)
+        {
+            if (weapon.weaponName == weaponName)
+            {
+                return weapon;
+            }
+        }
+        return null;
+    }
+
+    public int GetPlayerGunsCount() { return playerGuns.Count; }
+
+    public void AddWeapon(string gunName, int gunAmmo)
+    {
+        ItemStats weaponConfig = GetWeaponConfig(gunName);
+          
+        if (weaponConfig != null) 
+        {
+            WeaponRuntimeData newWeapon = new WeaponRuntimeData { config = weaponConfig, ammoCur = gunAmmo };
+            playerGuns.Add(newWeapon);
+        }
+    }
+
+
 
 }
 

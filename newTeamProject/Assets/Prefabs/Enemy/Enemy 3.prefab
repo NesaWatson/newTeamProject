@@ -1576,7 +1576,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -22.000002, y: 0, z: 29}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4951575077304997691}
@@ -1612,7 +1612,7 @@ MonoBehaviour:
   attackRate: 0.35
   attackAngle: 10
   shuriken: {fileID: 757978765017720736, guid: 5442a00b9d00a3040b0068d1d0d8cafa, type: 3}
-  enemyHealthBar: {fileID: 4375328938646029880}
+  uiHealthBar: {fileID: 0}
 --- !u!95 &3791655115374115672
 Animator:
   serializedVersion: 5

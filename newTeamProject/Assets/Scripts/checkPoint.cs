@@ -14,6 +14,7 @@ public class checkPoint : MonoBehaviour
             if(player != null)
             {
                 player.PlayerCheckpointRefresh();
+                gameManager.instance.SavePlayerState();
             }
             
             StartCoroutine(gameManager.instance.checkPointSpot());

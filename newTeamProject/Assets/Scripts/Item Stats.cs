@@ -7,7 +7,7 @@ public class ItemStats : ScriptableObject
     public float fireRate;
     public int itemDamage;
     public int shootDistance;
-    public int ammoCur;
+    //public int ammoCur;
     public int ammoMax;
 
     public GameObject model;

@@ -161,17 +161,30 @@ public class gameManager : MonoBehaviour
         PlayerPrefs.SetInt("Player_HP", playerHP);
 
 
-        int itemCount = playerScript.GetItemStatsCount();
-        PlayerPrefs.SetInt("ItemStats_Count", itemCount);
-        for (int i = 0; i < itemCount; i++) 
+        //int itemCount = playerScript.GetItemStatsCount();
+        //PlayerPrefs.SetInt("ItemStats_Count", itemCount);
+        //for (int i = 0; i < itemCount; i++) 
+        //{
+        //    ItemStats item = playerScript.GetItemStat(i);
+        //    if (item != null) 
+        //    {
+        //        PlayerPrefs.SetString($"Gun_{i}", item.weaponName);
+        //    }
+        //}
+
+        int gunCount = playerScript.GetPlayerGunsCount();
+        PlayerPrefs.SetInt("Guns_Count", gunCount);
+        for (int i = 0; i < gunCount; i++)
         {
-            ItemStats item = playerScript.GetItemStat(i);
-            if (item != null) 
+            WeaponRuntimeData weapon = playerScript.GetPlayerGun(i);
+            if (weapon != null)
             {
-                PlayerPrefs.SetString($"Gun_{i}", item.weaponName);
+                PlayerPrefs.SetString($"Gun_Type_{i}", weapon.config.weaponName);
+                PlayerPrefs.SetInt($"Gun_Ammo_{i}", weapon.ammoCur);
+
             }
         }
-        int meleeCount = playerScript.GetMeleeWeaponsCount();
+                int meleeCount = playerScript.GetMeleeWeaponsCount();
         PlayerPrefs.SetInt("MeleeWeapons_Count", meleeCount);
         for (int i = 0;i < meleeCount; i++)
         {
@@ -180,6 +193,23 @@ public class gameManager : MonoBehaviour
             {
                 PlayerPrefs.SetString($"Melee_{i}", meleeWeapon.weaponName);
             }
+        }
+    }
+
+    public void LoadPlayerState() 
+    {
+        int playerHP = PlayerPrefs.GetInt("Player_HP", 10); 
+        playerScript.SetPlayerHP(playerHP); 
+
+        // Load guns
+        int gunCount = PlayerPrefs.GetInt("Guns_Count", 0);
+        for (int i = 0; i < gunCount; i++)
+        {
+            string gunName = PlayerPrefs.GetString($"Gun_Type_{i}", "");
+            int gunAmmo = PlayerPrefs.GetInt($"Gun_Ammo_{i}", 0); 
+
+            
+            playerScript.AddWeapon(gunName, gunAmmo);
         }
     }
 }
