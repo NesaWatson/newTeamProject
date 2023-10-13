@@ -204,7 +204,7 @@ public class playerController : MonoBehaviour, IDamage
     }
     public void spawnPlayer()
     {
-        HP = originalHP;
+        gameManager.instance.LoadPlayerState();
         UpdateUi();
         characterController.enabled = false;
         transform.position = gameManager.instance.playerSpawnPos.transform.position;
@@ -381,6 +381,11 @@ public class playerController : MonoBehaviour, IDamage
         return HP;
     }
 
+    public void SetPlayerHP(int hp)
+    {
+        HP = hp;
+    }
+
     public int GetItemStatsCount()
     {
         return itemStats.Count;
@@ -408,6 +413,42 @@ public class playerController : MonoBehaviour, IDamage
         }
         return null;
     }
+
+    public WeaponRuntimeData GetPlayerGun(int index)
+    {
+        if (index >= 0 && index < playerGuns.Count)
+        {
+            return playerGuns[index];
+        }
+        return null;
+    }
+
+    public ItemStats GetWeaponConfig(string weaponName)
+    {
+        foreach (ItemStats weapon in itemStats)
+        {
+            if (weapon.weaponName == weaponName)
+            {
+                return weapon;
+            }
+        }
+        return null;
+    }
+
+    public int GetPlayerGunsCount() { return playerGuns.Count; }
+
+    public void AddWeapon(string gunName, int gunAmmo)
+    {
+        ItemStats weaponConfig = GetWeaponConfig(gunName);
+          
+        if (weaponConfig != null) 
+        {
+            WeaponRuntimeData newWeapon = new WeaponRuntimeData { config = weaponConfig, ammoCur = gunAmmo };
+            playerGuns.Add(newWeapon);
+        }
+    }
+
+
 
 }
 
