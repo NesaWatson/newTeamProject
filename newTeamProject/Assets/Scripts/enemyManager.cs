@@ -6,11 +6,13 @@ public class enemyManager : MonoBehaviour
 {
     public static enemyManager instance;
     private List<enemyAI> alertedEnemies = new List<enemyAI>();
+   
 
     private void Awake()
     {
         instance = this;
     }
+ 
     public void AlertedEnemies(Vector3 playerPos)
     {
         foreach (var enemy in alertedEnemies)

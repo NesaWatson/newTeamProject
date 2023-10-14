@@ -36,7 +36,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     float stoppingDistOrig;
     float angleToPlayer;
     bool wanderDestination;
-    int MaxHp;
+    
     Vector3 startingPos;
     enemySpawner spawner;
     Transform playerTransform;
@@ -44,8 +44,8 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     bool isAlerted;
     bool canSeePlayer;
     float lastTeleportTime;
+    public UiEnemyHealthBar healthBar;
     
-    public UiEnemyHealthBar uiHealthBar;
     void Start()
     {
        
@@ -56,8 +56,8 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
 
         playerTransform = gameManager.instance.player.transform;
         spawner = FindObjectOfType<enemySpawner>();
-        MaxHp = HP;
-       
+        
+       healthBar = GetComponentInChildren<UiEnemyHealthBar>();
 
         enemyManager.instance.registerEnemy(this);
         gameManager.instance.updateGameGoal(1);
@@ -200,14 +200,15 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     }
     public void takeDamage(int amount)
     {
-        if (uiHealthBar != null)
-        {
+       
+        
+            
 
-
-            HP = -amount;
-            uiHealthBar.SetHealth(HP);
+            HP -= amount;
+            healthBar.SetHealth(HP);
+            
             StartCoroutine(stopMoving());
-            agent.SetDestination(gameManager.instance.player.transform.position);
+            
 
 
             if (HP <= 0)
@@ -216,6 +217,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
                 stopMoving();
                 animate.SetBool("Death", true);
                 StopAllCoroutines();
+               
 
             }
             else
@@ -225,7 +227,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
                 agent.SetDestination(gameManager.instance.player.transform.position);
 
             }
-        }
+        
     }
     IEnumerator stopMoving()
     {

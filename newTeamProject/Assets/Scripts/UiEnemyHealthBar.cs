@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class UiEnemyHealthBar : MonoBehaviour
 {
      Slider slider;
-    float timeBarhidden;
+    float timeBarhidden=3.0f;
 
     private void Awake()
     {
@@ -13,7 +13,7 @@ public class UiEnemyHealthBar : MonoBehaviour
     public void SetHealth(int HP)
     {
         slider.value = HP;
-        timeBarhidden = 3;
+        timeBarhidden = 3.0f;
     }
     public void SetMaxHealth(int health)
     {
@@ -22,7 +22,7 @@ public class UiEnemyHealthBar : MonoBehaviour
     }
     private void Update()
     {
-        timeBarhidden = timeBarhidden - Time.deltaTime;
+        timeBarhidden -= Time.deltaTime;
         if (slider != null)
         {
 
