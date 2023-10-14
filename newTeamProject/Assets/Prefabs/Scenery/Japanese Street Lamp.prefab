@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2155621675386534596}
   - component: {fileID: 766621946990293919}
   - component: {fileID: 1479959368822446779}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Japanese Street Lamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
