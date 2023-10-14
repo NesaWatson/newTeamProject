@@ -469,7 +469,7 @@ GameObject:
   - component: {fileID: 1290404135007651174}
   - component: {fileID: 5698497761313250105}
   m_Layer: 5
-  m_Name: PlayerHpBar
+  m_Name: enemyHpBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
@@ -1835,7 +1835,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8889518185829972194}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7a8ccccada8bb142ad8df1ba93c3327, type: 3}
   m_Name: 
