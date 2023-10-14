@@ -18,6 +18,7 @@ public void ShowVictoryMessage()
     {
         victoryText.enabled=true;
         yield return new WaitForSeconds(victoryduration);
+        victoryText.enabled=false;
 
     }
     // Update is called once per frame

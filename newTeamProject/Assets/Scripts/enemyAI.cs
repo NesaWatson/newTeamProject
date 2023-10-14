@@ -217,7 +217,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
                 stopMoving();
                 animate.SetBool("Death", true);
                 StopAllCoroutines();
-               
+            
 
             }
             else
