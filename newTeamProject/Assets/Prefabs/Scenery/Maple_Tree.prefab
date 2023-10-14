@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 238796407098337323}
   - component: {fileID: 6561624615142534155}
   - component: {fileID: 1141386608766077427}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Leaves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3422004976986695069}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Maple_Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,8 @@ GameObject:
   - component: {fileID: 2199704175463019175}
   - component: {fileID: 4576918684578466672}
   - component: {fileID: 7012295439609218187}
-  m_Layer: 0
+  - component: {fileID: 6014437741700143930}
+  m_Layer: 14
   m_Name: Maple_Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4982,6 +4983,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!136 &6014437741700143930
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5933565319005025537}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.75
+  m_Height: 24
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7051875054149752123
 GameObject:
   m_ObjectHideFlags: 0
@@ -4994,7 +5018,7 @@ GameObject:
   - component: {fileID: 3978221346197983724}
   - component: {fileID: 4832052599303930182}
   - component: {fileID: 4752402967944092210}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}

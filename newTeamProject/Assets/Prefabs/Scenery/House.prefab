@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 1699987243886564024}
   - component: {fileID: 6371938549805672525}
   - component: {fileID: 8394532001821710916}
-  m_Layer: 0
+  - component: {fileID: -4303336321964536654}
+  m_Layer: 14
   m_Name: House
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 228458159361883728}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000021855694, y: -2.6054018e-15, z: -0.00000011920929, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -42.637756, y: 13.740347, z: -48.975376}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -111,3 +112,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &-4303336321964536654
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 228458159361883728}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 8.5, y: 11, z: 9}
+  m_Center: {x: 0, y: 0, z: 0}
