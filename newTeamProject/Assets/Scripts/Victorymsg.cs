@@ -12,12 +12,13 @@ public class Victorymsg : MonoBehaviour
     }
 public void ShowVictoryMessage()
     {
-
+        StartCoroutine(Displaymsg());
     }
     IEnumerator Displaymsg()
     {
         victoryText.enabled=true;
         yield return new WaitForSeconds(victoryduration);
+        victoryText.enabled=false;
 
     }
     // Update is called once per frame
