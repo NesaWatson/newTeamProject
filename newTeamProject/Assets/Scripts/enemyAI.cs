@@ -217,7 +217,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
                 stopMoving();
                 animate.SetBool("Death", true);
                 StopAllCoroutines();
-            
+                StartCoroutine(Deadenemy());
 
             }
             else
@@ -275,6 +275,12 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
         {
             enemyManager.instance.unregisterEnemy(this);
         }
+    }
+    IEnumerator Deadenemy()
+    {
+
+        yield return new WaitForSeconds(3.0f);
+        Destroy(gameObject);
     }
    
 }
