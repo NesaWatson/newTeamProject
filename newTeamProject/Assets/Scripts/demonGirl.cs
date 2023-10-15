@@ -52,7 +52,6 @@ public class demonGirl : MonoBehaviour, IDamage, IPhysics
 
         playerTransform = gameManager.instance.player.transform;
 
-        gameManager.instance.updateGameGoal(1);
     }
     void Update()
     {
@@ -160,9 +159,10 @@ public class demonGirl : MonoBehaviour, IDamage, IPhysics
 
         if (HP <= 0)
         {
+            Boss.enabled = false;
             animate.SetBool("Death", true);
             Boss.isStopped = true;
-            gameManager.instance.updateGameGoal(-1);
+            StopAllCoroutines();
         }
         else
         {
