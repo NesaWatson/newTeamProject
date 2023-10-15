@@ -53,6 +53,7 @@ MonoBehaviour:
   damage: 1
   speed: 10
   destroyTime: 3
+  shurikenAudio: {fileID: 8300000, guid: 04013cb3360fac144895196738fa7535, type: 3}
 --- !u!33 &4674020475010591475
 MeshFilter:
   m_ObjectHideFlags: 0

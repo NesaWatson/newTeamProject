@@ -19,4 +19,4 @@ MonoBehaviour:
   model: {fileID: 2504382354215459474, guid: 38dbed4e2f6faf84da3b08113870d20a, type: 3}
   weaponName: AK47
   hitEffect: {fileID: 8224417693137495709, guid: 5d153a145f3f0274b862f99d2ebdbbeb, type: 3}
-  shotSound: {fileID: 0}
+  shotSound: {fileID: 8300000, guid: 6e7bf2682e1b8d6488dc4daef73e37d3, type: 3}
