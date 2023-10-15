@@ -12,7 +12,7 @@ public class Victorymsg : MonoBehaviour
     }
 public void ShowVictoryMessage()
     {
-
+        StartCoroutine(Displaymsg());
     }
     IEnumerator Displaymsg()
     {
