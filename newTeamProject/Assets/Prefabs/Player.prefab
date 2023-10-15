@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 234804471106886719}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1, y: -0.42, z: 0.76}
+  m_LocalPosition: {x: 0.295, y: -0.84, z: 1.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -239,7 +239,7 @@ MonoBehaviour:
   meleeAttackRate: 0
   meleeDamage: 0
   meleeWeaponRange: 0
-  isShooting: 0
+  isFiring: 0
 --- !u!33 &1908174405567256588
 MeshFilter:
   m_ObjectHideFlags: 0
