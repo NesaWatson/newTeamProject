@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:newTeamProject/Assets/Prefabs/Scenery/Foundation 1.prefab.meta
 guid: 6cd711a93033de34c988686f306a1dff
 PrefabImporter:
+=======
+guid: 8d5284dabd7f3774983dc9410ca7d98c
+folderAsset: yes
+DefaultImporter:
+>>>>>>> 241badb7510f47308ae008043d144b840df6ca4a:newTeamProject/Assets/ChineseTing.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
