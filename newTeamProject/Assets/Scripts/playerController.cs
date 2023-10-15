@@ -383,7 +383,7 @@ public class playerController : MonoBehaviour, IDamage
 
     public void SetPlayerHP(int hp)
     {
-        HP = hp;
+        originalHP = hp;
     }
 
     public int GetItemStatsCount()
