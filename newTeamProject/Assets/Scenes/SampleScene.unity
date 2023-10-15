@@ -534,6 +534,10 @@ PrefabInstance:
       value: CheckPoint
       objectReference: {fileID: 0}
     - target: {fileID: 8385888522099520803, guid: 8913f9d09bd337644be2568ab6323834, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4.81992
+      objectReference: {fileID: 0}
+    - target: {fileID: 8385888522099520803, guid: 8913f9d09bd337644be2568ab6323834, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.16
       objectReference: {fileID: 0}
@@ -2075,6 +2079,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1038116609704295508, guid: 9b50c849de5f1df4990ebfdd0876c8c6, type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: 85edb3fb8bca5674e84f822e7b9ab377, type: 2}
     - target: {fileID: 930540508461306869, guid: 9b50c849de5f1df4990ebfdd0876c8c6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 49
@@ -2917,7 +2925,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1816141208568531744, guid: 11bbef250431d8f4284036840658005b, type: 3}
       propertyPath: maxEnemies
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6609467273439448164, guid: 11bbef250431d8f4284036840658005b, type: 3}
       propertyPath: m_Name
