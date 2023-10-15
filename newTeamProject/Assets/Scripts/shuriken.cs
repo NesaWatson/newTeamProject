@@ -11,7 +11,7 @@ public class shuriken : MonoBehaviour
     [SerializeField] int destroyTime;
 
     private GameObject shooter;
-
+    public AudioClip shurikenAudio;
     public void SetShooter(GameObject shooter)
     {
         this.shooter = shooter;
