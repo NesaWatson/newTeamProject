@@ -45,7 +45,7 @@ public class UiEnemyHealthBar : MonoBehaviour
 
             {
 
-                Destroy(slider.gameObject);
+                slider.gameObject.SetActive(false);
 
             }
         }

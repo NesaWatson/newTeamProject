@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
 using System;
+using UnityEngine.SceneManagement;
 
 public class gameManager : MonoBehaviour
 {
@@ -211,5 +212,9 @@ public class gameManager : MonoBehaviour
             
             playerScript.AddWeapon(gunName, gunAmmo);
         }
+    }
+    public void GameOver()
+    {
+        SceneManager.LoadScene("EndCredits"); 
     }
 }
