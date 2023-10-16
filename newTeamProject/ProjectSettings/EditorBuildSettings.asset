@@ -9,12 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/TransitionTest.unity
-    guid: 00a4c4e34848b5d46b0f2c2f7e0c0b6c
-  - enabled: 1
     path: Assets/Level3.unity
     guid: 781307cc87b33104a88585f852eea023
   - enabled: 1
-    path: Assets/level.unity
-    guid: 96adde58ead04a14a8f87c5e935fe2bb
+    path: Assets/DG Level.unity
+    guid: d89e684ebdf986341878c31eb8b0e959
+  - enabled: 1
+    path: Assets/TransitionTest.unity
+    guid: 00a4c4e34848b5d46b0f2c2f7e0c0b6c
   m_configObjects: {}
