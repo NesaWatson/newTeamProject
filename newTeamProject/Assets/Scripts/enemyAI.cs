@@ -205,7 +205,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
             
 
             HP -= amount;
-            healthBar.SetHealth(HP);
+            healthBar.SetHealth(amount);
             
             StartCoroutine(stopMoving());
             

@@ -161,8 +161,8 @@ public class demonGirl : MonoBehaviour, IDamage, IPhysics
         {
             Boss.enabled = false;
             animate.SetBool("Death", true);
-            Boss.isStopped = true;
             StopAllCoroutines();
+            StartCoroutine(Deadenemy());
         }
         else
         {
@@ -203,6 +203,12 @@ public class demonGirl : MonoBehaviour, IDamage, IPhysics
             playerInRange = false;
             Destroy(currentScythe);
         }
+    }
+    IEnumerator Deadenemy()
+    {
+
+        yield return new WaitForSeconds(3.0f);
+        Destroy(gameObject);
     }
 }
 
