@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class OrcThing : MonoBehaviour, IDamage, IPhysics
+public class OrcThing : MonoBehaviour, IDamage, IPhysics, IBoss
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
@@ -43,6 +43,7 @@ public class OrcThing : MonoBehaviour, IDamage, IPhysics
     float origSpeed;
     GameObject currentRock;
     public playerController playerController;
+    private bool isDefeated = false;
 
     void Start()
     {
@@ -133,6 +134,7 @@ public class OrcThing : MonoBehaviour, IDamage, IPhysics
     }
     IEnumerator meleeAttack()
     {
+        if (isDefeated) yield break;
         if (!isAttacking)
         {
             isAttacking = true;
@@ -153,6 +155,12 @@ public class OrcThing : MonoBehaviour, IDamage, IPhysics
             isAttacking = false;
         }
     }
+
+    public bool IsDefeated
+    {
+        get { return isDefeated; }
+    }
+
     public void takeDamage(int amount)
     {
         HP -= amount;

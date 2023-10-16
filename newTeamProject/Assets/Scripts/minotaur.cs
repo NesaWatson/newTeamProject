@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class minotaur : MonoBehaviour, IDamage, IPhysics
+public class minotaur : MonoBehaviour, IDamage, IPhysics, IBoss
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
@@ -48,6 +48,7 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
     float lastDodgeTime;
     GameObject currentAxe;
     public playerController playerController;
+    private bool isDefeated = false;
 
     void Start()
     {
@@ -61,31 +62,34 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
     }
     void Update()
     {
-        if (Boss.isActiveAndEnabled)
+        if (!isDefeated)
         {
-            float agentVel = Boss.velocity.normalized.magnitude;
-
-            animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime * animSpeed));
-
-            if (playerInRange && canViewPlayer())
+            if (Boss.isActiveAndEnabled)
             {
-                animate.SetTrigger("Run");
-                float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+                float agentVel = Boss.velocity.normalized.magnitude;
 
-                if (distanceToPlayer <= attackRange && !isAttacking)
+                animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime * animSpeed));
+
+                if (playerInRange && canViewPlayer())
                 {
-                    animate.SetTrigger("Attack");
-                    StartCoroutine(meleeAttack());
+                    animate.SetTrigger("Run");
+                    float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+
+                    if (distanceToPlayer <= attackRange && !isAttacking)
+                    {
+                        animate.SetTrigger("Attack");
+                        StartCoroutine(meleeAttack());
+                    }
+                    else if (playerController.isFiring)
+                    {
+                        dodge();
+                    }
                 }
-                else if(playerController.isFiring)
+                else
                 {
-                    dodge();
+                    animate.ResetTrigger("Run");
+                    StartCoroutine(wander());
                 }
-            }
-            else
-            {
-                animate.ResetTrigger("Run");
-                StartCoroutine(wander());
             }
         }
     }
@@ -169,6 +173,7 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
     }
     IEnumerator meleeAttack()
     {
+        if (isDefeated) yield break;
         if (!isAttacking)
         {
             isAttacking = true;
@@ -191,6 +196,12 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
             isAttacking = false;
         }
     }
+
+    public bool IsDefeated
+    {
+        get { return isDefeated; }
+    }
+
     public void takeDamage(int amount)
     {
         HP -= amount;
@@ -198,6 +209,7 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
 
         if (HP <= 0)
         {
+            isDefeated = true;
             animate.SetBool("Death", true);
             Boss.isStopped = true;
             gameManager.instance.updateGameGoal(-1);

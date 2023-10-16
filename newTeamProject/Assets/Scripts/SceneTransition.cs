@@ -9,12 +9,16 @@ public class SceneTransition : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //save player state to gameManager
-            gameManager.instance.SavePlayerState();
-            //Load the next scene by index
+            IBoss boss = GetComponent<IBoss>();
+            if (boss != null && boss.IsDefeated)
+            {
+                //save player state to gameManager
+                gameManager.instance.SavePlayerState();
+                //Load the next scene by index
 
-            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(currentSceneIndex + 1);
+                int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+                SceneManager.LoadScene(currentSceneIndex + 1);
+            }
         }
     }
 }
