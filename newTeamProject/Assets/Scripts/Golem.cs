@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Golem : MonoBehaviour, IDamage, IPhysics
+public class Golem : MonoBehaviour, IDamage, IPhysics, IBoss
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
@@ -43,6 +43,7 @@ public class Golem : MonoBehaviour, IDamage, IPhysics
     float origSpeed;
     GameObject currentRock;
     public playerController playerController;
+    private bool isDefeated = false;
 
     void Start()
     {
@@ -56,27 +57,30 @@ public class Golem : MonoBehaviour, IDamage, IPhysics
     }
     void Update()
     {
-        if (Boss.isActiveAndEnabled)
+        if (!isDefeated)
         {
-            float agentVel = Boss.velocity.normalized.magnitude;
-
-            animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime * animSpeed));
-
-            if (playerInRange && canViewPlayer())
+            if (Boss.isActiveAndEnabled)
             {
-                //animate.SetTrigger("Run");
-                float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+                float agentVel = Boss.velocity.normalized.magnitude;
 
-                if (distanceToPlayer <= attackRange && !isAttacking)
+                animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime * animSpeed));
+
+                if (playerInRange && canViewPlayer())
                 {
-                    animate.SetTrigger("Attack");
-                    StartCoroutine(meleeAttack());
+                    //animate.SetTrigger("Run");
+                    float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+
+                    if (distanceToPlayer <= attackRange && !isAttacking)
+                    {
+                        animate.SetTrigger("Attack");
+                        StartCoroutine(meleeAttack());
+                    }
                 }
-            }
-            else
-            {
-                //animate.ResetTrigger("Run");
-                StartCoroutine(wander());
+                else
+                {
+                    //animate.ResetTrigger("Run");
+                    StartCoroutine(wander());
+                }
             }
         }
     }
@@ -133,6 +137,7 @@ public class Golem : MonoBehaviour, IDamage, IPhysics
     }
     IEnumerator meleeAttack()
     {
+        if (isDefeated) yield break;
         if (!isAttacking)
         {
             isAttacking = true;
@@ -153,6 +158,12 @@ public class Golem : MonoBehaviour, IDamage, IPhysics
             isAttacking = false;
         }
     }
+
+    public bool IsDefeated
+    {
+        get { return isDefeated; }
+    }
+
     public void takeDamage(int amount)
     {
         HP -= amount;
@@ -163,6 +174,7 @@ public class Golem : MonoBehaviour, IDamage, IPhysics
 
         if (HP <= 0)
         {
+            isDefeated = true;
             animate.SetBool("Death", true);
             Boss.isStopped = true;
             StartCoroutine(Deadenemy());
