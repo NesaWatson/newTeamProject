@@ -64,7 +64,7 @@ public class OrcThing : MonoBehaviour, IDamage, IPhysics
 
             if (playerInRange && canViewPlayer())
             {
-                animate.SetTrigger("Run");
+                //animate.SetTrigger("Run");
                 float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
 
                 if (distanceToPlayer <= attackRange && !isAttacking)
@@ -75,7 +75,7 @@ public class OrcThing : MonoBehaviour, IDamage, IPhysics
             }
             else
             {
-                animate.ResetTrigger("Run");
+                //animate.ResetTrigger("Run");
                 StartCoroutine(wander());
             }
         }

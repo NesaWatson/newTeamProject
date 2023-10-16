@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2622951580469935487}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Lower_Leg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4611846190827214965}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Upper_Arm_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2405124934000111269}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Upper_Leg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4602952450270289261}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Index_Proximal_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6149789762205742810}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Lower_Arm_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1768086658028966185}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Toes_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1009769595526413653}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Lower_Arm_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,7 +231,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4282478671780229736}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: joint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3735846298921417003}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Foot_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,7 +294,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8708467791411467978}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hand_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -326,7 +326,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1533946516331910607}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Toes_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -357,7 +357,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3743881656145636741}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hand_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,7 +389,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 900071726787198120}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Spine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +423,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3624792809295909767}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -455,7 +455,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7705260176099527817}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Upper_Arm_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -487,7 +487,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7106841565745525348}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Upper_Reg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -519,7 +519,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4176351256510152848}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hips
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -553,7 +553,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 933429418837253108}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Lower_Reg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -586,7 +586,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4382370811624202864}
   - component: {fileID: 2463344245874676306}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: RockGolemMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -690,7 +690,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6894220739816237577}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Index_Proximal_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -726,7 +726,7 @@ GameObject:
   - component: {fileID: 1842912963653197272}
   - component: {fileID: 3567123321644348745}
   - component: {fileID: 8913619847671178421}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Golem
   m_TagString: Golem
   m_Icon: {fileID: 0}
@@ -770,15 +770,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   HP: 30
-  targetFaceSpeed: 10
-  viewAngle: 0
-  viewDistance: 0
-  wanderDist: 0
+  targetFaceSpeed: 6
+  viewAngle: 90
+  viewDistance: 80
+  wanderDist: 15
   wanderTime: 0
-  animSpeed: 0
-  attackAnimDelay: 0
-  scythe: {fileID: 1145093496205865461, guid: e23491edd3d4538429297d7a44fb7a0c, type: 3}
-  scytheHand: {fileID: 3743881656145636741}
+  animSpeed: 1
+  attackAnimDelay: 1
+  scythe: {fileID: 2064290479672759286}
+  scytheHand: {fileID: 8708467791411467978}
   attackRate: 2
   attackRange: 10
   punchDamageAmount: 5
@@ -796,7 +796,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 8b2d11d64877f0b4cad5d45ec7d53473, type: 3}
   m_Controller: {fileID: 9100000, guid: 64e2ef14a02f69a4b94edbee54ca296a, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -847,8 +847,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
+  m_Radius: 4.5
+  m_Height: 4
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &8913619847671178421
@@ -881,7 +881,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1633790314381190328}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Foot_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}

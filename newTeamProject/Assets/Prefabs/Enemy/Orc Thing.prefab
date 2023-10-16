@@ -627,7 +627,7 @@ GameObject:
   - component: {fileID: 743997412943575630}
   m_Layer: 13
   m_Name: Orc Thing
-  m_TagString: Untagged
+  m_TagString: Orc Thing
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -640,7 +640,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1468185740260011515}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.9704186, z: -0, w: 0.24142866}
+  m_LocalRotation: {x: 0, y: -0.97041804, z: 0, w: 0.24143083}
   m_LocalPosition: {x: -0.11974272, y: 0, z: 7.9088206}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
@@ -671,13 +671,13 @@ MonoBehaviour:
     m_Bits: 64
   HP: 25
   targetFaceSpeed: 5
-  viewAngle: 0
-  viewDistance: 0
-  wanderDist: 0
+  viewAngle: 65
+  viewDistance: 60
+  wanderDist: 10
   wanderTime: 0
-  animSpeed: 2
-  attackAnimDelay: 0
-  scythe: {fileID: 1145093496205865461, guid: e23491edd3d4538429297d7a44fb7a0c, type: 3}
+  animSpeed: 1
+  attackAnimDelay: 1
+  scythe: {fileID: 2303959609544180396}
   scytheHand: {fileID: 4765334039610474304}
   attackRate: 2
   attackRange: 5
@@ -696,7 +696,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 61b8698a2176146289745095c88a5155, type: 3}
   m_Controller: {fileID: 9100000, guid: 09cab020fee16432ba38823221662a31, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -725,7 +725,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.00001
+  m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &1444448668464414047
 CapsuleCollider:
@@ -746,8 +746,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
+  m_Radius: 1.5
+  m_Height: 5
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &743997412943575630
@@ -1530,8 +1530,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4737485336431591741}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0.0013231296, y: 1.8336183, z: 0.344757}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.037202787, y: 1.8336183, z: 0.41993982}
   m_LocalScale: {x: -3.0928044, y: -3.0928044, z: -3.0928044}
   m_ConstrainProportionsScale: 0
   m_Children: []

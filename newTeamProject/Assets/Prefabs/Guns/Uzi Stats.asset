@@ -19,4 +19,4 @@ MonoBehaviour:
   model: {fileID: 2521962805452946443, guid: b7cc4cb83a5ed3b40949d4989f89ed15, type: 3}
   weaponName: Uzi
   hitEffect: {fileID: 8224417693137495709, guid: 5d153a145f3f0274b862f99d2ebdbbeb, type: 3}
-  shotSound: {fileID: 0}
+  shotSound: {fileID: 8300000, guid: d40330822ccea6140b664c0560d5022f, type: 3}

@@ -19,4 +19,4 @@ MonoBehaviour:
   model: {fileID: 4791333881813308969, guid: afb97836a90774b489aaf085f221c0b6, type: 3}
   weaponName: Revolver
   hitEffect: {fileID: 8224417693137495709, guid: 5d153a145f3f0274b862f99d2ebdbbeb, type: 3}
-  shotSound: {fileID: 0}
+  shotSound: {fileID: 8300000, guid: 34b439bf70b80a6409eadecc6be92d68, type: 3}
