@@ -82,6 +82,11 @@ public class playerController : MonoBehaviour, IDamage
         {
             if (Input.GetButton("Shoot") && !isFiring && playerGuns[itemSelected].ammoCur > 0 && !isMeleeAttacking && !gameManager.instance.isPaused && playerGuns.Count > 0)
             {
+                AudioSource audioSource = GetComponent <AudioSource>();
+                if (audioSource != null && playerGuns[itemSelected].config.shotSound)
+                {
+                    audioSource.PlayOneShot(playerGuns[itemSelected].config.shotSound);
+                }
                 StartCoroutine(shoot());
                 isFiring = true;
             }

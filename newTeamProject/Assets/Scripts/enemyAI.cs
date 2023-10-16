@@ -276,7 +276,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
             enemyManager.instance.unregisterEnemy(this);
         }
     }
-    IEnumerator Deadenemy()
+    public IEnumerator Deadenemy()
     {
 
         yield return new WaitForSeconds(3.0f);

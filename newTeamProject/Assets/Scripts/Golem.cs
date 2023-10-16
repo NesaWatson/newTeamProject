@@ -64,7 +64,7 @@ public class Golem : MonoBehaviour, IDamage, IPhysics
 
             if (playerInRange && canViewPlayer())
             {
-                animate.SetTrigger("Run");
+                //animate.SetTrigger("Run");
                 float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
 
                 if (distanceToPlayer <= attackRange && !isAttacking)
@@ -75,7 +75,7 @@ public class Golem : MonoBehaviour, IDamage, IPhysics
             }
             else
             {
-                animate.ResetTrigger("Run");
+                //animate.ResetTrigger("Run");
                 StartCoroutine(wander());
             }
         }
@@ -159,11 +159,15 @@ public class Golem : MonoBehaviour, IDamage, IPhysics
 
         //Boss.SetDestination(gameManager.instance.player.transform.position);
 
+        //StartCoroutine(stopMoving());
+
         if (HP <= 0)
         {
             animate.SetBool("Death", true);
-            StartCoroutine(stopMoving());
+            Boss.isStopped = true;
+            StartCoroutine(Deadenemy());
             gameManager.instance.updateGameGoal(-1);
+
         }
         else
         {
@@ -211,6 +215,13 @@ public class Golem : MonoBehaviour, IDamage, IPhysics
         Boss.speed = 0;
         yield return new WaitForSeconds(0.1f);
         Boss.speed = origSpeed;
+    }
+
+    public IEnumerator Deadenemy()
+    {
+
+        yield return new WaitForSeconds(3.0f);
+        Destroy(gameObject);
     }
 }
 
