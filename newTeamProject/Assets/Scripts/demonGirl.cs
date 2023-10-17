@@ -173,7 +173,7 @@ public class demonGirl : MonoBehaviour, IDamage, IPhysics, IBoss
             Boss.enabled = false;
             animate.SetBool("Death", true);
             StopAllCoroutines();
-            StartCoroutine(Deadenemy());
+            //StartCoroutine(Deadenemy());
         }
         else
         {

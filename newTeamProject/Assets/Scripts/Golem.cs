@@ -177,7 +177,7 @@ public class Golem : MonoBehaviour, IDamage, IPhysics, IBoss
             isDefeated = true;
             animate.SetBool("Death", true);
             Boss.isStopped = true;
-            StartCoroutine(Deadenemy());
+            //StartCoroutine(Deadenemy());
             gameManager.instance.updateGameGoal(-1);
 
         }

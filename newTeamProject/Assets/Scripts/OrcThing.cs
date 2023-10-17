@@ -169,6 +169,7 @@ public class OrcThing : MonoBehaviour, IDamage, IPhysics, IBoss
 
         if (HP <= 0)
         {
+            isDefeated = true;
             animate.SetBool("Death", true);
             StartCoroutine(stopMoving());
             gameManager.instance.updateGameGoal(-1);
