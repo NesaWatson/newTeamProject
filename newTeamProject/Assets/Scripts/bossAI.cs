@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class bossAI : MonoBehaviour, IDamage, IPhysics, IBoss
+public class bossAI : MonoBehaviour, IDamage, IPhysics
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
@@ -37,7 +37,7 @@ public class bossAI : MonoBehaviour, IDamage, IPhysics, IBoss
     Transform playerTransform;
     float origSpeed;
 
-    private bool isDefeated = false;
+    //private bool isDefeated = false;
 
     void Start()
     {
@@ -128,8 +128,8 @@ public class bossAI : MonoBehaviour, IDamage, IPhysics, IBoss
         isAttacking = false;
     }
 
-    public bool IsDefeated
-    { get { return isDefeated; } }
+    //public bool IsDefeated
+    //{ get { return isDefeated; } }
     public void takeDamage(int amount)
     {
         HP -= amount;
@@ -137,12 +137,12 @@ public class bossAI : MonoBehaviour, IDamage, IPhysics, IBoss
 
         if (HP <= 0)
         {
-            isDefeated = true;
+            //isDefeated = true;
             Boss.enabled = false;
             stopMoving();
             animate.SetBool("Death", true);
             gameManager.instance.updateGameGoal(-1);
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
         else
         {

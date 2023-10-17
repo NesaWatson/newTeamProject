@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 888e3543da5b687438a336bc04c85dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navMeshData: {fileID: 23800000, guid: 79cf5801b1ce7d34d99986040c8945e6, type: 2}
+  navMeshData: {fileID: 23800000, guid: 6f7e4b20c8864b14183907f140f317a4, type: 2}
 --- !u!33 &4561877093692575041
 MeshFilter:
   m_ObjectHideFlags: 0

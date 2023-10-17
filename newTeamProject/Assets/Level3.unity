@@ -2620,7 +2620,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1816141208568531744, guid: 11bbef250431d8f4284036840658005b, type: 3}
       propertyPath: spawnRadius
-      value: 40
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6609467273439448164, guid: 11bbef250431d8f4284036840658005b, type: 3}
       propertyPath: m_Name
@@ -7092,7 +7092,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1816141208568531744, guid: 11bbef250431d8f4284036840658005b, type: 3}
       propertyPath: spawnRadius
-      value: 40
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6609467273439448164, guid: 11bbef250431d8f4284036840658005b, type: 3}
       propertyPath: m_Name
@@ -8362,7 +8362,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1816141208568531744, guid: 11bbef250431d8f4284036840658005b, type: 3}
       propertyPath: spawnRadius
-      value: 30
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6609467273439448164, guid: 11bbef250431d8f4284036840658005b, type: 3}
       propertyPath: m_Name

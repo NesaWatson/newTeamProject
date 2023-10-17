@@ -111,7 +111,7 @@ public class gameManager : MonoBehaviour
         activeMenu.SetActive(isPaused);
         activeMenu = null;
     }
-    IEnumerator youWin()
+    public IEnumerator youWin()
     {
         yield return new WaitForSeconds(3);
         statePause();

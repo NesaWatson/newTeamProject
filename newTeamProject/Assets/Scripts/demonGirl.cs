@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class demonGirl : MonoBehaviour, IDamage, IPhysics, IBoss
+public class demonGirl : MonoBehaviour, IDamage, IPhysics
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
@@ -43,7 +43,7 @@ public class demonGirl : MonoBehaviour, IDamage, IPhysics, IBoss
     float origSpeed;
     GameObject currentScythe;
     public playerController playerController;
-    private bool isDefeated = false;
+    //private bool isDefeated = false;
 
     void Start()
     {
@@ -56,7 +56,7 @@ public class demonGirl : MonoBehaviour, IDamage, IPhysics, IBoss
     }
     void Update()
     {
-        if (!isDefeated)
+        //if (!isDefeated)
         {
             if (Boss.isActiveAndEnabled)
             {
@@ -136,7 +136,7 @@ public class demonGirl : MonoBehaviour, IDamage, IPhysics, IBoss
     }
     IEnumerator meleeAttack()
     {
-        if (isDefeated) yield break;
+        //if (isDefeated) yield break;
         if (!isAttacking)
         {
             isAttacking = true;
@@ -158,10 +158,10 @@ public class demonGirl : MonoBehaviour, IDamage, IPhysics, IBoss
         }
     }
 
-    public bool IsDefeated
-    {
-        get { return isDefeated; }
-    }
+    //public bool IsDefeated
+    //{
+    //    get { return isDefeated; }
+    //}
     public void takeDamage(int amount)
     {
         HP -= amount;
@@ -169,11 +169,11 @@ public class demonGirl : MonoBehaviour, IDamage, IPhysics, IBoss
 
         if (HP <= 0)
         {
-            isDefeated = true;
+            //isDefeated = true;
             Boss.enabled = false;
             animate.SetBool("Death", true);
             StopAllCoroutines();
-            //StartCoroutine(Deadenemy());
+            StartCoroutine(Deadenemy());
         }
         else
         {
