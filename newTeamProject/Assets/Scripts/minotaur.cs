@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class minotaur : MonoBehaviour, IDamage, IPhysics, IBoss
+public class minotaur : MonoBehaviour, IDamage, IPhysics
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
@@ -48,7 +48,7 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics, IBoss
     float lastDodgeTime;
     GameObject currentAxe;
     public playerController playerController;
-    private bool isDefeated = false;
+    //private bool isDefeated = false;
 
     void Start()
     {
@@ -62,8 +62,8 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics, IBoss
     }
     void Update()
     {
-        if (!isDefeated)
-        {
+        //if (!isDefeated)
+        
             if (FinalBoss.isActiveAndEnabled)
             {
                 float agentVel = FinalBoss.velocity.normalized.magnitude;
@@ -91,7 +91,7 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics, IBoss
                     StartCoroutine(wander());
                 }
             }
-        }
+        
     }
     void dodge()
     {
@@ -173,7 +173,7 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics, IBoss
     }
     IEnumerator meleeAttack()
     {
-        if (isDefeated) yield break;
+        //if (isDefeated) yield break;
         if (!isAttacking)
         {
             isAttacking = true;
@@ -197,10 +197,10 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics, IBoss
         }
     }
 
-    public bool IsDefeated
-    {
-        get { return isDefeated; }
-    }
+    //public bool IsDefeated
+    //{
+    //    get { return isDefeated; }
+    //}
 
     public void takeDamage(int amount)
     {
@@ -209,7 +209,7 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics, IBoss
 
         if (HP <= 0)
         {
-            isDefeated = true;
+            //isDefeated = true;
             animate.SetBool("Death", true);
             FinalBoss.isStopped = true;
             gameManager.instance.updateGameGoal(-1);
