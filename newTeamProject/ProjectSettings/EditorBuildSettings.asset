@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/TransitionTest.unity
     guid: 00a4c4e34848b5d46b0f2c2f7e0c0b6c
+  - enabled: 1
+    path: Assets/Credits Scene.unity
+    guid: d850ca36015fc544998045f7b2e79ef4
   m_configObjects: {}
