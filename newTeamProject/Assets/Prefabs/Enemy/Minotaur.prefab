@@ -4332,7 +4332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 9171908553021516525}
-  Boss: {fileID: 4545230494877163182}
+  FinalBoss: {fileID: 4545230494877163182}
   animate: {fileID: 5492433326848546137}
   headPos: {fileID: 1912452038400947143}
   playerLayer:

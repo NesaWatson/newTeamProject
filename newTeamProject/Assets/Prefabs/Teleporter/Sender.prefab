@@ -4856,7 +4856,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!4 &3450643552842162716
 Transform:
@@ -4894,9 +4894,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b593c2e21211b24ab341d3c358147d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 8241066653807526019, guid: a2e3ec6c12793b548bb8987da1f22e62, type: 3}
   Des: {fileID: 0}
-  players: {fileID: 0}
+  players: {fileID: 5860777587524143425, guid: a2e3ec6c12793b548bb8987da1f22e62, type: 3}
 --- !u!23 &2138465993041195274
 MeshRenderer:
   m_ObjectHideFlags: 0
