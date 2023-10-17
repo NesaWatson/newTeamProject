@@ -4,11 +4,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class minotaur : MonoBehaviour, IDamage, IPhysics
+public class minotaur : MonoBehaviour, IDamage, IPhysics, IBoss
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
-    [SerializeField] NavMeshAgent Boss;
+    [SerializeField] NavMeshAgent FinalBoss;
     [SerializeField] Animator animate;
     [SerializeField] Transform headPos;
     [SerializeField] LayerMask playerLayer;
@@ -48,12 +48,12 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
     float lastDodgeTime;
     GameObject currentAxe;
     public playerController playerController;
-    //private bool isDefeated = false;
+    private bool isDefeated = false;
 
     void Start()
     {
         startingPos = transform.position;
-        stoppingDistOrig = Boss.stoppingDistance;
+        stoppingDistOrig = FinalBoss.stoppingDistance;
 
 
         playerTransform = gameManager.instance.player.transform;
@@ -62,11 +62,11 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
     }
     void Update()
     {
-        //if (!isDefeated)
+        if (!isDefeated)
         {
-            if (Boss.isActiveAndEnabled)
+            if (FinalBoss.isActiveAndEnabled)
             {
-                float agentVel = Boss.velocity.normalized.magnitude;
+                float agentVel = FinalBoss.velocity.normalized.magnitude;
 
                 animate.SetFloat("Speed", Mathf.Lerp(animate.GetFloat("Speed"), agentVel, Time.deltaTime * animSpeed));
 
@@ -95,17 +95,17 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
     }
     void dodge()
     {
-        Debug.Log("Dodge function called."); 
+        Debug.Log("Dodge function called.");
 
         if (isDodging && Time.time > lastDodgeTime + dodgeCooldown)
         {
             StartCoroutine(dodgeMovement());
-            lastDodgeTime = Time.time; 
+            lastDodgeTime = Time.time;
         }
     }
     IEnumerator dodgeMovement()
     {
-        Debug.Log("DodgeMovement coroutine started."); 
+        Debug.Log("DodgeMovement coroutine started.");
 
         isDodging = true;
 
@@ -113,19 +113,19 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
         dodgeDirection.Normalize();
         float dodgeStart = Time.time;
 
-        while(Time.time < dodgeStart + dodgeLength)
+        while (Time.time < dodgeStart + dodgeLength)
         {
-            Boss.Move(dodgeDirection * dodgeSpeed * Time.deltaTime);
+            FinalBoss.Move(dodgeDirection * dodgeSpeed * Time.deltaTime);
             yield return null;
         }
         isDodging = false;
     }
     IEnumerator wander()
     {
-        if (Boss.remainingDistance < 0.05f && !wanderDestination)
+        if (FinalBoss.remainingDistance < 0.05f && !wanderDestination)
         {
             wanderDestination = true;
-            Boss.stoppingDistance = 0;
+            FinalBoss.stoppingDistance = 0;
             yield return new WaitForSeconds(wanderTime);
 
             Vector3 randomPos = Random.insideUnitSphere * wanderDist;
@@ -133,7 +133,7 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
 
             NavMeshHit hit;
             NavMesh.SamplePosition(randomPos, out hit, wanderDist, 1);
-            Boss.SetDestination(hit.position);
+            FinalBoss.SetDestination(hit.position);
 
             wanderDestination = false;
         }
@@ -153,10 +153,10 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
 
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
-                Boss.stoppingDistance = stoppingDistOrig;
-                Boss.SetDestination(gameManager.instance.player.transform.position);
+                FinalBoss.stoppingDistance = stoppingDistOrig;
+                FinalBoss.SetDestination(gameManager.instance.player.transform.position);
 
-                if (Boss.remainingDistance <= Boss.stoppingDistance)
+                if (FinalBoss.remainingDistance <= FinalBoss.stoppingDistance)
                 {
                     faceTarget();
 
@@ -168,12 +168,12 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
                 return true;
             }
         }
-        Boss.stoppingDistance = 0;
+        FinalBoss.stoppingDistance = 0;
         return false;
     }
     IEnumerator meleeAttack()
     {
-        //if (isDefeated) yield break;
+        if (isDefeated) yield break;
         if (!isAttacking)
         {
             isAttacking = true;
@@ -184,7 +184,7 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
             float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
             if (distanceToPlayer <= attackRange)
             {
-                playerController player = playerTransform.GetComponent<playerController>(); 
+                playerController player = playerTransform.GetComponent<playerController>();
 
                 if (player != null)
                 {
@@ -197,21 +197,21 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
         }
     }
 
-    //public bool IsDefeated
-    //{
-    //    get { return isDefeated; }
-    //}
+    public bool IsDefeated
+    {
+        get { return isDefeated; }
+    }
 
     public void takeDamage(int amount)
     {
         HP -= amount;
-        //Boss.SetDestination(gameManager.instance.player.transform.position);
+        //FinalBoss.SetDestination(gameManager.instance.player.transform.position);
 
         if (HP <= 0)
         {
-            //isDefeated = true;
+            isDefeated = true;
             animate.SetBool("Death", true);
-            Boss.isStopped = true;
+            FinalBoss.isStopped = true;
             gameManager.instance.updateGameGoal(-1);
         }
         else
@@ -219,7 +219,7 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
 
             animate.SetTrigger("Damage");
             StartCoroutine(flashDamage());
-            Boss.SetDestination(gameManager.instance.player.transform.position);
+            FinalBoss.SetDestination(gameManager.instance.player.transform.position);
 
         }
     }
@@ -236,12 +236,12 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
     }
     public void physics(Vector3 dir)
     {
-        Boss.velocity += dir / 3;
+        FinalBoss.velocity += dir / 3;
     }
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-            
+
         {
             playerInRange = true;
         }
@@ -251,9 +251,12 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            Destroy(currentAxe); 
+            Destroy(currentAxe);
         }
     }
 }
+
+
+
 
 
