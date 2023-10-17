@@ -58,10 +58,10 @@ public class gameManager : MonoBehaviour
         {
             playerScript = player.GetComponent<playerController>();
         }
-        else 
-        {
-            Debug.LogError("Player object is not found in the scene");
-        }
+        //else 
+        //{
+        //    Debug.LogError("Player object is not found in the scene");
+        //}
 
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         ammoText.gameObject.SetActive(false);

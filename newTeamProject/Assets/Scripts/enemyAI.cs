@@ -154,10 +154,10 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
         agent.stoppingDistance = stoppingDistOrig;
         playerDir = gameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(new Vector3(playerDir.x,0,playerDir.z), transform.forward); 
-#if(UNITY_EDITOR)
-        Debug.Log(angleToPlayer);
-        Debug.DrawRay(headPos.position, playerDir);
-#endif
+//#if(UNITY_EDITOR)
+//        Debug.Log(angleToPlayer);
+//        Debug.DrawRay(headPos.position, playerDir);
+//#endif
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit))
         {

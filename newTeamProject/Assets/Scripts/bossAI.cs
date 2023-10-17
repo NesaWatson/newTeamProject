@@ -90,10 +90,10 @@ public class bossAI : MonoBehaviour, IDamage, IPhysics
         //Boss.stoppingDistance = stoppingDistOrig;
         playerDir = gameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(playerDir, transform.forward);
-#if (UNITY_EDITOR)
-        Debug.Log(angleToPlayer);
-        Debug.DrawRay(headPos.position, playerDir);
-#endif
+//#if (UNITY_EDITOR)
+//        Debug.Log(angleToPlayer);
+//        Debug.DrawRay(headPos.position, playerDir);
+//#endif
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit))
         {
