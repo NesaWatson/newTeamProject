@@ -102,10 +102,10 @@ public class Scavenger : MonoBehaviour
     {
         playerDir = gameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(playerDir, transform.forward);
-#if (UNITY_EDITOR)
-        Debug.Log(angleToPlayer);
-        Debug.DrawRay(headPos.position, playerDir);
-#endif
+//#if (UNITY_EDITOR)
+//        Debug.Log(angleToPlayer);
+//        Debug.DrawRay(headPos.position, playerDir);
+//#endif
         Debug.DrawRay(headPos.position, playerDir, Color.red);
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit, viewDistance, playerLayer))
