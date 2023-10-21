@@ -139,6 +139,8 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
             agent.stoppingDistance = 0;
             yield return new WaitForSeconds(wanderTime);
 
+            agent.SetDestination(startingPos);
+
             Vector3 randomPos = Random.insideUnitSphere * wanderDist;
             randomPos += startingPos;
 
@@ -207,9 +209,7 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
             HP -= amount;
             //healthBar.SetHealth(amount);
             
-            StartCoroutine(stopMoving());
-            
-
+            //StartCoroutine(stopMoving());
 
             if (HP <= 0)
             {
@@ -222,12 +222,19 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
             }
             else
             {
-                animate.SetTrigger("Damage");
-                StartCoroutine(flashDamage());
+
+                Vector3 playerDirection = gameManager.instance.player.transform.position - transform.position;
+                Quaternion newRotation = Quaternion.LookRotation(playerDirection);
+                transform.rotation = newRotation;
                 agent.SetDestination(gameManager.instance.player.transform.position);
 
+                animate.SetTrigger("Damage");
+                StartCoroutine(flashDamage());
+
+                enemyManager.instance.AlertedEnemies(gameManager.instance.player.transform.position);
+
             }
-        
+
     }
     IEnumerator stopMoving()
     {
