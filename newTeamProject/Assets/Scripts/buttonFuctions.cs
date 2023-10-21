@@ -13,6 +13,7 @@ public class buttonFuctions : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         gameManager.instance.stateUnpause();
+
     }
     public void quit()
     {

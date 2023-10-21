@@ -210,6 +210,7 @@ public class playerController : MonoBehaviour, IDamage
     public void spawnPlayer()
     {
         gameManager.instance.LoadPlayerState();
+        HP = originalHP;
         UpdateUi();
         characterController.enabled = false;
         transform.position = gameManager.instance.playerSpawnPos.transform.position;
