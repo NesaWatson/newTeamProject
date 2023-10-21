@@ -901,10 +901,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1007589979739260145, guid: a98f4bb0a79446a4cb2f4831af942503, type: 3}
-      propertyPath: m_Value
-      value: 0.918
-      objectReference: {fileID: 0}
     - target: {fileID: 5730979263672209343, guid: a98f4bb0a79446a4cb2f4831af942503, type: 3}
       propertyPath: m_LocalPosition.x
       value: 105.3
@@ -952,10 +948,6 @@ PrefabInstance:
     - target: {fileID: 5816852387010459176, guid: a98f4bb0a79446a4cb2f4831af942503, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8708550889351605598, guid: a98f4bb0a79446a4cb2f4831af942503, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8889518185829972194, guid: a98f4bb0a79446a4cb2f4831af942503, type: 3}
       propertyPath: m_Name
@@ -1768,6 +1760,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2c0eb523c09f00478bd51b408a57660, type: 3}
+--- !u!114 &791553119 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4375328938646029880, guid: 3585b605b8795d147a02cca5125e84b1, type: 3}
+  m_PrefabInstance: {fileID: 70370699}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7a8ccccada8bb142ad8df1ba93c3327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &911156126
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3005,6 +3008,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy 2
       objectReference: {fileID: 0}
+    - target: {fileID: 281896033927138542, guid: 4827f2a4547d1454ab2d1133bae646cd, type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 791553119}
     - target: {fileID: 569969799772279974, guid: 4827f2a4547d1454ab2d1133bae646cd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.75
@@ -3045,17 +3052,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4899459059259107899, guid: 4827f2a4547d1454ab2d1133bae646cd, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4899459059259107899, guid: 4827f2a4547d1454ab2d1133bae646cd, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 6666548798091565960, guid: 4827f2a4547d1454ab2d1133bae646cd, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4827f2a4547d1454ab2d1133bae646cd, type: 3}
