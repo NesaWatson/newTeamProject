@@ -110,7 +110,7 @@ public class Golem : MonoBehaviour, IDamage, IPhysics
 //        Debug.Log(angleToPlayer);
 //        Debug.DrawRay(headPos.position, playerDir);
 //#endif
-        Debug.DrawRay(headPos.position, playerDir, Color.red);
+        //Debug.DrawRay(headPos.position, playerDir, Color.red);
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit, viewDistance, playerLayer))
         {
@@ -167,19 +167,15 @@ public class Golem : MonoBehaviour, IDamage, IPhysics
     public void takeDamage(int amount)
     {
         HP -= amount;
-
         //Boss.SetDestination(gameManager.instance.player.transform.position);
-
-        //StartCoroutine(stopMoving());
 
         if (HP <= 0)
         {
             //isDefeated = true;
+            Boss.enabled = false;
             animate.SetBool("Death", true);
-            Boss.isStopped = true;
-            //StartCoroutine(Deadenemy());
-            gameManager.instance.updateGameGoal(-1);
-
+            StopAllCoroutines();
+            StartCoroutine(Deadenemy());
         }
         else
         {
