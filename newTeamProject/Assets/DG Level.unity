@@ -1943,7 +1943,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6758357140843383749, guid: af48486443c2915429560730ba68fab5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.545
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6758357140843383749, guid: af48486443c2915429560730ba68fab5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2845,6 +2845,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5066584792800254188, guid: a2e3ec6c12793b548bb8987da1f22e62, type: 3}
+      propertyPath: jumpHeight
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5860777587524143425, guid: a2e3ec6c12793b548bb8987da1f22e62, type: 3}
       propertyPath: m_Name
       value: Player
@@ -12061,6 +12065,7 @@ SceneRoots:
   - {fileID: 3495175310299313380}
   - {fileID: 57367459}
   - {fileID: 821315606}
+  - {fileID: 453432986}
   - {fileID: 7489680937256996609}
   - {fileID: 2501248870359515470}
   - {fileID: 8756356736878361079}
@@ -12075,7 +12080,6 @@ SceneRoots:
   - {fileID: 1750371855}
   - {fileID: 309671839}
   - {fileID: 1418794624}
-  - {fileID: 453432986}
   - {fileID: 9213809490489040266}
   - {fileID: 8137526234780019704}
   - {fileID: 8578032395727817671}
