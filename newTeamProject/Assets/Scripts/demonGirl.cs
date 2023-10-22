@@ -109,7 +109,7 @@ public class demonGirl : MonoBehaviour, IDamage, IPhysics
 //        Debug.Log(angleToPlayer);
 //        Debug.DrawRay(headPos.position, playerDir);
 //#endif
-        Debug.DrawRay(headPos.position, playerDir, Color.red);
+        //Debug.DrawRay(headPos.position, playerDir, Color.red);
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit, viewDistance, playerLayer))
         {
