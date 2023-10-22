@@ -16,7 +16,7 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
     [Header("----- Enemy Stats -----")]
     [Range(0, 30)][SerializeField] int HP;
     [Range(1, 30)][SerializeField] int targetFaceSpeed;
-    [Range(45, 180)][SerializeField] int viewAngle;
+    [Range(45, 270)][SerializeField] int viewAngle;
     [Range(45, 180)][SerializeField] int viewDistance;
     [Range(5, 50)][SerializeField] int wanderDist;
     [Range(5, 50)][SerializeField] int wanderTime;
@@ -80,10 +80,10 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
                         animate.SetTrigger("Attack");
                         StartCoroutine(meleeAttack());
                     }
-                    else if (playerController.isFiring)
-                    {
-                        dodge();
-                    }
+                    //else if (playerController.isFiring)
+                    //{
+                    //    //dodge();
+                    //}
                 }
                 else
                 {
@@ -93,33 +93,33 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
             }
         
     }
-    void dodge()
-    {
-        Debug.Log("Dodge function called.");
+    //void dodge()
+    //{
+    //    Debug.Log("Dodge function called.");
 
-        if (isDodging && Time.time > lastDodgeTime + dodgeCooldown)
-        {
-            StartCoroutine(dodgeMovement());
-            lastDodgeTime = Time.time;
-        }
-    }
-    IEnumerator dodgeMovement()
-    {
-        Debug.Log("DodgeMovement coroutine started.");
+    //    if (isDodging && Time.time > lastDodgeTime + dodgeCooldown)
+    //    {
+    //     /*   StartCoroutine(dodgeMovement())*/;
+    //        lastDodgeTime = Time.time;
+    //    }
+    //}
+    //IEnumerator dodgeMovement()
+    //{
+    //    //Debug.Log("DodgeMovement coroutine started.");
 
-        isDodging = true;
+    //    isDodging = true;
 
-        Vector3 dodgeDirection = transform.position - playerTransform.position;
-        dodgeDirection.Normalize();
-        float dodgeStart = Time.time;
+    //    Vector3 dodgeDirection = transform.position - playerTransform.position;
+    //    dodgeDirection.Normalize();
+    //    float dodgeStart = Time.time;
 
-        while (Time.time < dodgeStart + dodgeLength)
-        {
-            Boss.Move(dodgeDirection * dodgeSpeed * Time.deltaTime);
-            yield return null;
-        }
-        isDodging = false;
-    }
+    //    while (Time.time < dodgeStart + dodgeLength)
+    //    {
+    //        Boss.Move(dodgeDirection * dodgeSpeed * Time.deltaTime);
+    //        yield return null;
+    //    }
+    //    isDodging = false;
+    //}
     IEnumerator wander()
     {
         if (Boss.remainingDistance < 0.05f && !wanderDestination)
@@ -146,7 +146,7 @@ public class minotaur : MonoBehaviour, IDamage, IPhysics
 //        Debug.Log(angleToPlayer);
 //        Debug.DrawRay(headPos.position, playerDir);
 //#endif
-        Debug.DrawRay(headPos.position, playerDir, Color.red);
+        //Debug.DrawRay(headPos.position, playerDir, Color.red);
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit, viewDistance, playerLayer))
         {
