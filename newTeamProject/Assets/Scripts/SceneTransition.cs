@@ -14,9 +14,9 @@ public class SceneTransition : MonoBehaviour
             //{
                 //save player state to gameManager
                 gameManager.instance.SavePlayerState();
-                //Load the next scene by index
+            //Load the next scene by index
 
-                int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
                 SceneManager.LoadScene(currentSceneIndex + 1);
             //}
         }

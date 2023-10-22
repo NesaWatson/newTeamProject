@@ -48,8 +48,6 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
     
     void Start()
     {
-       
-
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
        
@@ -201,13 +199,9 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
         isAttacking= false;
     }
     public void takeDamage(int amount)
-    {
-       
-        
-            
-
+    {        
             HP -= amount;
-            //healthBar.SetHealth(amount);
+            healthBar.SetHealth(amount);
             
             //StartCoroutine(stopMoving());
 
@@ -218,11 +212,9 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
                 animate.SetBool("Death", true);
                 StopAllCoroutines();
                 StartCoroutine(Deadenemy());
-
             }
             else
             {
-
                 Vector3 playerDirection = gameManager.instance.player.transform.position - transform.position;
                 Quaternion newRotation = Quaternion.LookRotation(playerDirection);
                 transform.rotation = newRotation;
@@ -232,7 +224,6 @@ public class enemyAI : MonoBehaviour, IDamage, IPhysics
                 StartCoroutine(flashDamage());
 
                 enemyManager.instance.AlertedEnemies(gameManager.instance.player.transform.position);
-
             }
 
     }
