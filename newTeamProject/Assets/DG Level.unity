@@ -9312,18 +9312,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cube (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 3488000068713760543, guid: 217d60041f8906848b9f2a0e79aa184d, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 4465002639290059796, guid: 217d60041f8906848b9f2a0e79aa184d, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8310298903207480456, guid: 217d60041f8906848b9f2a0e79aa184d, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 30
-      objectReference: {fileID: 0}
     - target: {fileID: 8310298903207480456, guid: 217d60041f8906848b9f2a0e79aa184d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.8593976
@@ -9662,10 +9650,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7546866896888463274, guid: 2165b22d240347049850072bf7c0da16, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8582415137692337516, guid: 2165b22d240347049850072bf7c0da16, type: 3}
       propertyPath: m_LocalPosition.x
       value: 74.3
@@ -10897,10 +10881,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2018953825954702843, guid: 981cecd8e9a8b7f4c98c3f9d77d012bf, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2672967770865282208, guid: 981cecd8e9a8b7f4c98c3f9d77d012bf, type: 3}
       propertyPath: m_Name
       value: Cube (1)
