@@ -107,7 +107,7 @@ public class OrcThing : MonoBehaviour, IDamage, IPhysics
 //        Debug.Log(angleToPlayer);
 //        Debug.DrawRay(headPos.position, playerDir);
 //#endif
-        Debug.DrawRay(headPos.position, playerDir, Color.red);
+        //Debug.DrawRay(headPos.position, playerDir, Color.red);
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit, viewDistance, playerLayer))
         {
@@ -164,15 +164,15 @@ public class OrcThing : MonoBehaviour, IDamage, IPhysics
     public void takeDamage(int amount)
     {
         HP -= amount;
-
         //Boss.SetDestination(gameManager.instance.player.transform.position);
 
         if (HP <= 0)
         {
             //isDefeated = true;
+            Boss.enabled = false;
             animate.SetBool("Death", true);
-            StartCoroutine(stopMoving());
-            gameManager.instance.updateGameGoal(-1);
+            StopAllCoroutines();
+            StartCoroutine(Deadenemy());
         }
         else
         {
@@ -220,5 +220,11 @@ public class OrcThing : MonoBehaviour, IDamage, IPhysics
         Boss.speed = 0;
         yield return new WaitForSeconds(0.1f);
         Boss.speed = origSpeed;
+    }
+    IEnumerator Deadenemy()
+    {
+
+        yield return new WaitForSeconds(3.0f);
+        Destroy(gameObject);
     }
 }

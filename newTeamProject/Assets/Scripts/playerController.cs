@@ -73,7 +73,7 @@ public class playerController : MonoBehaviour, IDamage
     void Update()
     {
         HandleMovement();
-        HandleCrouch();
+        //HandleCrouch();
         itemSelect();
         SelectMeleeWeapon();
 
@@ -146,26 +146,26 @@ public class playerController : MonoBehaviour, IDamage
 
     }
 
-    void HandleCrouch()
-    {
-        if (Input.GetButtonDown("Crouch"))
-        {
-            ToggleCrouch();
-        }
-    }
+    //void HandleCrouch()
+    //{
+    //    if (Input.GetButtonDown("Crouch"))
+    //    {
+    //        ToggleCrouch();
+    //    }
+    //}
 
-    void ToggleCrouch()
-    {
-        isCrouching = !isCrouching;
+    //void ToggleCrouch()
+    //{
+    //    isCrouching = !isCrouching;
 
-        if (isCrouching)
-        {
-            characterController.height = crouchHeight;
-            characterSpeed = crouchSpeed;
-        }
-        else characterController.height = standingHeight;
-        characterSpeed = 8.0f;
-    }
+    //    if (isCrouching)
+    //    {
+    //        characterController.height = crouchHeight;
+    //        characterSpeed = crouchSpeed;
+    //    }
+    //    else characterController.height = standingHeight;
+    //    characterSpeed = 8.0f;
+    //}
 
     IEnumerator shoot()
     {
