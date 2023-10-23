@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Xml;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class Credits : MonoBehaviour
 {
@@ -14,8 +15,9 @@ public class Credits : MonoBehaviour
     public Text musicSfxText;
     public Text thanksText;
 
-    public TextAsset creditsData;
+        public TextAsset creditsData;
 
+    
     void Start()
     {
         string data = creditsData.text;
@@ -62,4 +64,4 @@ public class Credits : MonoBehaviour
 
         thanksText.text = creditsNode.SelectSingleNode("thanks").InnerText;
     }
-}
+ }
