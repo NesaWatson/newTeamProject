@@ -1206,6 +1206,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3154436112535581781, guid: b56ecbd2fe95b2c4ea514e3512380b09, type: 3}
+      propertyPath: m_text
+      value: 'Forward: W or Up Arrow
+
+        Left: A or Left Arrow
+
+        Backwards:
+        S or Down Arrow
+
+        Right: D or Right Arrow
+
+        Jump: Space Bar
+
+'
+      objectReference: {fileID: 0}
     - target: {fileID: 4734503263086873188, guid: b56ecbd2fe95b2c4ea514e3512380b09, type: 3}
       propertyPath: m_Name
       value: 'UI 1 '
